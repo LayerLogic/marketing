@@ -1,0 +1,258 @@
+---
+import SciencePin from "~/components/react/SciencePin.tsx";
+---
+
+<section id="science" class="border-b border-line bg-ink2/40 relative">
+  <SciencePin client:visible />
+  <div class="max-w-[1320px] mx-auto px-6 lg:px-10 py-24 lg:py-36">
+    <div class="grid lg:grid-cols-12 gap-10 mb-14 lg:mb-20">
+      <div class="lg:col-span-3">
+        <div class="label mb-3">§ 03 — The science</div>
+      </div>
+      <div class="lg:col-span-9">
+        <h2
+          class="display-md text-[clamp(34px,5vw,68px)] font-medium max-w-[22ch] text-paper"
+        >
+          A transducer, made specific.
+        </h2>
+      </div>
+    </div>
+
+    <div class="grid lg:grid-cols-12 gap-10 lg:gap-14 items-start">
+      <figure class="lg:col-span-6" data-science-figure>
+        <div class="border border-line bg-ink p-6 lg:p-8">
+          <svg
+            viewBox="0 0 480 360"
+            class="w-full h-auto"
+            role="img"
+            aria-label="gFET cross-section schematic"
+          >
+            <g stroke="#1F1F22" stroke-width="0.5" stroke-dasharray="1 4">
+              <line x1="0" y1="80" x2="480" y2="80"></line>
+              <line x1="0" y1="180" x2="480" y2="180"></line>
+              <line x1="0" y1="280" x2="480" y2="280"></line>
+            </g>
+            <g stroke="#2A2A2E" stroke-width="1">
+              <path d="M10 10 L10 22 M10 10 L22 10"></path>
+              <path d="M470 10 L470 22 M470 10 L458 10"></path>
+              <path d="M10 350 L10 338 M10 350 L22 350"></path>
+              <path d="M470 350 L470 338 M470 350 L458 350"></path>
+            </g>
+            <rect
+              x="40"
+              y="270"
+              width="400"
+              height="50"
+              fill="#15151a"
+              stroke="#2A2A2E"></rect>
+            <text
+              x="240"
+              y="299"
+              text-anchor="middle"
+              font-family="JetBrains Mono"
+              font-size="11"
+              fill="#9A9AA1">Si substrate</text
+            >
+            <rect
+              x="40"
+              y="240"
+              width="400"
+              height="30"
+              fill="#1A1A1F"
+              stroke="#2A2A2E"></rect>
+            <text
+              x="240"
+              y="259"
+              text-anchor="middle"
+              font-family="JetBrains Mono"
+              font-size="10"
+              fill="#9A9AA1">SiO₂ dielectric</text
+            >
+            <rect
+              x="60"
+              y="210"
+              width="80"
+              height="30"
+              fill="#2A2A2E"
+              stroke="#EDEDE8"></rect>
+            <rect
+              x="340"
+              y="210"
+              width="80"
+              height="30"
+              fill="#2A2A2E"
+              stroke="#EDEDE8"></rect>
+            <text
+              x="100"
+              y="230"
+              text-anchor="middle"
+              font-family="JetBrains Mono"
+              font-size="11"
+              fill="#EDEDE8">SOURCE</text
+            >
+            <text
+              x="380"
+              y="230"
+              text-anchor="middle"
+              font-family="JetBrains Mono"
+              font-size="11"
+              fill="#EDEDE8">DRAIN</text
+            >
+            <line x1="140" y1="210" x2="340" y2="210" stroke="#06B6A7"
+              stroke-width="2"></line>
+            <text
+              x="240"
+              y="130"
+              text-anchor="middle"
+              font-family="JetBrains Mono"
+              font-size="10"
+              fill="#06B6A7">graphene monolayer</text
+            >
+            <g class="receptor-flash" stroke="#EDEDE8" stroke-width="1.2"
+              fill="none">
+              <path d="M170 210 L170 180 M170 180 L160 168 M170 180 L180 168"
+              ></path>
+              <path d="M210 210 L210 180 M210 180 L200 168 M210 180 L220 168"
+              ></path>
+              <path d="M250 210 L250 180 M250 180 L240 168 M250 180 L260 168"
+              ></path>
+              <path d="M290 210 L290 180 M290 180 L280 168 M290 180 L300 168"
+              ></path>
+              <path d="M330 210 L330 180 M330 180 L320 168 M330 180 L340 168"
+              ></path>
+            </g>
+            <circle class="bound-pulse" cx="210" cy="160" r="5" fill="#06B6A7"
+            ></circle>
+            <circle class="bound-pulse-2" cx="290" cy="158" r="5" fill="#06B6A7"
+            ></circle>
+            <circle class="incoming" cx="170" cy="160" r="4" fill="#06B6A7"
+              opacity="0.9"></circle>
+            <circle class="incoming-2" cx="330" cy="160" r="4" fill="#06B6A7"
+              opacity="0.9"></circle>
+            <g fill="#06B6A7">
+              <circle class="electron" cx="140" cy="210" r="2"></circle>
+              <circle class="electron electron-2" cx="140" cy="210" r="2"
+              ></circle>
+              <circle class="electron electron-3" cx="140" cy="210" r="2"
+              ></circle>
+            </g>
+            <rect
+              class="sci-scan"
+              x="60"
+              y="190"
+              width="2"
+              height="30"
+              fill="#06B6A7"
+              opacity="0.85"></rect>
+            <text
+              x="460"
+              y="145"
+              text-anchor="end"
+              font-family="JetBrains Mono"
+              font-size="10"
+              fill="#9A9AA1">receptor + bound analyte</text
+            >
+            <line x1="40" y1="310" x2="20" y2="310" stroke="#EDEDE8"></line>
+            <line x1="20" y1="310" x2="20" y2="340" stroke="#EDEDE8"></line>
+            <text x="14" y="354" font-family="JetBrains Mono" font-size="10"
+              fill="#9A9AA1">V_g</text
+            >
+            <line x1="60" y1="100" x2="420" y2="100" stroke="#06B6A7"
+              stroke-dasharray="2 4" stroke-width="0.8"></line>
+            <text x="60" y="92" font-family="JetBrains Mono" font-size="10"
+              fill="#06B6A7">electrolyte interface</text
+            >
+            <text x="20" y="40" font-family="JetBrains Mono" font-size="10"
+              fill="#EDEDE8">FIG. A · gFET cross-section</text
+            >
+            <text
+              x="460"
+              y="40"
+              text-anchor="end"
+              font-family="JetBrains Mono"
+              font-size="10"
+              fill="#6B6B72">scale: schematic</text
+            >
+          </svg>
+          <div class="mt-4 h-px bg-line relative overflow-hidden">
+            <div
+              data-science-progress
+              class="absolute inset-y-0 left-0 bg-accent w-0"
+            >
+            </div>
+          </div>
+        </div>
+        <figcaption class="mt-4 font-mono text-[11px] text-mute">
+          FIG. A · Source–graphene–drain channel with receptor-functionalized
+          surface. Gate bias V<sub>g</sub> sweeps the Dirac point; analyte
+          binding shifts I<sub>ds</sub>(V<sub>g</sub>).
+        </figcaption>
+      </figure>
+
+      <div class="lg:col-span-6 grid gap-8">
+        <div data-science-block>
+          <h3
+            class="font-mono text-[12px] tracking-[.18em] text-accent uppercase mb-2"
+          >
+            01 · Graphene as transducer
+          </h3>
+          <p class="text-paper/85 leading-[1.65] text-[16px]">
+            A single atomic layer of carbon places every electron at the
+            surface, making the channel exquisitely sensitive to local charge.
+            There is no bulk to dilute the signal. A single binding event can be
+            detected as a measurable shift in conductance.
+          </p>
+        </div>
+        <div data-science-block>
+          <h3
+            class="font-mono text-[12px] tracking-[.18em] text-accent uppercase mb-2"
+          >
+            02 · Surface functionalization
+          </h3>
+          <p class="text-paper/85 leading-[1.65] text-[16px]">
+            Specificity is delivered by the receptor layer — antibodies,
+            aptamers, or engineered binders covalently anchored to the graphene
+            through a linker chemistry tuned for stability under food-matrix
+            conditions. Swap the receptor; swap the target.
+          </p>
+        </div>
+        <div data-science-block>
+          <h3
+            class="font-mono text-[12px] tracking-[.18em] text-accent uppercase mb-2"
+          >
+            03 · Patented manufacturing
+          </h3>
+          <p class="text-paper/85 leading-[1.65] text-[16px]">
+            A patented low-cost process turns lab-grade gFETs into a producible,
+            disposable test cartridge — the unit economics that lets the device
+            live next to the production line, not on a research bench.
+          </p>
+        </div>
+        <div data-science-block>
+          <h3
+            class="font-mono text-[12px] tracking-[.18em] text-accent uppercase mb-2"
+          >
+            04 · Adaptable across analytes
+          </h3>
+          <p class="text-paper/85 leading-[1.65] text-[16px]">
+            The same platform answers different questions: bacteria today, viral
+            particles tomorrow, mycotoxins the week after. Re-functionalize,
+            re-validate, redeploy.
+          </p>
+        </div>
+
+        <blockquote class="mt-4 border-l-2 border-accent pl-6 py-2">
+          <p
+            class="text-[20px] lg:text-[22px] leading-[1.4] text-paper tracking-tighter2"
+          >
+            "Three decades of graphene research at Chalmers, condensed into a
+            device that fits in your palm."
+          </p>
+          <footer class="mt-3 font-mono text-[11px] text-mute">
+            — Research lineage · Chalmers University of Technology
+          </footer>
+        </blockquote>
+      </div>
+    </div>
+  </div>
+</section>

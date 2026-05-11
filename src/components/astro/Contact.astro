@@ -1,0 +1,89 @@
+---
+import DemoForm from "~/components/react/DemoForm.tsx";
+import ScrollReveal from "~/components/react/ScrollReveal.tsx";
+import { site } from "~/lib/site";
+---
+
+<section
+  id="contact"
+  class="border-b border-line bg-ink relative overflow-hidden"
+>
+  <div
+    class="absolute inset-0 opacity-[0.07] pointer-events-none"
+    aria-hidden="true"
+  >
+    <svg class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <pattern
+          id="hex2"
+          x="0"
+          y="0"
+          width="86.6"
+          height="150"
+          patternUnits="userSpaceOnUse"
+        >
+          <g fill="none" stroke="#06B6A7" stroke-width="0.7">
+            <polygon points="43.3,0 86.6,25 86.6,75 43.3,100 0,75 0,25"
+            ></polygon>
+          </g>
+        </pattern>
+      </defs>
+      <rect width="100%" height="100%" fill="url(#hex2)"></rect>
+    </svg>
+  </div>
+
+  <div
+    class="relative max-w-[1320px] mx-auto px-6 lg:px-10 py-24 lg:py-36"
+  >
+    <div class="grid lg:grid-cols-12 gap-12 lg:gap-16">
+      <div class="lg:col-span-7">
+        <div class="label mb-4">§ 06 — Contact</div>
+        <ScrollReveal client:load>
+          <h2
+            class="display text-[clamp(40px,7vw,108px)] font-medium max-w-[14ch] text-paper"
+          >
+            Talk to us about your contamination problem.
+          </h2>
+        </ScrollReveal>
+        <ScrollReveal client:load delay={120}>
+          <p class="mt-8 text-paper/75 text-[18px] max-w-[50ch] leading-[1.5]">
+            A short form. We'll be back the same week. If your application is
+            unusual — new pathogen, new matrix, new validation regime — say so.
+            Those are the conversations we want.
+          </p>
+        </ScrollReveal>
+
+        <div class="mt-14 grid sm:grid-cols-3 gap-8 pt-8 border-t border-line">
+          <div>
+            <div class="label mb-2">Address</div>
+            <p class="text-[14px] leading-relaxed text-paper/85">
+              {site.address.street}<br />
+              {site.address.postal}<br />
+              {site.address.country}
+            </p>
+          </div>
+          <div>
+            <div class="label mb-2">Contact</div>
+            <p class="text-[14px] leading-relaxed text-paper/85">
+              <a href={`mailto:${site.email}`} class="link-u">{site.email}</a
+              ><br />
+              <span class="font-mono text-mute2 text-[12px]"
+                >+46 (0)31 — request</span
+              >
+            </p>
+          </div>
+          <div>
+            <div class="label mb-2">Coordinates</div>
+            <p class="font-mono text-[12px] leading-relaxed text-mute2">
+              {site.coords.lat}<br />
+              {site.coords.lng}<br />
+              <span class="text-accent">{site.coords.tz}</span>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <DemoForm client:visible />
+    </div>
+  </div>
+</section>

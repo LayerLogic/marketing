@@ -1,0 +1,33 @@
+# build outputs
+dist/
+.vercel/
+.output/
+
+# generated types
+.astro/
+
+# deps
+node_modules/
+
+# logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# env
+.env
+.env.local
+.env.*.local
+
+# editor
+.vscode/*
+!.vscode/extensions.json
+.idea/
+.DS_Store
+
+# vercel
+.vercel
+
+scripts
+src/_disabled/

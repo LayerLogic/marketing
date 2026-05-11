@@ -1,0 +1,58 @@
+---
+import { navItems, site } from "~/lib/site";
+import Logo from "./Logo.astro";
+import ThemeToggle from "~/components/react/ThemeToggle.tsx";
+---
+
+<header
+  class="sticky top-0 z-40 backdrop-blur-md bg-ink/70 border-b border-line"
+>
+  <div
+    class="max-w-[1320px] mx-auto px-6 lg:px-10 h-16 flex items-center justify-between"
+  >
+    <a
+      href="#top"
+      class="flex items-center gap-2.5 group text-paper"
+      aria-label="LayerLogic home"
+    >
+      <Logo />
+      <span class="text-[15px] tracking-tightest font-medium">{site.name}</span>
+      <span
+        class="hidden sm:inline label !text-[10px] !tracking-[.18em] text-mute pl-2 border-l border-line"
+        >{site.region}</span
+      >
+    </a>
+
+    <nav class="hidden md:flex items-center gap-8 text-[13.5px] text-paper/85">
+      {
+        navItems.map((item) => (
+          <a href={item.href} class="link-u">
+            {item.label}
+          </a>
+        ))
+      }
+    </nav>
+
+    <div class="flex items-center gap-2">
+      <ThemeToggle client:idle />
+      <a
+        href="#contact"
+        class="lb-btn lb-btn--outline lb-btn--sm lb-btn--ticks"
+      >
+        <span class="lb-led"></span>
+        <span class="lb-label">Request a demo</span>
+        <span class="lb-chip">
+          <svg width="12" height="12" viewBox="0 0 14 14"
+            ><path
+              d="M2 7h9M7 3l4 4-4 4"
+              stroke="currentColor"
+              stroke-width="1.4"
+              fill="none"
+              stroke-linecap="round"
+              stroke-linejoin="round"></path></svg
+          >
+        </span>
+      </a>
+    </div>
+  </div>
+</header>

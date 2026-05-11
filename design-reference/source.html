@@ -1,0 +1,1906 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>LayerLogic — Pathogens, detected in minutes. Not days.</title>
+
+<!--
+  LayerLogic landing page
+  ────────────────────────────────────────────────────────────────────
+  Design rationale
+    • Positioning: scientific instrument, not SaaS. The page should feel
+      closer to the documentation of a precision device than a startup
+      marketing site. Editorial type hierarchy, mono labels, hairline
+      rules — visual cues borrowed from instrument UIs and lab notebooks.
+    • Color: monochrome graphite base (#0A0A0B → #EDEDE8) with a single
+      accent — a teal-cyan #06B6A7 that nods to graphene electronics.
+      No gradients-for-decoration; one channel of color signals "data".
+    • Type: Inter Tight for display (slightly condensed, tight tracking
+      on large headings); JetBrains Mono for everything that wants to
+      read as instrument output — section labels, units, timestamps,
+      stats, captions. Pairing reinforces the "two registers" of the
+      brand: human prose + machine readout.
+    • Motion: slow-drifting graphene lattice in the hero, a single
+      sensor-reading ticker, count-up on stats when in view, hover
+      lifts on cards. No parallax, no scroll-jacking.
+    • Imagery: no stock lab photography. SVG schematics for the gFET
+      stack, lattice motifs, and labelled placeholders for product
+      renders the team will commission later.
+-->
+
+<script src="1d6c2e46-8fc1-460c-a5a5-43e9f98f5cfa"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<style>/* cyrillic-ext */
+@font-face {
+  font-family: 'Inter Tight';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url("13712b92-a885-4c69-aa45-212f4a2e9d55") format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Inter Tight';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url("eb795d8d-0889-4d98-b18b-f5a72b9ef923") format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* greek-ext */
+@font-face {
+  font-family: 'Inter Tight';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url("bf9004b4-b4a5-493b-8ecb-d40d6282a9a1") format('woff2');
+  unicode-range: U+1F00-1FFF;
+}
+/* greek */
+@font-face {
+  font-family: 'Inter Tight';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url("8663321d-a632-4036-8b22-4f85310c78a9") format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Inter Tight';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url("d037c025-a74a-4468-bae3-a3504cd30f94") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Inter Tight';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url("42646daf-d13d-4427-a28c-bf334a4e6977") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Inter Tight';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url("a665d6ea-57fa-411b-93b1-738b44d301df") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'Inter Tight';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("13712b92-a885-4c69-aa45-212f4a2e9d55") format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Inter Tight';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("eb795d8d-0889-4d98-b18b-f5a72b9ef923") format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* greek-ext */
+@font-face {
+  font-family: 'Inter Tight';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("bf9004b4-b4a5-493b-8ecb-d40d6282a9a1") format('woff2');
+  unicode-range: U+1F00-1FFF;
+}
+/* greek */
+@font-face {
+  font-family: 'Inter Tight';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("8663321d-a632-4036-8b22-4f85310c78a9") format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Inter Tight';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("d037c025-a74a-4468-bae3-a3504cd30f94") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Inter Tight';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("42646daf-d13d-4427-a28c-bf334a4e6977") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Inter Tight';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("a665d6ea-57fa-411b-93b1-738b44d301df") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'Inter Tight';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("13712b92-a885-4c69-aa45-212f4a2e9d55") format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Inter Tight';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("eb795d8d-0889-4d98-b18b-f5a72b9ef923") format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* greek-ext */
+@font-face {
+  font-family: 'Inter Tight';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("bf9004b4-b4a5-493b-8ecb-d40d6282a9a1") format('woff2');
+  unicode-range: U+1F00-1FFF;
+}
+/* greek */
+@font-face {
+  font-family: 'Inter Tight';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("8663321d-a632-4036-8b22-4f85310c78a9") format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Inter Tight';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("d037c025-a74a-4468-bae3-a3504cd30f94") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Inter Tight';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("42646daf-d13d-4427-a28c-bf334a4e6977") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Inter Tight';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("a665d6ea-57fa-411b-93b1-738b44d301df") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'Inter Tight';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("13712b92-a885-4c69-aa45-212f4a2e9d55") format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Inter Tight';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("eb795d8d-0889-4d98-b18b-f5a72b9ef923") format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* greek-ext */
+@font-face {
+  font-family: 'Inter Tight';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("bf9004b4-b4a5-493b-8ecb-d40d6282a9a1") format('woff2');
+  unicode-range: U+1F00-1FFF;
+}
+/* greek */
+@font-face {
+  font-family: 'Inter Tight';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("8663321d-a632-4036-8b22-4f85310c78a9") format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Inter Tight';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("d037c025-a74a-4468-bae3-a3504cd30f94") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Inter Tight';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("42646daf-d13d-4427-a28c-bf334a4e6977") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Inter Tight';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("a665d6ea-57fa-411b-93b1-738b44d301df") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'Inter Tight';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("13712b92-a885-4c69-aa45-212f4a2e9d55") format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Inter Tight';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("eb795d8d-0889-4d98-b18b-f5a72b9ef923") format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* greek-ext */
+@font-face {
+  font-family: 'Inter Tight';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("bf9004b4-b4a5-493b-8ecb-d40d6282a9a1") format('woff2');
+  unicode-range: U+1F00-1FFF;
+}
+/* greek */
+@font-face {
+  font-family: 'Inter Tight';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("8663321d-a632-4036-8b22-4f85310c78a9") format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Inter Tight';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("d037c025-a74a-4468-bae3-a3504cd30f94") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Inter Tight';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("42646daf-d13d-4427-a28c-bf334a4e6977") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Inter Tight';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("a665d6ea-57fa-411b-93b1-738b44d301df") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("64b95831-6eac-431e-b796-5fa9ecf1e350") format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("26d57490-97a4-4235-92d5-25913189d085") format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* greek */
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("375fb8bf-a9f1-4568-8f27-d0224ff027e9") format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("c132e78e-75e8-4bda-b297-19d37e95afbd") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("9c89df37-83ff-411c-b015-eb4779763937") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("1c9074a3-b664-4ced-b6bd-82d1a786a6b2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("64b95831-6eac-431e-b796-5fa9ecf1e350") format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("26d57490-97a4-4235-92d5-25913189d085") format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* greek */
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("375fb8bf-a9f1-4568-8f27-d0224ff027e9") format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("c132e78e-75e8-4bda-b297-19d37e95afbd") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("9c89df37-83ff-411c-b015-eb4779763937") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("1c9074a3-b664-4ced-b6bd-82d1a786a6b2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("64b95831-6eac-431e-b796-5fa9ecf1e350") format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("26d57490-97a4-4235-92d5-25913189d085") format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* greek */
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("375fb8bf-a9f1-4568-8f27-d0224ff027e9") format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("c132e78e-75e8-4bda-b297-19d37e95afbd") format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("9c89df37-83ff-411c-b015-eb4779763937") format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("1c9074a3-b664-4ced-b6bd-82d1a786a6b2") format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+</style>
+
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          ink:    '#0A0A0B',
+          ink2:   '#101012',
+          line:   '#1F1F22',
+          line2:  '#2A2A2E',
+          mute:   '#6B6B72',
+          mute2:  '#9A9AA1',
+          paper:  '#EDEDE8',
+          paper2: '#F6F6F2',
+          accent: '#06B6A7',
+          accent2:'#0AD4C2',
+        },
+        fontFamily: {
+          sans: ['"Inter Tight"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+          mono: ['"JetBrains Mono"', 'ui-monospace', 'SFMono-Regular', 'monospace'],
+        },
+        letterSpacing: {
+          tightest: '-0.04em',
+          tighter2: '-0.03em',
+        },
+      }
+    }
+  }
+</script>
+
+<style>
+  html { scroll-behavior: smooth; }
+  body {
+    background: #0A0A0B;
+    color: #EDEDE8;
+    font-family: 'Inter Tight', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: 'ss01', 'cv11';
+  }
+  .display { letter-spacing: -0.035em; line-height: 0.95; }
+  .display-md { letter-spacing: -0.025em; line-height: 1.02; }
+  .label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #9A9AA1;
+  }
+  .hairline { background: #1F1F22; }
+  .num-tabular { font-variant-numeric: tabular-nums; }
+
+  /* --- Hero lattice drift --- */
+  @keyframes drift {
+    from { transform: translate3d(0,0,0); }
+    to   { transform: translate3d(-86.6px, -150px, 0); } /* one full hex tile */
+  }
+  .lattice-drift { animation: drift 60s linear infinite; }
+
+  /* --- Pulse for "live" indicator --- */
+  @keyframes pulse-dot {
+    0%,100% { opacity: 1; transform: scale(1); }
+    50%     { opacity: 0.35; transform: scale(0.85); }
+  }
+  .pulse-dot { animation: pulse-dot 1.6s ease-in-out infinite; }
+
+  /* --- Subtle scan on schematic --- */
+  @keyframes scan {
+    0%   { transform: translateX(-10%); opacity: 0; }
+    20%  { opacity: 1; }
+    80%  { opacity: 1; }
+    100% { transform: translateX(110%); opacity: 0; }
+  }
+  .scan-line { animation: scan 6s ease-in-out infinite; }
+
+  /* --- Underline grow --- */
+  .link-u { position: relative; }
+  .link-u::after {
+    content: '';
+    position: absolute; left: 0; right: 0; bottom: -3px;
+    height: 1px; background: currentColor; opacity: 0;
+    transform: scaleX(0); transform-origin: left;
+    transition: transform .35s ease, opacity .35s ease;
+  }
+  .link-u:hover::after { opacity: .6; transform: scaleX(1); }
+
+  /* --- Card hover --- */
+  .lift { transition: transform .4s cubic-bezier(.2,.7,.2,1), border-color .4s ease, background .4s ease; }
+  .lift:hover { transform: translateY(-2px); border-color: #2A2A2E; background: #101012; }
+
+  /* --- Marquee for partner logos --- */
+  @keyframes marq {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+  .marq { animation: marq 40s linear infinite; }
+
+  /* selection */
+  ::selection { background: #06B6A7; color: #0A0A0B; }
+
+  /* hide scrollbar on horizontal step row mobile */
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .no-scrollbar { scrollbar-width: none; }
+
+  /* ─── LIGHT THEME ───────────────────────────────── */
+  .hero-vignette {
+    background: radial-gradient(ellipse at 50% 30%, transparent 0%, rgba(10,10,11,.4) 55%, #0A0A0B 100%);
+  }
+  body.light .hero-vignette {
+    background: radial-gradient(ellipse at 50% 30%, transparent 0%, rgba(246,244,238,.45) 55%, #F6F4EE 100%);
+  }
+  body.light { background: #F6F4EE !important; color: #0A0A0B !important; }
+  body.light .bg-ink,
+  body.light section.bg-ink { background-color: #F6F4EE !important; }
+  body.light .bg-ink\/70 { background-color: rgba(246,244,238,0.78) !important; backdrop-filter: blur(8px); }
+  body.light .bg-ink2 { background-color: #ECE9DF !important; }
+  body.light .bg-ink2\/40 { background-color: rgba(236,233,223,0.4) !important; }
+  body.light .bg-ink2\/60 { background-color: rgba(236,233,223,0.6) !important; }
+  body.light .text-paper { color: #0A0A0B !important; }
+  body.light .text-paper\/85 { color: rgba(10,10,11,0.85) !important; }
+  body.light .text-paper\/80 { color: rgba(10,10,11,0.78) !important; }
+  body.light .text-paper\/75 { color: rgba(10,10,11,0.72) !important; }
+  body.light .text-paper\/70 { color: rgba(10,10,11,0.68) !important; }
+  body.light .border-line { border-color: #D9D5CB !important; }
+  body.light .border-line2 { border-color: #C5C0B5 !important; }
+  body.light .bg-line { background-color: #D9D5CB !important; }
+  body.light .border-paper\/20 { border-color: rgba(10,10,11,0.22) !important; }
+  body.light .border-paper\/25 { border-color: rgba(10,10,11,0.28) !important; }
+  body.light .text-mute { color: #6E6E74 !important; }
+  body.light .text-mute2 { color: #4F4F56 !important; }
+  body.light .placeholder\:text-mute::placeholder { color: #8C8C92 !important; }
+  body.light .focus\:border-accent:focus { border-color: #047A70 !important; }
+  body.light .text-accent { color: #047A70 !important; }
+  body.light .bg-accent { background-color: #047A70 !important; }
+  body.light .hover\:bg-accent:hover { background-color: #047A70 !important; }
+  body.light .hover\:bg-accent2:hover { background-color: #06B6A7 !important; }
+  body.light .hover\:text-ink:hover { color: #F6F4EE !important; }
+  body.light .border-accent { border-color: #047A70 !important; }
+  body.light .border-l-2.border-accent { border-color: #047A70 !important; }
+  body.light .hover\:border-paper:hover { border-color: #0A0A0B !important; }
+  body.light .hover\:border-accent:hover { border-color: #047A70 !important; }
+
+  /* SVG attribute overrides for light theme */
+  body.light [stroke="#EDEDE8"] { stroke: #0A0A0B; }
+  body.light [fill="#EDEDE8"] { fill: #0A0A0B; }
+  body.light [fill="#101012"] { fill: #ECE9DF; }
+  body.light [stroke="#1F1F22"] { stroke: #D9D5CB; }
+  body.light [stroke="#2A2A2E"] { stroke: #B3AEA2; }
+  body.light [fill="#2A2A2E"] { fill: #DDD9CE; }
+  body.light [fill="#15151a"] { fill: #ECE9DF; }
+  body.light [fill="#1A1A1F"] { fill: #DDD9CE; }
+  body.light [fill="#9A9AA1"] { fill: #4F4F56; }
+  body.light [fill="#6B6B72"] { fill: #6E6E74; }
+  body.light [fill="#06B6A7"] { fill: #047A70; }
+  body.light [stroke="#06B6A7"] { stroke: #047A70; }
+  /* placeholder stripes */
+  body.light [style*="repeating-linear-gradient"] {
+    background-image: repeating-linear-gradient(45deg, #E2DED2 0 10px, #ECE9DF 10px 20px) !important;
+  }
+
+  /* ─── ANIMATIONS for steps + science ───────────── */
+  /* Step 01 — analyte particles bobbing/falling */
+  @keyframes analyte-bob-a {
+    0%   { transform: translate(0, -28px); opacity: 0; }
+    25%  { opacity: 1; }
+    55%  { transform: translate(0, 0); opacity: 1; }
+    75%  { transform: translate(0, -3px); }
+    100% { transform: translate(0, 0); opacity: 1; }
+  }
+  @keyframes analyte-bob-b {
+    0%   { transform: translate(0, -36px); opacity: 0; }
+    30%  { opacity: 1; }
+    60%  { transform: translate(0, 0); opacity: 1; }
+    80%  { transform: translate(0, -2px); }
+    100% { transform: translate(0, 0); opacity: 1; }
+  }
+  .analyte-1 { transform-box: fill-box; transform-origin: center; animation: analyte-bob-a 4.5s ease-in-out infinite; }
+  .analyte-2 { transform-box: fill-box; transform-origin: center; animation: analyte-bob-b 4.5s ease-in-out infinite 1.4s; }
+
+  /* trail lines fade in/out with the falling particles */
+  @keyframes trail-fade {
+    0%, 30% { opacity: 0; }
+    50%     { opacity: 1; }
+    100%    { opacity: 0.35; }
+  }
+  .trail-anim { animation: trail-fade 4.5s ease-in-out infinite; }
+  .trail-anim-2 { animation: trail-fade 4.5s ease-in-out infinite 1.4s; }
+
+  /* receptor anchor flicker on capture */
+  @keyframes receptor-flash {
+    0%, 88%, 100% { stroke: #EDEDE8; }
+    92%, 96%      { stroke: #06B6A7; }
+  }
+  .receptor-flash { animation: receptor-flash 4.5s linear infinite; }
+  body.light .receptor-flash { animation: none; }
+
+  /* Step 03 — waveform draw */
+  @keyframes wave-draw {
+    0%   { stroke-dashoffset: 520; }
+    55%  { stroke-dashoffset: 0; }
+    92%  { stroke-dashoffset: 0; }
+    100% { stroke-dashoffset: 520; }
+  }
+  .wave-anim {
+    stroke-dasharray: 520;
+    stroke-dashoffset: 520;
+    animation: wave-draw 5s ease-in-out infinite;
+  }
+  @keyframes pos-blink {
+    0%, 50%   { opacity: 0; }
+    60%, 88%  { opacity: 1; }
+    92%, 100% { opacity: 0; }
+  }
+  .pos-blink { animation: pos-blink 5s ease-in-out infinite; }
+
+  /* dot tracking the waveform tip */
+  @keyframes wave-tip {
+    0%   { transform: translate(0, 0); opacity: 0; }
+    5%   { opacity: 1; }
+    /* path samples */
+    8%   { transform: translate(26px, 0); }
+    14%  { transform: translate(36px, -18px); }
+    19%  { transform: translate(56px, -12px); }
+    25%  { transform: translate(76px, -38px); }
+    31%  { transform: translate(96px, -30px); }
+    37%  { transform: translate(116px, -50px); }
+    44%  { transform: translate(136px, -44px); }
+    50%  { transform: translate(156px, -60px); }
+    55%  { transform: translate(176px, -56px); opacity: 1; }
+    62%  { transform: translate(196px, -62px); opacity: 0; }
+    100% { transform: translate(196px, -62px); opacity: 0; }
+  }
+  .wave-tip { transform-box: fill-box; transform-origin: center; animation: wave-tip 5s ease-in-out infinite; }
+
+  /* §04 Science figure — bound analyte pulse */
+  @keyframes bound-pulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50%      { transform: scale(1.45); opacity: 0.55; }
+  }
+  .bound-pulse { transform-box: fill-box; transform-origin: center; animation: bound-pulse 2.6s ease-in-out infinite; }
+  .bound-pulse-2 { transform-box: fill-box; transform-origin: center; animation: bound-pulse 2.6s ease-in-out infinite 1.3s; }
+
+  /* electron travelling along graphene channel */
+  @keyframes electron-flow {
+    0%   { transform: translateX(0); opacity: 0; }
+    8%   { opacity: 1; }
+    92%  { opacity: 1; }
+    100% { transform: translateX(200px); opacity: 0; }
+  }
+  .electron { transform-box: fill-box; transform-origin: center; animation: electron-flow 3.4s linear infinite; }
+  .electron-2 { animation: electron-flow 3.4s linear infinite 1.1s; }
+  .electron-3 { animation: electron-flow 3.4s linear infinite 2.2s; }
+
+  /* incoming analyte from above the channel */
+  @keyframes incoming-fall {
+    0%   { transform: translate(0, -80px); opacity: 0; }
+    30%  { opacity: 1; }
+    70%  { transform: translate(0, 0); opacity: 1; }
+    85%  { transform: translate(0, -2px); }
+    100% { transform: translate(0, 0); opacity: 0.6; }
+  }
+  .incoming { transform-box: fill-box; transform-origin: center; animation: incoming-fall 5s ease-in-out infinite 0.6s; }
+  .incoming-2 { transform-box: fill-box; transform-origin: center; animation: incoming-fall 5s ease-in-out infinite 2.4s; }
+
+  /* science scan line */
+  @keyframes sci-scan {
+    0%   { transform: translateX(-30px); opacity: 0; }
+    10%  { opacity: 0.9; }
+    90%  { opacity: 0.9; }
+    100% { transform: translateX(220px); opacity: 0; }
+  }
+  .sci-scan { transform-box: fill-box; transform-origin: left center; animation: sci-scan 6s ease-in-out infinite; }
+
+  /* ─── §01 stat number tracking fix ─── */
+  .stat-num {
+    letter-spacing: -0.01em;
+    line-height: 0.98;
+  }
+  .stat-num .lt { display: inline-block; padding-right: 0.08em; }
+
+  /* ─── BUTTONS ─── instrument-control style ─── */
+  .lb-btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 0 6px 0 18px;
+    height: 48px;
+    border-radius: 3px;
+    font-family: 'Inter Tight', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: -0.005em;
+    white-space: nowrap;
+    transition: color .3s ease, background .3s ease, border-color .3s ease;
+    overflow: hidden;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .lb-btn .lb-led {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: currentColor;
+    position: relative;
+    flex: none;
+  }
+  .lb-btn .lb-led::after {
+    content: '';
+    position: absolute; inset: -4px;
+    border-radius: 50%;
+    background: currentColor;
+    opacity: 0;
+    transform: scale(0.5);
+    transition: opacity .35s ease, transform .35s ease;
+  }
+  .lb-btn:hover .lb-led::after { opacity: 0.18; transform: scale(1); }
+  .lb-btn .lb-label { line-height: 1; }
+  .lb-btn .lb-chip {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 36px; height: 36px;
+    margin-left: auto;
+    border-radius: 2px;
+    position: relative;
+    overflow: hidden;
+    flex: none;
+  }
+  .lb-btn .lb-chip svg {
+    transition: transform .4s cubic-bezier(.65,0,.35,1);
+  }
+  .lb-btn:hover .lb-chip svg { transform: translateX(2px); }
+
+  /* corner ticks for outline buttons */
+  .lb-btn--ticks::before, .lb-btn--ticks::after {
+    content: '';
+    position: absolute;
+    width: 7px; height: 7px;
+    border: 1px solid currentColor;
+    opacity: 0.6;
+    transition: opacity .3s ease, border-color .3s ease;
+    pointer-events: none;
+  }
+  .lb-btn--ticks::before {
+    top: 4px; left: 4px;
+    border-right: 0; border-bottom: 0;
+  }
+  .lb-btn--ticks::after {
+    bottom: 4px; right: 4px;
+    border-left: 0; border-top: 0;
+  }
+  .lb-btn--ticks:hover::before, .lb-btn--ticks:hover::after { opacity: 1; }
+
+  /* Primary — filled accent */
+  .lb-btn--primary {
+    background: #06B6A7;
+    color: #0A0A0B;
+  }
+  .lb-btn--primary:hover { background: #0AD4C2; }
+  .lb-btn--primary .lb-chip { background: rgba(10,10,11,0.14); }
+  body.light .lb-btn--primary { background: #047A70; color: #F6F4EE; }
+  body.light .lb-btn--primary:hover { background: #06B6A7; color: #0A0A0B; }
+  body.light .lb-btn--primary .lb-chip { background: rgba(246,244,238,0.16); }
+
+  /* Outline — hairline frame */
+  .lb-btn--outline {
+    background: transparent;
+    color: #EDEDE8;
+    border: 1px solid rgba(237,237,232,0.22);
+  }
+  .lb-btn--outline:hover { border-color: #06B6A7; color: #06B6A7; }
+  .lb-btn--outline .lb-chip { background: rgba(237,237,232,0.07); }
+  .lb-btn--outline:hover .lb-chip { background: rgba(6,182,167,0.12); }
+  body.light .lb-btn--outline { color: #0A0A0B; border-color: rgba(10,10,11,0.22); }
+  body.light .lb-btn--outline:hover { color: #047A70; border-color: #047A70; }
+  body.light .lb-btn--outline .lb-chip { background: rgba(10,10,11,0.06); }
+  body.light .lb-btn--outline:hover .lb-chip { background: rgba(4,122,112,0.1); }
+
+  /* Sizes */
+  .lb-btn--sm {
+    height: 36px; padding: 0 4px 0 14px; font-size: 13px; gap: 10px; border-radius: 2px;
+  }
+  .lb-btn--sm .lb-chip { width: 28px; height: 28px; }
+  .lb-btn--sm .lb-led { width: 5.5px; height: 5.5px; }
+
+  .lb-btn--block { width: 100%; }
+
+  /* Theme-toggle: instrument-style two-state pill */
+  .lb-toggle {
+    position: relative;
+    display: inline-flex; align-items: center;
+    width: 64px; height: 30px;
+    border-radius: 2px;
+    border: 1px solid rgba(237,237,232,0.22);
+    background: transparent;
+    padding: 2px;
+    cursor: pointer;
+    transition: border-color .3s ease;
+  }
+  body.light .lb-toggle { border-color: rgba(10,10,11,0.22); }
+  .lb-toggle:hover { border-color: #06B6A7; }
+  body.light .lb-toggle:hover { border-color: #047A70; }
+  .lb-toggle .lb-toggle-knob {
+    position: absolute;
+    top: 2px; left: 2px;
+    width: 28px; height: 24px;
+    background: #06B6A7;
+    border-radius: 1px;
+    transition: transform .35s cubic-bezier(.65,0,.35,1), background .3s ease;
+  }
+  body.light .lb-toggle .lb-toggle-knob { background: #047A70; }
+  body.light .lb-toggle .lb-toggle-knob { transform: translateX(30px); }
+  .lb-toggle .lb-toggle-ic {
+    position: relative; z-index: 1;
+    width: 30px; height: 26px;
+    display: inline-flex; align-items: center; justify-content: center;
+    color: #EDEDE8;
+    transition: color .3s ease;
+  }
+  .lb-toggle .lb-toggle-ic.is-active { color: #0A0A0B; }
+  body.light .lb-toggle .lb-toggle-ic { color: #0A0A0B; }
+  body.light .lb-toggle .lb-toggle-ic.is-active { color: #F6F4EE; }
+</style>
+</head>
+<body class="font-sans">
+
+<!-- ─────────────────────────── NAV ─────────────────────────── -->
+<header class="sticky top-0 z-40 backdrop-blur-md bg-ink/70 border-b border-line">
+  <div class="max-w-[1320px] mx-auto px-6 lg:px-10 h-16 flex items-center justify-between">
+    <a href="#top" class="flex items-center gap-2.5 group" aria-label="LayerLogic home">
+      <!-- Wordmark glyph: stacked layers + dot (bound molecule) -->
+      <svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true">
+        <g stroke="#EDEDE8" stroke-width="1.25" fill="none">
+          <path d="M2.5 7.5 L11 3 L19.5 7.5 L11 12 Z"></path>
+          <path d="M2.5 11.5 L11 16 L19.5 11.5" opacity=".55"></path>
+          <path d="M2.5 15 L11 19.5 L19.5 15" opacity=".25"></path>
+        </g>
+        <circle cx="11" cy="7.5" r="1.6" fill="#06B6A7"></circle>
+      </svg>
+      <span class="text-[15px] tracking-tightest font-medium">LayerLogic</span>
+      <span class="hidden sm:inline label !text-[10px] !tracking-[.18em] text-mute pl-2 border-l border-line">SE · GBG</span>
+    </a>
+
+    <nav class="hidden md:flex items-center gap-8 text-[13.5px] text-paper/85">
+      <a href="#technology" class="link-u">Technology</a>
+      <a href="#science" class="link-u">Science</a>
+      <a href="#company" class="link-u">Company</a>
+      <a href="#investors" class="link-u">Investors</a>
+    </nav>
+
+    <div class="flex items-center gap-2">
+      <button id="theme-toggle" type="button" aria-label="Toggle dark / light theme" class="lb-toggle">
+        <span class="lb-toggle-knob"></span>
+        <span class="lb-toggle-ic is-active" data-mode="dark">
+          <svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M11.5 8.2A4.6 4.6 0 0 1 5.8 2.5a.4.4 0 0 0-.55-.45 5.4 5.4 0 1 0 6.7 6.7.4.4 0 0 0-.45-.55Z"></path>
+          </svg>
+        </span>
+        <span class="lb-toggle-ic" data-mode="light">
+          <svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round">
+            <circle cx="7" cy="7" r="2.6"></circle>
+            <path d="M7 1v1.6M7 11.4V13M1 7h1.6M11.4 7H13M2.6 2.6l1.1 1.1M10.3 10.3l1.1 1.1M2.6 11.4l1.1-1.1M10.3 3.7l1.1-1.1"></path>
+          </svg>
+        </span>
+      </button>
+      <a href="#contact" class="lb-btn lb-btn--outline lb-btn--sm lb-btn--ticks">
+        <span class="lb-led"></span>
+        <span class="lb-label">Request a demo</span>
+        <span class="lb-chip">
+          <svg width="12" height="12" viewBox="0 0 14 14"><path d="M2 7h9M7 3l4 4-4 4" stroke="currentColor" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        </span>
+      </a>
+    </div>
+  </div>
+</header>
+
+<!-- ─────────────────────────── HERO ─────────────────────────── -->
+<section id="top" class="relative overflow-hidden border-b border-line">
+  <!-- Background graphene lattice (drifting SVG pattern) -->
+  <div class="absolute inset-0 pointer-events-none" aria-hidden="true">
+    <svg class="absolute -inset-[10%] w-[120%] h-[120%] opacity-[0.18] lattice-drift" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <pattern id="hex" x="0" y="0" width="86.6" height="150" patternUnits="userSpaceOnUse">
+          <!--  hex side = 50; width = sqrt(3)*50 ≈ 86.6, height = 150 (1.5 * side * 2) -->
+          <g fill="none" stroke="#06B6A7" stroke-width="0.7">
+            <polygon points="43.3,0 86.6,25 86.6,75 43.3,100 0,75 0,25"></polygon>
+            <polygon points="0,75 43.3,100 43.3,150 0,175 -43.3,150 -43.3,100"></polygon>
+            <polygon points="86.6,75 129.9,100 129.9,150 86.6,175 43.3,150 43.3,100"></polygon>
+          </g>
+        </pattern>
+        <radialGradient id="hexFade" cx="50%" cy="40%" r="60%">
+          <stop offset="0%" stop-color="#000" stop-opacity="0"></stop>
+          <stop offset="100%" stop-color="#000" stop-opacity="1"></stop>
+        </radialGradient>
+        <mask id="hexMask"><rect width="100%" height="100%" fill="url(#hexFade)" style="filter:invert(1)"></rect></mask>
+      </defs>
+      <rect width="100%" height="100%" fill="url(#hex)" mask="url(#hexMask)"></rect>
+    </svg>
+    <!-- vignette -->
+    <div class="hero-vignette absolute inset-0"></div>
+  </div>
+
+  <div class="relative max-w-[1320px] mx-auto px-6 lg:px-10 pt-20 lg:pt-28 pb-20 lg:pb-28">
+    <!-- Top eyebrow row -->
+    <div class="flex items-center justify-between mb-14 lg:mb-20">
+      <div class="flex items-center gap-3">
+        <span class="relative flex h-2 w-2">
+          <span class="absolute inline-flex h-full w-full rounded-full bg-accent pulse-dot"></span>
+          <span class="relative inline-flex rounded-full h-2 w-2 bg-accent"></span>
+        </span>
+        <span class="label">Live · Sensor reading</span>
+        <span class="font-mono text-[12px] text-paper/80 num-tabular hidden sm:inline" id="ticker">
+          ΔV<sub>g</sub> = +0.0142 V · t = 00:07.41
+        </span>
+      </div>
+      <div class="label hidden md:block">v1.0 · Gothenburg, SE</div>
+    </div>
+
+    <!-- Headline -->
+    <h1 class="display text-[clamp(48px,9vw,148px)] font-medium max-w-[18ch]">
+      Pathogens,<br>
+      detected in <span class="text-accent">minutes.</span><br>
+      <span class="text-mute2">Not days.</span>
+    </h1>
+
+    <div class="mt-12 lg:mt-16 grid lg:grid-cols-12 gap-10 items-end">
+      <p class="lg:col-span-6 text-[19px] lg:text-[22px] leading-[1.4] text-paper/80 max-w-[42ch]">
+        LayerLogic builds a handheld biosensor based on graphene field-effect transistors — bringing PCR-grade detection of bacteria, viruses and contaminant molecules out of the lab and onto the production line.
+      </p>
+
+      <div class="lg:col-span-6 flex flex-col items-start lg:items-end gap-6">
+        <div class="flex flex-wrap gap-3">
+          <a href="#contact" class="lb-btn lb-btn--primary">
+            <span class="lb-led"></span>
+            <span class="lb-cap font-mono text-[10px] tracking-[.2em] uppercase opacity-60">REQ_01</span>
+            <span class="lb-label">Request a demo</span>
+            <span class="lb-chip">
+              <svg width="14" height="14" viewBox="0 0 14 14"><path d="M2 7h9M7 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+            </span>
+          </a>
+          <a href="#technology" class="lb-btn lb-btn--outline lb-btn--ticks">
+            <span class="lb-led"></span>
+            <span class="lb-cap font-mono text-[10px] tracking-[.2em] uppercase opacity-60">TECH</span>
+            <span class="lb-label">See the technology</span>
+            <span class="lb-chip">
+              <svg width="14" height="14" viewBox="0 0 14 14"><path d="M2 7h9M7 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+            </span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Trust signals -->
+    <div class="mt-20 lg:mt-28 pt-8 border-t border-line">
+      <div class="label mb-5">Backed &amp; supported by</div>
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-y-4 gap-x-8 font-mono text-[13px] text-mute2">
+        <span>Chalmers Ventures</span>
+        <span>Scientifica VC</span>
+        <span>EIT Food</span>
+        <span>SIO Grafen</span>
+        <span>MassChallenge</span>
+        <span>Yeos Ventures</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────────── 15-MINUTE STAT BLOCK ─────────────────── -->
+<section class="border-b border-line">
+  <div class="max-w-[1320px] mx-auto px-6 lg:px-10 py-24 lg:py-36">
+    <div class="flex items-baseline justify-between mb-14 lg:mb-20">
+      <div class="label">§ 01 — The shift</div>
+      <div class="label hidden md:block">vs. lab-based methods</div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-y-16 lg:gap-x-12">
+      <!-- stat 1 -->
+      <div class="lg:border-r lg:border-line lg:pr-12">
+        <div class="label mb-4">Time to result</div>
+        <div class="font-mono stat-num text-[clamp(56px,9vw,128px)] font-medium num-tabular">
+          <span class="lt">&lt;</span><span class="stat" data-target="15">0</span><span class="text-accent">min</span>
+        </div>
+        <p class="mt-6 text-paper/80 text-[16px] leading-relaxed max-w-[34ch]">
+          Sample to readout in under fifteen minutes — at the point of production, by an operator. Not a lab technician.
+        </p>
+      </div>
+
+      <!-- stat 2 -->
+      <div class="lg:border-r lg:border-line lg:pr-12 lg:pl-2">
+        <div class="label mb-4">Sensitivity</div>
+        <div class="font-mono stat-num text-[clamp(56px,9vw,128px)] font-medium">
+          PCR<span class="text-accent">-grade</span>
+        </div>
+        <p class="mt-6 text-paper/80 text-[16px] leading-relaxed max-w-[34ch]">
+          Limit of detection rivalling polymerase chain reaction — without the thermal cycling, reagents or two-day round-trip.
+        </p>
+      </div>
+
+      <!-- stat 3 -->
+      <div class="lg:pl-2">
+        <div class="label mb-4">Avg. cost prevented per event</div>
+        <div class="font-mono stat-num text-[clamp(56px,9vw,128px)] font-medium num-tabular">
+          €<span class="stat" data-target="200">0</span><span class="text-accent">K</span>
+        </div>
+        <p class="mt-6 text-paper/80 text-[16px] leading-relaxed max-w-[34ch]">
+          A single contamination event — recall, line shutdown, brand damage — can cost a producer up to €200,000. Catch it before it ships.
+        </p>
+      </div>
+    </div>
+
+    <p class="mt-20 lg:mt-28 max-w-[58ch] text-[18px] lg:text-[20px] text-paper/75 leading-[1.55]">
+      Traditional microbial testing means shipping samples to a lab and waiting two to four days for plate culture or PCR results. By the time the answer arrives, the product has often shipped. <span class="text-paper">We move detection in-process</span> — making contamination a problem you catch, not a problem you discover.
+    </p>
+  </div>
+</section>
+
+<!-- ───────────────────── HOW IT WORKS ───────────────────── -->
+<section id="technology" class="border-b border-line">
+  <div class="max-w-[1320px] mx-auto px-6 lg:px-10 py-24 lg:py-32">
+    <div class="grid lg:grid-cols-12 gap-10 mb-16 lg:mb-20">
+      <div class="lg:col-span-3">
+        <div class="label mb-3">§ 02 — Mechanism</div>
+      </div>
+      <div class="lg:col-span-9">
+        <h2 class="display-md text-[clamp(34px,5vw,68px)] font-medium max-w-[20ch]">
+          Three steps from sample to signal.
+        </h2>
+        <p class="mt-6 text-paper/70 text-[17px] max-w-[60ch]">
+          A graphene field-effect transistor is, at heart, a charge sensor. We make it specific by anchoring receptor molecules to the channel. When a target binds, the device sees it — directly, electrically, without amplification.
+        </p>
+      </div>
+    </div>
+
+    <!-- Steps -->
+    <div class="grid grid-cols-1 md:grid-cols-3 border-t border-line">
+      <!-- Step 1 -->
+      <article class="border-line md:border-r p-8 lg:p-10 group">
+        <div class="flex items-center justify-between mb-8">
+          <span class="font-mono text-[12px] text-accent">STEP_01</span>
+          <span class="font-mono text-[11px] text-mute">t = 0s</span>
+        </div>
+        <!-- schematic: receptor on graphene + analyte approaching -->
+        <svg viewBox="0 0 280 140" class="w-full h-auto mb-8" aria-label="Functionalized graphene surface with receptor molecules">
+          <!-- substrate -->
+          <rect x="0" y="110" width="280" height="20" fill="#101012" stroke="#1F1F22"></rect>
+          <!-- graphene line -->
+          <line x1="0" y1="100" x2="280" y2="100" stroke="#06B6A7" stroke-width="1.4"></line>
+          <!-- hex motif under graphene line -->
+          <g stroke="#1F1F22" fill="none" stroke-width="0.8">
+            <polygon points="20,100 30,95 40,100 40,108 30,113 20,108"></polygon>
+            <polygon points="60,100 70,95 80,100 80,108 70,113 60,108"></polygon>
+            <polygon points="100,100 110,95 120,100 120,108 110,113 100,108"></polygon>
+            <polygon points="140,100 150,95 160,100 160,108 150,113 140,108"></polygon>
+            <polygon points="180,100 190,95 200,100 200,108 190,113 180,108"></polygon>
+            <polygon points="220,100 230,95 240,100 240,108 230,113 220,108"></polygon>
+          </g>
+          <!-- receptors (Y-shaped antibodies) -->
+          <g stroke="#EDEDE8" stroke-width="1.2" fill="none">
+            <path d="M40 100 L40 80 M40 80 L34 70 M40 80 L46 70"></path>
+            <path d="M100 100 L100 80 M100 80 L94 70 M100 80 L106 70"></path>
+            <path d="M160 100 L160 80 M160 80 L154 70 M160 80 L166 70"></path>
+            <path d="M220 100 L220 80 M220 80 L214 70 M220 80 L226 70"></path>
+          </g>
+          <!-- analyte (small spheres approaching) -->
+          <g fill="#06B6A7">
+            <circle class="analyte-1" cx="40" cy="40" r="4"></circle>
+            <circle class="analyte-2" cx="160" cy="32" r="4"></circle>
+          </g>
+          <g stroke="#06B6A7" stroke-width="0.8" stroke-dasharray="2 3" fill="none">
+            <path class="trail-anim" d="M40 44 L40 60"></path>
+            <path class="trail-anim-2" d="M160 36 L160 60"></path>
+          </g>
+          <text x="0" y="135" font-family="JetBrains Mono" font-size="9" fill="#6B6B72">SiO₂ / Si gate</text>
+          <text x="245" y="98" font-family="JetBrains Mono" font-size="9" fill="#06B6A7">graphene</text>
+        </svg>
+        <h3 class="text-[20px] font-medium mb-2 tracking-tighter2">Capture.</h3>
+        <p class="text-paper/75 text-[15px] leading-relaxed">A functionalized graphene surface binds the target — bacterium, virus, fungal spore, or molecule.</p>
+        <p class="mt-4 font-mono text-[11px] text-mute leading-relaxed">
+          // sub: receptor-conjugated graphene channel; selective affinity binding under physiological buffer.
+        </p>
+      </article>
+
+      <!-- Step 2 -->
+      <article class="border-line md:border-r p-8 lg:p-10 border-t md:border-t-0 group">
+        <div class="flex items-center justify-between mb-8">
+          <span class="font-mono text-[12px] text-accent">STEP_02</span>
+          <span class="font-mono text-[11px] text-mute">t ≈ 02:00</span>
+        </div>
+        <!-- schematic: gFET cross-section with field shift -->
+        <svg viewBox="0 0 280 140" class="w-full h-auto mb-8" aria-label="Binding event shifts the gFET channel field">
+          <rect x="0" y="110" width="280" height="20" fill="#101012" stroke="#1F1F22"></rect>
+          <!-- source / drain electrodes -->
+          <rect x="20" y="80" width="40" height="20" fill="#2A2A2E" stroke="#EDEDE8" stroke-width="0.8"></rect>
+          <rect x="220" y="80" width="40" height="20" fill="#2A2A2E" stroke="#EDEDE8" stroke-width="0.8"></rect>
+          <text x="40" y="74" font-family="JetBrains Mono" font-size="9" fill="#9A9AA1" text-anchor="middle">S</text>
+          <text x="240" y="74" font-family="JetBrains Mono" font-size="9" fill="#9A9AA1" text-anchor="middle">D</text>
+          <!-- graphene channel -->
+          <line x1="60" y1="92" x2="220" y2="92" stroke="#06B6A7" stroke-width="1.6"></line>
+          <!-- bound analyte -->
+          <circle cx="140" cy="80" r="5" fill="#06B6A7"></circle>
+          <path d="M140 92 L140 85" stroke="#06B6A7" stroke-width="1"></path>
+          <!-- field lines -->
+          <g stroke="#06B6A7" fill="none" stroke-width="0.7" opacity=".7">
+            <path d="M140 80 Q120 60 100 50"></path>
+            <path d="M140 80 Q160 60 180 50"></path>
+            <path d="M140 80 Q110 70 90 75"></path>
+            <path d="M140 80 Q170 70 190 75"></path>
+          </g>
+          <!-- ΔV label -->
+          <text x="36" y="40" font-family="JetBrains Mono" font-size="11" fill="#EDEDE8">ΔV_g</text>
+          <text x="36" y="54" font-family="JetBrains Mono" font-size="11" fill="#06B6A7">+0.014 V</text>
+          <!-- scan -->
+          <rect x="-20" y="80" width="2" height="20" fill="#06B6A7" opacity=".9" class="scan-line"></rect>
+        </svg>
+        <h3 class="text-[20px] font-medium mb-2 tracking-tighter2">Transduce.</h3>
+        <p class="text-paper/75 text-[15px] leading-relaxed">The binding event shifts the electric field across the gFET channel — a measurable change in conductance.</p>
+        <p class="mt-4 font-mono text-[11px] text-mute leading-relaxed">
+          // sub: charge perturbation modulates I<sub>ds</sub> at fixed V<sub>g</sub>; LOD set by Debye length and SNR.
+        </p>
+      </article>
+
+      <!-- Step 3 -->
+      <article class="p-8 lg:p-10 border-t md:border-t-0 border-line group">
+        <div class="flex items-center justify-between mb-8">
+          <span class="font-mono text-[12px] text-accent">STEP_03</span>
+          <span class="font-mono text-[11px] text-mute">t &lt; 15:00</span>
+        </div>
+        <!-- schematic: readout dial -->
+        <svg viewBox="0 0 280 140" class="w-full h-auto mb-8" aria-label="Digital readout under fifteen minutes">
+          <!-- device frame -->
+          <rect x="20" y="20" width="240" height="100" rx="6" fill="#101012" stroke="#1F1F22"></rect>
+          <!-- waveform -->
+          <polyline class="wave-anim" points="34,90 60,90 70,72 90,78 110,52 130,60 150,40 170,46 190,30 210,34 230,28 246,30" stroke="#06B6A7" stroke-width="1.6" fill="none" stroke-linejoin="round"></polyline>
+          <!-- moving tip dot -->
+          <circle class="wave-tip" cx="34" cy="90" r="2.6" fill="#06B6A7"></circle>
+          <!-- baseline -->
+          <line x1="34" y1="90" x2="246" y2="90" stroke="#1F1F22" stroke-dasharray="2 3"></line>
+          <!-- header -->
+          <text x="34" y="38" font-family="JetBrains Mono" font-size="10" fill="#9A9AA1">DETECT_01</text>
+          <text class="pos-blink" x="246" y="38" font-family="JetBrains Mono" font-size="10" fill="#06B6A7" text-anchor="end">POSITIVE</text>
+          <!-- footer -->
+          <text x="34" y="112" font-family="JetBrains Mono" font-size="9" fill="#6B6B72">L. monocytogenes · 14:08</text>
+        </svg>
+        <h3 class="text-[20px] font-medium mb-2 tracking-tighter2">Read.</h3>
+        <p class="text-paper/75 text-[15px] leading-relaxed">A digital result on the device — pass, fail, or quantitative — in under fifteen minutes from sample.</p>
+        <p class="mt-4 font-mono text-[11px] text-mute leading-relaxed">
+          // sub: on-board signal processing converts ΔI<sub>ds</sub>(t) to species-level call with confidence bound.
+        </p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────────── BUILT FOR THE PRODUCTION LINE ─────────────────── -->
+<section class="border-b border-line">
+  <div class="max-w-[1320px] mx-auto px-6 lg:px-10 py-24 lg:py-32">
+    <div class="grid lg:grid-cols-12 gap-10 mb-14 lg:mb-20">
+      <div class="lg:col-span-3">
+        <div class="label mb-3">§ 03 — In the field</div>
+      </div>
+      <div class="lg:col-span-9">
+        <h2 class="display-md text-[clamp(34px,5vw,68px)] font-medium max-w-[22ch]">
+          Built for the production line, not the bench.
+        </h2>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-px bg-line">
+      <!-- Card 1 -->
+      <article class="bg-ink p-8 lg:p-10 lift">
+        <div class="flex items-center justify-between mb-8">
+          <span class="label !text-accent">Dairy &amp; cheese</span>
+          <span class="font-mono text-[11px] text-mute">CASE_01</span>
+        </div>
+        <!-- placeholder render -->
+        <div class="aspect-[4/3] mb-6 border border-line bg-ink2 relative overflow-hidden">
+          <!-- diagonal stripe placeholder -->
+          <div class="absolute inset-0" style="background-image: repeating-linear-gradient(45deg, #15151a 0 10px, #101012 10px 20px);"></div>
+          <div class="absolute inset-0 flex items-end p-3">
+            <span class="font-mono text-[10px] text-mute2">[product render: handheld sensor on cheese-curd line, soft-cool light]</span>
+          </div>
+        </div>
+        <h3 class="text-[22px] font-medium tracking-tighter2 mb-3">Listeria, before it ships.</h3>
+        <p class="text-paper/75 text-[15px] leading-relaxed">Soft cheeses are a known <span class="text-paper">L. monocytogenes</span> risk. In-line sampling at the brining and aging stages turns a two-day plate culture into a quarter-hour decision.</p>
+        <dl class="mt-6 pt-6 border-t border-line grid grid-cols-2 gap-y-2 font-mono text-[11px]">
+          <dt class="text-mute">Pathogen</dt><dd class="text-paper/85 text-right">L. monocytogenes</dd>
+          <dt class="text-mute">Matrix</dt><dd class="text-paper/85 text-right">Brine, rind swab</dd>
+          <dt class="text-mute">Outcome</dt><dd class="text-accent text-right">Pre-ship release</dd>
+        </dl>
+      </article>
+
+      <!-- Card 2 -->
+      <article class="bg-ink p-8 lg:p-10 lift">
+        <div class="flex items-center justify-between mb-8">
+          <span class="label !text-accent">Seafood</span>
+          <span class="font-mono text-[11px] text-mute">CASE_02</span>
+        </div>
+        <div class="aspect-[4/3] mb-6 border border-line bg-ink2 relative overflow-hidden">
+          <div class="absolute inset-0" style="background-image: repeating-linear-gradient(135deg, #15151a 0 10px, #101012 10px 20px);"></div>
+          <div class="absolute inset-0 flex items-end p-3">
+            <span class="font-mono text-[10px] text-mute2">[product render: smoked salmon facility, sensor mid-swab on stainless surface]</span>
+          </div>
+        </div>
+        <h3 class="text-[22px] font-medium tracking-tighter2 mb-3">Smoked fish, fewer recalls.</h3>
+        <p class="text-paper/75 text-[15px] leading-relaxed">Cold-smoked salmon and gravlax sit in the <span class="text-paper">ready-to-eat</span> risk envelope. Routine surface and brine swabs catch contamination before a recall does.</p>
+        <dl class="mt-6 pt-6 border-t border-line grid grid-cols-2 gap-y-2 font-mono text-[11px]">
+          <dt class="text-mute">Pathogen</dt><dd class="text-paper/85 text-right">Listeria, Salmonella</dd>
+          <dt class="text-mute">Matrix</dt><dd class="text-paper/85 text-right">Surface, brine</dd>
+          <dt class="text-mute">Outcome</dt><dd class="text-accent text-right">Recall avoidance</dd>
+        </dl>
+      </article>
+
+      <!-- Card 3 -->
+      <article class="bg-ink p-8 lg:p-10 lift">
+        <div class="flex items-center justify-between mb-8">
+          <span class="label !text-accent">Processing facilities</span>
+          <span class="font-mono text-[11px] text-mute">CASE_03</span>
+        </div>
+        <div class="aspect-[4/3] mb-6 border border-line bg-ink2 relative overflow-hidden">
+          <div class="absolute inset-0" style="background-image: repeating-linear-gradient(90deg, #15151a 0 10px, #101012 10px 20px);"></div>
+          <div class="absolute inset-0 flex items-end p-3">
+            <span class="font-mono text-[10px] text-mute2">[product render: sensor on a sanitation cart in a processing plant]</span>
+          </div>
+        </div>
+        <h3 class="text-[22px] font-medium tracking-tighter2 mb-3">Environmental monitoring, in-house.</h3>
+        <p class="text-paper/75 text-[15px] leading-relaxed">Drains, conveyors, contact surfaces. Replace the courier-and-wait loop with a same-shift readout — and free QA from lab turnaround dependency.</p>
+        <dl class="mt-6 pt-6 border-t border-line grid grid-cols-2 gap-y-2 font-mono text-[11px]">
+          <dt class="text-mute">Targets</dt><dd class="text-paper/85 text-right">Multiplex panel</dd>
+          <dt class="text-mute">Matrix</dt><dd class="text-paper/85 text-right">Environmental swab</dd>
+          <dt class="text-mute">Outcome</dt><dd class="text-accent text-right">Lab independence</dd>
+        </dl>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────────── THE SCIENCE ─────────────────── -->
+<section id="science" class="border-b border-line bg-ink2/40">
+  <div class="max-w-[1320px] mx-auto px-6 lg:px-10 py-24 lg:py-36">
+    <div class="grid lg:grid-cols-12 gap-10 mb-14 lg:mb-20">
+      <div class="lg:col-span-3">
+        <div class="label mb-3">§ 04 — The science</div>
+      </div>
+      <div class="lg:col-span-9">
+        <h2 class="display-md text-[clamp(34px,5vw,68px)] font-medium max-w-[22ch]">
+          A transducer, made specific.
+        </h2>
+      </div>
+    </div>
+
+    <div class="grid lg:grid-cols-12 gap-10 lg:gap-14">
+      <!-- Left: full GFET cross-section -->
+      <figure class="lg:col-span-6">
+        <div class="border border-line bg-ink p-6 lg:p-8">
+          <svg viewBox="0 0 480 360" class="w-full h-auto" role="img" aria-label="gFET cross-section schematic">
+            <!-- callout grid -->
+            <g stroke="#1F1F22" stroke-width="0.5" stroke-dasharray="1 4">
+              <line x1="0" y1="80" x2="480" y2="80"></line>
+              <line x1="0" y1="180" x2="480" y2="180"></line>
+              <line x1="0" y1="280" x2="480" y2="280"></line>
+            </g>
+            <!-- corner ticks -->
+            <g stroke="#2A2A2E" stroke-width="1">
+              <path d="M10 10 L10 22 M10 10 L22 10"></path>
+              <path d="M470 10 L470 22 M470 10 L458 10"></path>
+              <path d="M10 350 L10 338 M10 350 L22 350"></path>
+              <path d="M470 350 L470 338 M470 350 L458 350"></path>
+            </g>
+            <!-- substrate -->
+            <rect x="40" y="270" width="400" height="50" fill="#15151a" stroke="#2A2A2E"></rect>
+            <text x="240" y="299" text-anchor="middle" font-family="JetBrains Mono" font-size="11" fill="#9A9AA1">Si substrate</text>
+            <!-- oxide -->
+            <rect x="40" y="240" width="400" height="30" fill="#1A1A1F" stroke="#2A2A2E"></rect>
+            <text x="240" y="259" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="#9A9AA1">SiO₂ dielectric</text>
+            <!-- electrodes -->
+            <rect x="60" y="210" width="80" height="30" fill="#2A2A2E" stroke="#EDEDE8"></rect>
+            <rect x="340" y="210" width="80" height="30" fill="#2A2A2E" stroke="#EDEDE8"></rect>
+            <text x="100" y="230" text-anchor="middle" font-family="JetBrains Mono" font-size="11" fill="#EDEDE8">SOURCE</text>
+            <text x="380" y="230" text-anchor="middle" font-family="JetBrains Mono" font-size="11" fill="#EDEDE8">DRAIN</text>
+            <!-- graphene channel -->
+            <line x1="140" y1="210" x2="340" y2="210" stroke="#06B6A7" stroke-width="2"></line>
+            <text x="240" y="204" text-anchor="middle" font-family="JetBrains Mono" font-size="10" fill="#06B6A7">graphene monolayer</text>
+            <!-- receptors + analyte -->
+            <g class="receptor-flash" stroke="#EDEDE8" stroke-width="1.2" fill="none">
+              <path d="M170 210 L170 180 M170 180 L160 168 M170 180 L180 168"></path>
+              <path d="M210 210 L210 180 M210 180 L200 168 M210 180 L220 168"></path>
+              <path d="M250 210 L250 180 M250 180 L240 168 M250 180 L260 168"></path>
+              <path d="M290 210 L290 180 M290 180 L280 168 M290 180 L300 168"></path>
+              <path d="M330 210 L330 180 M330 180 L320 168 M330 180 L340 168"></path>
+            </g>
+            <circle class="bound-pulse" cx="210" cy="160" r="5" fill="#06B6A7"></circle>
+            <circle class="bound-pulse-2" cx="290" cy="158" r="5" fill="#06B6A7"></circle>
+
+            <!-- incoming analytes -->
+            <circle class="incoming" cx="170" cy="160" r="4" fill="#06B6A7" opacity="0.9"></circle>
+            <circle class="incoming-2" cx="330" cy="160" r="4" fill="#06B6A7" opacity="0.9"></circle>
+
+            <!-- electrons travelling along graphene channel -->
+            <g fill="#06B6A7">
+              <circle class="electron" cx="140" cy="210" r="2"></circle>
+              <circle class="electron electron-2" cx="140" cy="210" r="2"></circle>
+              <circle class="electron electron-3" cx="140" cy="210" r="2"></circle>
+            </g>
+
+            <!-- scan line -->
+            <rect class="sci-scan" x="60" y="190" width="2" height="30" fill="#06B6A7" opacity="0.85"></rect>
+
+            <text x="450" y="174" text-anchor="end" font-family="JetBrains Mono" font-size="10" fill="#9A9AA1">receptor + bound analyte</text>
+            <!-- gate symbol -->
+            <line x1="40" y1="310" x2="20" y2="310" stroke="#EDEDE8"></line>
+            <line x1="20" y1="310" x2="20" y2="340" stroke="#EDEDE8"></line>
+            <text x="14" y="354" font-family="JetBrains Mono" font-size="10" fill="#9A9AA1">V_g</text>
+            <!-- electrolyte / solution -->
+            <line x1="60" y1="100" x2="420" y2="100" stroke="#06B6A7" stroke-dasharray="2 4" stroke-width="0.8"></line>
+            <text x="60" y="92" font-family="JetBrains Mono" font-size="10" fill="#06B6A7">electrolyte interface</text>
+            <!-- title -->
+            <text x="20" y="40" font-family="JetBrains Mono" font-size="10" fill="#EDEDE8">FIG. A · gFET cross-section</text>
+            <text x="460" y="40" text-anchor="end" font-family="JetBrains Mono" font-size="10" fill="#6B6B72">scale: schematic</text>
+          </svg>
+        </div>
+        <figcaption class="mt-4 font-mono text-[11px] text-mute">
+          FIG. A · Source–graphene–drain channel with receptor-functionalized surface. Gate bias V<sub>g</sub> sweeps the Dirac point; analyte binding shifts I<sub>ds</sub>(V<sub>g</sub>).
+        </figcaption>
+      </figure>
+
+      <!-- Right: prose -->
+      <div class="lg:col-span-6 grid gap-8">
+        <div>
+          <h3 class="font-mono text-[12px] tracking-[.18em] text-accent uppercase mb-2">01 · Graphene as transducer</h3>
+          <p class="text-paper/85 leading-[1.65] text-[16px]">
+            A single atomic layer of carbon places every electron at the surface, making the channel exquisitely sensitive to local charge. There is no bulk to dilute the signal. A single binding event can be detected as a measurable shift in conductance.
+          </p>
+        </div>
+        <div>
+          <h3 class="font-mono text-[12px] tracking-[.18em] text-accent uppercase mb-2">02 · Surface functionalization</h3>
+          <p class="text-paper/85 leading-[1.65] text-[16px]">
+            Specificity is delivered by the receptor layer — antibodies, aptamers, or engineered binders covalently anchored to the graphene through a linker chemistry tuned for stability under food-matrix conditions. Swap the receptor; swap the target.
+          </p>
+        </div>
+        <div>
+          <h3 class="font-mono text-[12px] tracking-[.18em] text-accent uppercase mb-2">03 · Patented manufacturing</h3>
+          <p class="text-paper/85 leading-[1.65] text-[16px]">
+            A patented low-cost process turns lab-grade gFETs into a producible, disposable test cartridge — the unit economics that lets the device live next to the production line, not on a research bench.
+          </p>
+        </div>
+        <div>
+          <h3 class="font-mono text-[12px] tracking-[.18em] text-accent uppercase mb-2">04 · Adaptable across analytes</h3>
+          <p class="text-paper/85 leading-[1.65] text-[16px]">
+            The same platform answers different questions: bacteria today, viral particles tomorrow, mycotoxins the week after. Re-functionalize, re-validate, redeploy.
+          </p>
+        </div>
+
+        <!-- pull quote -->
+        <blockquote class="mt-4 border-l-2 border-accent pl-6 py-2">
+          <p class="text-[20px] lg:text-[22px] leading-[1.4] text-paper tracking-tighter2">
+            "Three decades of graphene research at Chalmers, condensed into a device that fits in your palm."
+          </p>
+          <footer class="mt-3 font-mono text-[11px] text-mute">— Research lineage · Chalmers University of Technology</footer>
+        </blockquote>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────────── BACKED BY ─────────────────── -->
+<section id="investors" class="border-b border-line">
+  <div class="max-w-[1320px] mx-auto px-6 lg:px-10 py-24 lg:py-32">
+    <div class="grid lg:grid-cols-12 gap-10 mb-14 lg:mb-16 items-end">
+      <div class="lg:col-span-7">
+        <div class="label mb-3">§ 05 — Backed by</div>
+        <h2 class="display-md text-[clamp(34px,5vw,68px)] font-medium max-w-[18ch]">
+          €470K pre-seed. <span class="text-mute2">Backed by deep-tech.</span>
+        </h2>
+      </div>
+      <div class="lg:col-span-5 lg:text-right">
+        <p class="text-paper/70 text-[16px] max-w-[44ch] lg:ml-auto leading-relaxed">
+          Funded by Europe's leading deep-tech, food-science and graphene-technology investors. With operational support from Chalmers Ventures, EIT Food and SIO Grafen.
+        </p>
+      </div>
+    </div>
+
+    <!-- Investor grid (text-mark treatment) -->
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 border-t border-l border-line">
+      <div class="border-r border-b border-line p-6 lg:p-8 flex flex-col justify-between aspect-[4/3]">
+        <span class="font-mono text-[10px] text-mute">PRE-SEED</span>
+        <div>
+          <div class="text-[18px] tracking-tighter2 font-medium">Scientifica VC</div>
+          <div class="font-mono text-[11px] text-mute mt-1">London · UK</div>
+        </div>
+      </div>
+      <div class="border-r border-b border-line p-6 lg:p-8 flex flex-col justify-between aspect-[4/3]">
+        <span class="font-mono text-[10px] text-mute">PRE-SEED</span>
+        <div>
+          <div class="text-[18px] tracking-tighter2 font-medium">Chalmers Ventures</div>
+          <div class="font-mono text-[11px] text-mute mt-1">Gothenburg · SE</div>
+        </div>
+      </div>
+      <div class="border-r border-b border-line p-6 lg:p-8 flex flex-col justify-between aspect-[4/3]">
+        <span class="font-mono text-[10px] text-mute">PRE-SEED</span>
+        <div>
+          <div class="text-[18px] tracking-tighter2 font-medium">EIT Food</div>
+          <div class="font-mono text-[11px] text-mute mt-1">EU programme</div>
+        </div>
+      </div>
+      <div class="border-r border-b border-line p-6 lg:p-8 flex flex-col justify-between aspect-[4/3]">
+        <span class="font-mono text-[10px] text-mute">PRE-SEED</span>
+        <div>
+          <div class="text-[18px] tracking-tighter2 font-medium">MassChallenge</div>
+          <div class="font-mono text-[11px] text-mute mt-1">Boston · US</div>
+        </div>
+      </div>
+      <div class="border-r border-b border-line p-6 lg:p-8 flex flex-col justify-between aspect-[4/3]">
+        <span class="font-mono text-[10px] text-mute">PRE-SEED</span>
+        <div>
+          <div class="text-[18px] tracking-tighter2 font-medium">Yeos Ventures</div>
+          <div class="font-mono text-[11px] text-mute mt-1">Singapore</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────────── TEAM ─────────────────── -->
+<section id="company" class="border-b border-line">
+  <div class="max-w-[1320px] mx-auto px-6 lg:px-10 py-24 lg:py-32">
+    <div class="grid lg:grid-cols-12 gap-10 mb-14 lg:mb-20">
+      <div class="lg:col-span-3">
+        <div class="label mb-3">§ 06 — The team</div>
+      </div>
+      <div class="lg:col-span-9">
+        <h2 class="display-md text-[clamp(34px,5vw,68px)] font-medium max-w-[22ch]">
+          Engineers, microbiologists, graphene physicists.
+        </h2>
+        <p class="mt-6 text-paper/70 text-[17px] max-w-[60ch]">
+          Six founders and a small core team — built around three decades of graphene research at Chalmers and a deep bench in food-safety microbiology.
+        </p>
+      </div>
+    </div>
+
+    <!-- Founders -->
+    <div class="mb-16">
+      <div class="flex items-baseline justify-between mb-6 border-b border-line pb-4">
+        <span class="label">Founders</span>
+        <span class="font-mono text-[11px] text-mute">06</span>
+      </div>
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-x-6 gap-y-10">
+        <!-- founder template ×6 -->
+        <div>
+          <div class="aspect-[3/4] mb-4 border border-line bg-ink2 relative overflow-hidden">
+            <div class="absolute inset-0" style="background-image: repeating-linear-gradient(45deg, #15151a 0 10px, #101012 10px 20px);"></div>
+            <span class="absolute bottom-2 left-2 font-mono text-[9px] text-mute2">[portrait]</span>
+          </div>
+          <div class="text-[15px] font-medium tracking-tighter2">Founder 01</div>
+          <div class="font-mono text-[11px] text-accent mt-1">CEO</div>
+          <div class="text-[12px] text-mute2 mt-1 leading-snug">PhD, Physics — Chalmers</div>
+        </div>
+        <div>
+          <div class="aspect-[3/4] mb-4 border border-line bg-ink2 relative overflow-hidden">
+            <div class="absolute inset-0" style="background-image: repeating-linear-gradient(135deg, #15151a 0 10px, #101012 10px 20px);"></div>
+            <span class="absolute bottom-2 left-2 font-mono text-[9px] text-mute2">[portrait]</span>
+          </div>
+          <div class="text-[15px] font-medium tracking-tighter2">Founder 02</div>
+          <div class="font-mono text-[11px] text-accent mt-1">CTO</div>
+          <div class="text-[12px] text-mute2 mt-1 leading-snug">PhD, Graphene electronics — Chalmers</div>
+        </div>
+        <div>
+          <div class="aspect-[3/4] mb-4 border border-line bg-ink2 relative overflow-hidden">
+            <div class="absolute inset-0" style="background-image: repeating-linear-gradient(90deg, #15151a 0 10px, #101012 10px 20px);"></div>
+            <span class="absolute bottom-2 left-2 font-mono text-[9px] text-mute2">[portrait]</span>
+          </div>
+          <div class="text-[15px] font-medium tracking-tighter2">Founder 03</div>
+          <div class="font-mono text-[11px] text-accent mt-1">Chief Scientist</div>
+          <div class="text-[12px] text-mute2 mt-1 leading-snug">Prof., Microbiology — Chalmers</div>
+        </div>
+        <div>
+          <div class="aspect-[3/4] mb-4 border border-line bg-ink2 relative overflow-hidden">
+            <div class="absolute inset-0" style="background-image: repeating-linear-gradient(45deg, #15151a 0 10px, #101012 10px 20px);"></div>
+            <span class="absolute bottom-2 left-2 font-mono text-[9px] text-mute2">[portrait]</span>
+          </div>
+          <div class="text-[15px] font-medium tracking-tighter2">Founder 04</div>
+          <div class="font-mono text-[11px] text-accent mt-1">Head of Hardware</div>
+          <div class="text-[12px] text-mute2 mt-1 leading-snug">MSc, Electrical Eng. — Chalmers</div>
+        </div>
+        <div>
+          <div class="aspect-[3/4] mb-4 border border-line bg-ink2 relative overflow-hidden">
+            <div class="absolute inset-0" style="background-image: repeating-linear-gradient(135deg, #15151a 0 10px, #101012 10px 20px);"></div>
+            <span class="absolute bottom-2 left-2 font-mono text-[9px] text-mute2">[portrait]</span>
+          </div>
+          <div class="text-[15px] font-medium tracking-tighter2">Founder 05</div>
+          <div class="font-mono text-[11px] text-accent mt-1">Head of Biochemistry</div>
+          <div class="text-[12px] text-mute2 mt-1 leading-snug">PhD, Biochemistry — GU</div>
+        </div>
+        <div>
+          <div class="aspect-[3/4] mb-4 border border-line bg-ink2 relative overflow-hidden">
+            <div class="absolute inset-0" style="background-image: repeating-linear-gradient(90deg, #15151a 0 10px, #101012 10px 20px);"></div>
+            <span class="absolute bottom-2 left-2 font-mono text-[9px] text-mute2">[portrait]</span>
+          </div>
+          <div class="text-[15px] font-medium tracking-tighter2">Founder 06</div>
+          <div class="font-mono text-[11px] text-accent mt-1">Head of Operations</div>
+          <div class="text-[12px] text-mute2 mt-1 leading-snug">MSc, Industrial Eng. — Chalmers</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Research / Engineering -->
+    <div class="grid md:grid-cols-2 gap-10">
+      <div>
+        <div class="flex items-baseline justify-between mb-6 border-b border-line pb-4">
+          <span class="label">Research</span>
+          <span class="font-mono text-[11px] text-mute">02</span>
+        </div>
+        <div class="grid grid-cols-2 gap-6">
+          <div>
+            <div class="aspect-[3/4] mb-3 border border-line bg-ink2 relative overflow-hidden">
+              <div class="absolute inset-0" style="background-image: repeating-linear-gradient(45deg, #15151a 0 10px, #101012 10px 20px);"></div>
+            </div>
+            <div class="text-[14px] font-medium tracking-tighter2">Researcher 01</div>
+            <div class="text-[12px] text-mute2 mt-1">PhD candidate, Surface chem.</div>
+          </div>
+          <div>
+            <div class="aspect-[3/4] mb-3 border border-line bg-ink2 relative overflow-hidden">
+              <div class="absolute inset-0" style="background-image: repeating-linear-gradient(135deg, #15151a 0 10px, #101012 10px 20px);"></div>
+            </div>
+            <div class="text-[14px] font-medium tracking-tighter2">Researcher 02</div>
+            <div class="text-[12px] text-mute2 mt-1">Postdoc, Microbiology</div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="flex items-baseline justify-between mb-6 border-b border-line pb-4">
+          <span class="label">Engineering</span>
+          <span class="font-mono text-[11px] text-mute">02</span>
+        </div>
+        <div class="grid grid-cols-2 gap-6">
+          <div>
+            <div class="aspect-[3/4] mb-3 border border-line bg-ink2 relative overflow-hidden">
+              <div class="absolute inset-0" style="background-image: repeating-linear-gradient(90deg, #15151a 0 10px, #101012 10px 20px);"></div>
+            </div>
+            <div class="text-[14px] font-medium tracking-tighter2">Engineer 01</div>
+            <div class="text-[12px] text-mute2 mt-1">Firmware &amp; signal processing</div>
+          </div>
+          <div>
+            <div class="aspect-[3/4] mb-3 border border-line bg-ink2 relative overflow-hidden">
+              <div class="absolute inset-0" style="background-image: repeating-linear-gradient(45deg, #15151a 0 10px, #101012 10px 20px);"></div>
+            </div>
+            <div class="text-[14px] font-medium tracking-tighter2">Engineer 02</div>
+            <div class="text-[12px] text-mute2 mt-1">Mechanical &amp; cartridge design</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────────── CTA ─────────────────── -->
+<section id="contact" class="border-b border-line bg-ink relative overflow-hidden">
+  <!-- subtle lattice repeat -->
+  <div class="absolute inset-0 opacity-[0.07] pointer-events-none" aria-hidden="true">
+    <svg class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+      <pattern id="hex2" x="0" y="0" width="86.6" height="150" patternUnits="userSpaceOnUse">
+        <g fill="none" stroke="#06B6A7" stroke-width="0.7">
+          <polygon points="43.3,0 86.6,25 86.6,75 43.3,100 0,75 0,25"></polygon>
+        </g>
+      </pattern>
+      <rect width="100%" height="100%" fill="url(#hex2)"></rect>
+    </svg>
+  </div>
+
+  <div class="relative max-w-[1320px] mx-auto px-6 lg:px-10 py-24 lg:py-36">
+    <div class="grid lg:grid-cols-12 gap-12 lg:gap-16">
+      <div class="lg:col-span-7">
+        <div class="label mb-4">§ 07 — Contact</div>
+        <h2 class="display text-[clamp(40px,7vw,108px)] font-medium max-w-[14ch]">
+          Talk to us about your contamination problem.
+        </h2>
+        <p class="mt-8 text-paper/75 text-[18px] max-w-[50ch] leading-[1.5]">
+          A short form. We'll be back the same week. If your application is unusual — new pathogen, new matrix, new validation regime — say so. Those are the conversations we want.
+        </p>
+
+        <!-- Address block -->
+        <div class="mt-14 grid sm:grid-cols-3 gap-8 pt-8 border-t border-line">
+          <div>
+            <div class="label mb-2">Address</div>
+            <p class="text-[14px] leading-relaxed text-paper/85">
+              Medicinaregatan 8A<br>
+              413 90 Göteborg<br>
+              Sverige
+            </p>
+          </div>
+          <div>
+            <div class="label mb-2">Contact</div>
+            <p class="text-[14px] leading-relaxed text-paper/85">
+              <a href="mailto:hello@layerlogic.se" class="link-u">hello@layerlogic.se</a><br>
+              <span class="font-mono text-mute2 text-[12px]">+46 (0)31 — request</span>
+            </p>
+          </div>
+          <div>
+            <div class="label mb-2">Coordinates</div>
+            <p class="font-mono text-[12px] leading-relaxed text-mute2">
+              57.6878° N<br>11.9682° E<br>
+              <span class="text-accent">CET</span>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Form -->
+      <form id="demo-form" class="lg:col-span-5 self-start border border-line p-6 lg:p-8 bg-ink2/60 backdrop-blur-sm">
+        <div class="flex items-center justify-between mb-8">
+          <span class="label">REQ_DEMO</span>
+          <span class="font-mono text-[11px] text-mute">FORM_v1</span>
+        </div>
+
+        <div class="space-y-6">
+          <label class="block">
+            <span class="label">Name</span>
+            <input required="" name="name" type="text" autocomplete="name" class="mt-2 w-full bg-transparent border-b border-line2 focus:border-accent outline-none py-2 text-[15px] text-paper placeholder:text-mute" placeholder="Anna Lindqvist">
+          </label>
+          <label class="block">
+            <span class="label">Company</span>
+            <input required="" name="company" type="text" autocomplete="organization" class="mt-2 w-full bg-transparent border-b border-line2 focus:border-accent outline-none py-2 text-[15px] text-paper placeholder:text-mute" placeholder="Nordic Dairy AB">
+          </label>
+          <label class="block">
+            <span class="label">Email</span>
+            <input required="" name="email" type="email" autocomplete="email" class="mt-2 w-full bg-transparent border-b border-line2 focus:border-accent outline-none py-2 text-[15px] text-paper placeholder:text-mute" placeholder="anna@nordicdairy.se">
+          </label>
+          <label class="block">
+            <span class="label">What are you trying to detect?</span>
+            <textarea name="message" rows="3" class="mt-2 w-full bg-transparent border-b border-line2 focus:border-accent outline-none py-2 text-[15px] text-paper placeholder:text-mute resize-none" placeholder="Pathogens, matrices, throughput, current method…"></textarea>
+          </label>
+        </div>
+
+        <button type="submit" class="lb-btn lb-btn--primary lb-btn--block mt-8">
+          <span class="lb-led"></span>
+          <span class="lb-cap font-mono text-[10px] tracking-[.2em] uppercase opacity-60">SEND</span>
+          <span class="lb-label">Send request</span>
+          <span class="lb-chip">
+            <svg width="14" height="14" viewBox="0 0 14 14"><path d="M2 7h9M7 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+          </span>
+        </button>
+        <p id="form-status" class="mt-4 font-mono text-[11px] text-mute" aria-live="polite"></p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────────── FOOTER ─────────────────── -->
+<footer class="bg-ink">
+  <div class="max-w-[1320px] mx-auto px-6 lg:px-10 py-16">
+    <div class="grid lg:grid-cols-12 gap-10 mb-12">
+      <div class="lg:col-span-4">
+        <a href="#top" class="flex items-center gap-2.5">
+          <svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true">
+            <g stroke="#EDEDE8" stroke-width="1.25" fill="none">
+              <path d="M2.5 7.5 L11 3 L19.5 7.5 L11 12 Z"></path>
+              <path d="M2.5 11.5 L11 16 L19.5 11.5" opacity=".55"></path>
+              <path d="M2.5 15 L11 19.5 L19.5 15" opacity=".25"></path>
+            </g>
+            <circle cx="11" cy="7.5" r="1.6" fill="#06B6A7"></circle>
+          </svg>
+          <span class="text-[15px] tracking-tightest font-medium">LayerLogic</span>
+        </a>
+        <p class="mt-4 text-[13px] text-mute2 max-w-[34ch] leading-relaxed">
+          Graphene field-effect biosensors for in-process pathogen detection. A Chalmers spin-off, based in Gothenburg.
+        </p>
+      </div>
+      <div class="lg:col-span-2">
+        <div class="label mb-4">Site</div>
+        <ul class="space-y-2 text-[13px]">
+          <li><a class="link-u" href="#technology">Technology</a></li>
+          <li><a class="link-u" href="#science">Science</a></li>
+          <li><a class="link-u" href="#company">Company</a></li>
+          <li><a class="link-u" href="#investors">Investors</a></li>
+        </ul>
+      </div>
+      <div class="lg:col-span-2">
+        <div class="label mb-4">Connect</div>
+        <ul class="space-y-2 text-[13px]">
+          <li><a class="link-u" href="#">LinkedIn</a></li>
+          <li><a class="link-u" href="#">X / Twitter</a></li>
+          <li><a class="link-u" href="mailto:hello@layerlogic.se">hello@layerlogic.se</a></li>
+        </ul>
+      </div>
+      <div class="lg:col-span-4">
+        <div class="label mb-4">Partners</div>
+        <div class="grid grid-cols-3 gap-4 font-mono text-[12px] text-mute2">
+          <span>Chalmers</span>
+          <span>SIO Grafen</span>
+          <span>EIT Food</span>
+        </div>
+      </div>
+    </div>
+    <div class="border-t border-line pt-6 flex flex-col md:flex-row md:items-center md:justify-between gap-4 font-mono text-[11px] text-mute">
+      <span>© 2026 LayerLogic AB · Org.nr — pending</span>
+      <span class="flex items-center gap-4">
+        <a href="#" class="link-u">Privacy</a>
+        <a href="#" class="link-u">Terms</a>
+        <span class="text-accent">v1.0</span>
+      </span>
+    </div>
+  </div>
+</footer>
+
+<!-- ─────────────────── SCRIPTS ─────────────────── -->
+<script>
+  // 1) Sensor-reading ticker (mono, hero)
+  (function () {
+    const el = document.getElementById('ticker');
+    if (!el) return;
+    let t0 = performance.now();
+    function fmt(t) {
+      const s = t / 1000;
+      const mm = String(Math.floor(s / 60)).padStart(2, '0');
+      const ss = (s % 60).toFixed(2).padStart(5, '0');
+      return mm + ':' + ss;
+    }
+    function loop(now) {
+      const elapsed = now - t0;
+      // gentle drift around 0.0142 V
+      const v = 0.0142 + Math.sin(elapsed / 1700) * 0.0006;
+      el.innerHTML = 'ΔV<sub>g</sub> = ' + (v >= 0 ? '+' : '') + v.toFixed(4) + ' V · t = ' + fmt(elapsed);
+      requestAnimationFrame(loop);
+    }
+    requestAnimationFrame(loop);
+  })();
+
+  // 2) Stat count-up when in view
+  (function () {
+    const stats = document.querySelectorAll('.stat');
+    if (!stats.length || !('IntersectionObserver' in window)) {
+      stats.forEach(el => el.textContent = el.dataset.target);
+      return;
+    }
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const el = entry.target;
+        const target = parseInt(el.dataset.target, 10);
+        const dur = 1400;
+        const t0 = performance.now();
+        function tick(now) {
+          const k = Math.min(1, (now - t0) / dur);
+          const eased = 1 - Math.pow(1 - k, 3);
+          el.textContent = Math.round(eased * target);
+          if (k < 1) requestAnimationFrame(tick);
+        }
+        requestAnimationFrame(tick);
+        io.unobserve(el);
+      });
+    }, { threshold: 0.4 });
+    stats.forEach(el => io.observe(el));
+  })();
+
+  // 3) Form (no backend — UI feedback only)
+  (function () {
+    const form = document.getElementById('demo-form');
+    const status = document.getElementById('form-status');
+    if (!form) return;
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      status.textContent = '> Transmitting…';
+      setTimeout(() => {
+        status.innerHTML = '> <span class="text-accent">Received.</span> A team member will reply within 48h.';
+        form.reset();
+      }, 700);
+    });
+  })();
+
+  // 4) Theme toggle (dark / light)
+  (function () {
+    const btn = document.getElementById('theme-toggle');
+    if (!btn) return;
+    const ics = btn.querySelectorAll('.lb-toggle-ic');
+    const KEY = 'layerlogic-theme';
+    function apply(theme) {
+      const light = theme === 'light';
+      document.body.classList.toggle('light', light);
+      ics.forEach(ic => {
+        ic.classList.toggle('is-active', ic.dataset.mode === (light ? 'light' : 'dark'));
+      });
+    }
+    let stored = null;
+    try { stored = localStorage.getItem(KEY); } catch (e) {}
+    apply(stored || 'dark');
+    btn.addEventListener('click', () => {
+      const next = document.body.classList.contains('light') ? 'dark' : 'light';
+      apply(next);
+      try { localStorage.setItem(KEY, next); } catch (e) {}
+    });
+  })();
+</script>
+
+
+
+
+
+</body></html>

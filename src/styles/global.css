@@ -1,0 +1,845 @@
+@import "tailwindcss";
+
+@import "@fontsource-variable/inter-tight/index.css";
+@import "@fontsource-variable/jetbrains-mono/index.css";
+
+/* ─────────────────────────────────────────────────────────────
+   Design tokens (Tailwind v4 @theme)
+   Mirrors the source HTML's tailwind.config exactly.
+   ───────────────────────────────────────────────────────────── */
+@theme {
+  --color-ink: #0a0a0b;
+  --color-ink2: #101012;
+  --color-line: #1f1f22;
+  --color-line2: #2a2a2e;
+  --color-mute: #6b6b72;
+  --color-mute2: #9a9aa1;
+  --color-paper: #ededE8;
+  --color-paper2: #f6f6f2;
+  --color-accent: #06b6a7;
+  --color-accent2: #0ad4c2;
+
+  --font-sans:
+    "Inter Tight Variable", "Inter Tight", ui-sans-serif, system-ui, sans-serif;
+  --font-mono:
+    "JetBrains Mono Variable", "JetBrains Mono", ui-monospace, SFMono-Regular,
+    monospace;
+
+  --tracking-tightest: -0.04em;
+  --tracking-tighter2: -0.03em;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Light theme overrides — engaged via `body.light`
+   ───────────────────────────────────────────────────────────── */
+body.light {
+  --color-ink: #f6f4ee;
+  --color-ink2: #ece9df;
+  --color-line: #d9d5cb;
+  --color-line2: #c5c0b5;
+  --color-mute: #6e6e74;
+  --color-mute2: #4f4f56;
+  --color-paper: #0a0a0b;
+  --color-paper2: #1a1a1f;
+  --color-accent: #047a70;
+  --color-accent2: #06b6a7;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Base
+   ───────────────────────────────────────────────────────────── */
+html {
+  scroll-behavior: smooth;
+}
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+html.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+html.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+body {
+  background: var(--color-ink);
+  color: var(--color-paper);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  font-feature-settings:
+    "ss01",
+    "cv11";
+  transition:
+    background 0.3s ease,
+    color 0.3s ease;
+}
+
+::selection {
+  background: var(--color-accent);
+  color: var(--color-ink);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Editorial type primitives
+   ───────────────────────────────────────────────────────────── */
+.display {
+  letter-spacing: -0.035em;
+  line-height: 0.95;
+}
+.display-md {
+  letter-spacing: -0.025em;
+  line-height: 1.02;
+}
+.label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-mute2);
+}
+.num-tabular {
+  font-variant-numeric: tabular-nums;
+}
+.tracking-tightest {
+  letter-spacing: var(--tracking-tightest);
+}
+.tracking-tighter2 {
+  letter-spacing: var(--tracking-tighter2);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Hairline rule
+   ───────────────────────────────────────────────────────────── */
+.hairline {
+  background: var(--color-line);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Hero vignette — dimmed lattice in the reading area, edges clear.
+   The opaque core is large enough to fully cover the headline + sub copy
+   so the lattice never competes with text.
+   ───────────────────────────────────────────────────────────── */
+.hero-vignette {
+  background:
+    radial-gradient(
+      ellipse 70% 60% at 30% 45%,
+      var(--color-ink) 0%,
+      color-mix(in srgb, var(--color-ink) 88%, transparent) 35%,
+      color-mix(in srgb, var(--color-ink) 55%, transparent) 65%,
+      transparent 100%
+    ),
+    linear-gradient(
+      to bottom,
+      transparent 0%,
+      color-mix(in srgb, var(--color-ink) 35%, transparent) 75%,
+      var(--color-ink) 100%
+    );
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Hero SVG fallback — shown until R3F hydrates.
+   When `.lattice-3d-active` is set on <html>, hide the fallback so the
+   WebGL canvas owns the background alone (avoids double-stroking).
+   ───────────────────────────────────────────────────────────── */
+html.lattice-3d-active .hero-svg-fallback svg.lattice-drift {
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+/* Make sure the sticky header reads against either theme. The hero canvas
+   sits at z-1 in its own section; the header at z-40 is in the root stacking
+   context so it's always above. The translucent fill needs a touch more
+   opacity in light mode so it doesn't disappear into the cream page. */
+body.light header.sticky {
+  background-color: color-mix(
+    in srgb,
+    var(--color-ink) 82%,
+    transparent
+  );
+}
+
+/* ─────────────────────────────────────────────────────────────
+   SVG attribute overrides for light theme.
+   The schematics in §02 / §04 use hardcoded hex values matched to the
+   dark palette. In light mode we remap each value to its cream-palette
+   counterpart so the diagrams read correctly on the lighter background.
+   ───────────────────────────────────────────────────────────── */
+body.light [fill="#101012"] {
+  fill: #ece9df;
+}
+body.light [fill="#15151a"] {
+  fill: #ece9df;
+}
+body.light [fill="#1A1A1F"] {
+  fill: #ddd9ce;
+}
+body.light [fill="#2A2A2E"] {
+  fill: #ddd9ce;
+}
+body.light [fill="#9A9AA1"] {
+  fill: #4f4f56;
+}
+body.light [fill="#6B6B72"] {
+  fill: #6e6e74;
+}
+body.light [fill="#EDEDE8"] {
+  fill: #0a0a0b;
+}
+body.light [fill="#06B6A7"] {
+  fill: #047a70;
+}
+body.light [stroke="#1F1F22"] {
+  stroke: #d9d5cb;
+}
+body.light [stroke="#2A2A2E"] {
+  stroke: #b3aea2;
+}
+body.light [stroke="#EDEDE8"] {
+  stroke: #0a0a0b;
+}
+body.light [stroke="#06B6A7"] {
+  stroke: #047a70;
+}
+
+/* The receptor-flash keyframes hardcode dark-palette colors. In light
+   mode just disable the animation so it doesn't pulse to invisible whites. */
+body.light .receptor-flash {
+  stroke: #0a0a0b !important;
+  animation: none !important;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Lattice drift (used as no-JS fallback)
+   ───────────────────────────────────────────────────────────── */
+@keyframes drift {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-86.6px, -150px, 0);
+  }
+}
+.lattice-drift {
+  animation: drift 60s linear infinite;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Pulse for "live" indicator
+   ───────────────────────────────────────────────────────────── */
+@keyframes pulse-dot {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.35;
+    transform: scale(0.85);
+  }
+}
+.pulse-dot {
+  animation: pulse-dot 1.6s ease-in-out infinite;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Scan line on schematics
+   ───────────────────────────────────────────────────────────── */
+@keyframes scan {
+  0% {
+    transform: translateX(-10%);
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(110%);
+    opacity: 0;
+  }
+}
+.scan-line {
+  animation: scan 6s ease-in-out infinite;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Underline-grow link
+   ───────────────────────────────────────────────────────────── */
+.link-u {
+  position: relative;
+}
+.link-u::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -3px;
+  height: 1px;
+  background: currentColor;
+  opacity: 0;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition:
+    transform 0.35s ease,
+    opacity 0.35s ease;
+}
+.link-u:hover::after {
+  opacity: 0.6;
+  transform: scaleX(1);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Lift card hover
+   ───────────────────────────────────────────────────────────── */
+.lift {
+  transition:
+    transform 0.4s cubic-bezier(0.2, 0.7, 0.2, 1),
+    border-color 0.4s ease,
+    background 0.4s ease;
+}
+.lift:hover {
+  transform: translateY(-2px);
+  border-color: var(--color-line2);
+  background: var(--color-ink2);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Step / science animations (SVG)
+   ───────────────────────────────────────────────────────────── */
+@keyframes analyte-bob-a {
+  0% {
+    transform: translate(0, -28px);
+    opacity: 0;
+  }
+  25% {
+    opacity: 1;
+  }
+  55% {
+    transform: translate(0, 0);
+    opacity: 1;
+  }
+  75% {
+    transform: translate(0, -3px);
+  }
+  100% {
+    transform: translate(0, 0);
+    opacity: 1;
+  }
+}
+@keyframes analyte-bob-b {
+  0% {
+    transform: translate(0, -36px);
+    opacity: 0;
+  }
+  30% {
+    opacity: 1;
+  }
+  60% {
+    transform: translate(0, 0);
+    opacity: 1;
+  }
+  80% {
+    transform: translate(0, -2px);
+  }
+  100% {
+    transform: translate(0, 0);
+    opacity: 1;
+  }
+}
+.analyte-1 {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: analyte-bob-a 4.5s ease-in-out infinite;
+}
+.analyte-2 {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: analyte-bob-b 4.5s ease-in-out infinite 1.4s;
+}
+
+@keyframes trail-fade {
+  0%,
+  30% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.35;
+  }
+}
+.trail-anim {
+  animation: trail-fade 4.5s ease-in-out infinite;
+}
+.trail-anim-2 {
+  animation: trail-fade 4.5s ease-in-out infinite 1.4s;
+}
+
+@keyframes receptor-flash {
+  0%,
+  88%,
+  100% {
+    stroke: #ededE8;
+  }
+  92%,
+  96% {
+    stroke: #06b6a7;
+  }
+}
+.receptor-flash {
+  animation: receptor-flash 4.5s linear infinite;
+}
+/* Light-mode override for `.receptor-flash` lives in the SVG attribute
+   override block above (it also sets the resting stroke color). */
+
+@keyframes wave-draw {
+  0% {
+    stroke-dashoffset: 520;
+  }
+  55% {
+    stroke-dashoffset: 0;
+  }
+  92% {
+    stroke-dashoffset: 0;
+  }
+  100% {
+    stroke-dashoffset: 520;
+  }
+}
+.wave-anim {
+  stroke-dasharray: 520;
+  stroke-dashoffset: 520;
+  animation: wave-draw 5s ease-in-out infinite;
+}
+
+@keyframes pos-blink {
+  0%,
+  50% {
+    opacity: 0;
+  }
+  60%,
+  88% {
+    opacity: 1;
+  }
+  92%,
+  100% {
+    opacity: 0;
+  }
+}
+.pos-blink {
+  animation: pos-blink 5s ease-in-out infinite;
+}
+
+@keyframes wave-tip {
+  0% {
+    transform: translate(0, 0);
+    opacity: 0;
+  }
+  5% {
+    opacity: 1;
+  }
+  8% {
+    transform: translate(26px, 0);
+  }
+  14% {
+    transform: translate(36px, -18px);
+  }
+  19% {
+    transform: translate(56px, -12px);
+  }
+  25% {
+    transform: translate(76px, -38px);
+  }
+  31% {
+    transform: translate(96px, -30px);
+  }
+  37% {
+    transform: translate(116px, -50px);
+  }
+  44% {
+    transform: translate(136px, -44px);
+  }
+  50% {
+    transform: translate(156px, -60px);
+  }
+  55% {
+    transform: translate(176px, -56px);
+    opacity: 1;
+  }
+  62% {
+    transform: translate(196px, -62px);
+    opacity: 0;
+  }
+  100% {
+    transform: translate(196px, -62px);
+    opacity: 0;
+  }
+}
+.wave-tip {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: wave-tip 5s ease-in-out infinite;
+}
+
+@keyframes bound-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.45);
+    opacity: 0.55;
+  }
+}
+.bound-pulse {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: bound-pulse 2.6s ease-in-out infinite;
+}
+.bound-pulse-2 {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: bound-pulse 2.6s ease-in-out infinite 1.3s;
+}
+
+@keyframes electron-flow {
+  0% {
+    transform: translateX(0);
+    opacity: 0;
+  }
+  8% {
+    opacity: 1;
+  }
+  92% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(200px);
+    opacity: 0;
+  }
+}
+.electron {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: electron-flow 3.4s linear infinite;
+}
+.electron-2 {
+  animation: electron-flow 3.4s linear infinite 1.1s;
+}
+.electron-3 {
+  animation: electron-flow 3.4s linear infinite 2.2s;
+}
+
+@keyframes incoming-fall {
+  0% {
+    transform: translate(0, -80px);
+    opacity: 0;
+  }
+  30% {
+    opacity: 1;
+  }
+  70% {
+    transform: translate(0, 0);
+    opacity: 1;
+  }
+  85% {
+    transform: translate(0, -2px);
+  }
+  100% {
+    transform: translate(0, 0);
+    opacity: 0.6;
+  }
+}
+.incoming {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: incoming-fall 5s ease-in-out infinite 0.6s;
+}
+.incoming-2 {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: incoming-fall 5s ease-in-out infinite 2.4s;
+}
+
+@keyframes sci-scan {
+  0% {
+    transform: translateX(-30px);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.9;
+  }
+  90% {
+    opacity: 0.9;
+  }
+  100% {
+    transform: translateX(220px);
+    opacity: 0;
+  }
+}
+.sci-scan {
+  transform-box: fill-box;
+  transform-origin: left center;
+  animation: sci-scan 6s ease-in-out infinite;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   §01 stat number tracking
+   ───────────────────────────────────────────────────────────── */
+.stat-num {
+  letter-spacing: -0.01em;
+  line-height: 0.98;
+}
+.stat-num .lt {
+  display: inline-block;
+  padding-right: 0.08em;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Instrument-control buttons (.lb-btn)
+   ───────────────────────────────────────────────────────────── */
+.lb-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 6px 0 18px;
+  height: 48px;
+  border-radius: 3px;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+  white-space: nowrap;
+  transition:
+    color 0.3s ease,
+    background 0.3s ease,
+    border-color 0.3s ease,
+    transform 0.4s cubic-bezier(0.2, 0.7, 0.2, 1);
+  overflow: hidden;
+  text-decoration: none;
+  cursor: pointer;
+  user-select: none;
+}
+.lb-btn .lb-led {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: currentColor;
+  position: relative;
+  flex: none;
+}
+.lb-btn .lb-led::after {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0;
+  transform: scale(0.5);
+  transition:
+    opacity 0.35s ease,
+    transform 0.35s ease;
+}
+.lb-btn:hover .lb-led::after {
+  opacity: 0.18;
+  transform: scale(1);
+}
+.lb-btn .lb-label {
+  line-height: 1;
+}
+.lb-btn .lb-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  margin-left: auto;
+  border-radius: 2px;
+  position: relative;
+  overflow: hidden;
+  flex: none;
+}
+.lb-btn .lb-chip svg {
+  transition: transform 0.4s cubic-bezier(0.65, 0, 0.35, 1);
+}
+.lb-btn:hover .lb-chip svg {
+  transform: translateX(2px);
+}
+
+.lb-btn--ticks::before,
+.lb-btn--ticks::after {
+  content: "";
+  position: absolute;
+  width: 7px;
+  height: 7px;
+  border: 1px solid currentColor;
+  opacity: 0.6;
+  transition:
+    opacity 0.3s ease,
+    border-color 0.3s ease;
+  pointer-events: none;
+}
+.lb-btn--ticks::before {
+  top: 4px;
+  left: 4px;
+  border-right: 0;
+  border-bottom: 0;
+}
+.lb-btn--ticks::after {
+  bottom: 4px;
+  right: 4px;
+  border-left: 0;
+  border-top: 0;
+}
+.lb-btn--ticks:hover::before,
+.lb-btn--ticks:hover::after {
+  opacity: 1;
+}
+
+.lb-btn--primary {
+  background: var(--color-accent);
+  color: var(--color-ink);
+}
+.lb-btn--primary:hover {
+  background: var(--color-accent2);
+}
+.lb-btn--primary .lb-chip {
+  background: color-mix(in srgb, var(--color-ink) 14%, transparent);
+}
+
+.lb-btn--outline {
+  background: transparent;
+  color: var(--color-paper);
+  border: 1px solid color-mix(in srgb, var(--color-paper) 22%, transparent);
+}
+.lb-btn--outline:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+.lb-btn--outline .lb-chip {
+  background: color-mix(in srgb, var(--color-paper) 7%, transparent);
+}
+.lb-btn--outline:hover .lb-chip {
+  background: color-mix(in srgb, var(--color-accent) 12%, transparent);
+}
+
+.lb-btn--sm {
+  height: 36px;
+  padding: 0 4px 0 14px;
+  font-size: 13px;
+  gap: 10px;
+  border-radius: 2px;
+}
+.lb-btn--sm .lb-chip {
+  width: 28px;
+  height: 28px;
+}
+.lb-btn--sm .lb-led {
+  width: 5.5px;
+  height: 5.5px;
+}
+
+.lb-btn--block {
+  width: 100%;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Theme toggle pill
+   ───────────────────────────────────────────────────────────── */
+.lb-toggle {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  width: 64px;
+  height: 30px;
+  border-radius: 2px;
+  border: 1px solid color-mix(in srgb, var(--color-paper) 22%, transparent);
+  background: transparent;
+  padding: 2px;
+  cursor: pointer;
+  transition: border-color 0.3s ease;
+}
+.lb-toggle:hover {
+  border-color: var(--color-accent);
+}
+.lb-toggle .lb-toggle-knob {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 28px;
+  height: 24px;
+  background: var(--color-accent);
+  border-radius: 1px;
+  transition:
+    transform 0.35s cubic-bezier(0.65, 0, 0.35, 1),
+    background 0.3s ease;
+}
+body.light .lb-toggle .lb-toggle-knob {
+  transform: translateX(30px);
+}
+.lb-toggle .lb-toggle-ic {
+  position: relative;
+  z-index: 1;
+  width: 30px;
+  height: 26px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-paper);
+  transition: color 0.3s ease;
+}
+.lb-toggle .lb-toggle-ic.is-active {
+  color: var(--color-ink);
+}
+body.light .lb-toggle .lb-toggle-ic {
+  color: var(--color-paper);
+}
+body.light .lb-toggle .lb-toggle-ic.is-active {
+  color: var(--color-ink);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Reveal helpers (used by ScrollReveal islands; safe defaults)
+   ───────────────────────────────────────────────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.9s cubic-bezier(0.2, 0.7, 0.2, 1),
+    transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1);
+  will-change: opacity, transform;
+}
+.reveal.in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Reduced motion — honor user preference.
+   The blanket rule collapses every animation to ~one frame so elements
+   land at their resting state instead of starting in an invisible 0%
+   keyframe. Decorative loops that have no resting state (the drifting
+   lattice background) and pre-reveal hides get fully suppressed instead.
+   ───────────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+  .lattice-drift,
+  .reveal {
+    animation: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+  }
+}

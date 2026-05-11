@@ -1,0 +1,169 @@
+---
+import HeroLattice3D from "~/components/react/HeroLattice3D.tsx";
+import HeroTicker from "~/components/react/HeroTicker.tsx";
+import ScrollReveal from "~/components/react/ScrollReveal.tsx";
+import { site } from "~/lib/site";
+---
+
+<section
+  id="top"
+  class="relative overflow-hidden border-b border-line min-h-svh"
+>
+  {/* Static SVG fallback — visible until the WebGL island hydrates. */}
+  <div
+    class="hero-svg-fallback absolute inset-0 pointer-events-none"
+    style="z-index:0"
+    aria-hidden="true"
+  >
+    <svg
+      class="absolute -inset-[10%] w-[120%] h-[120%] opacity-[0.18] lattice-drift"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <defs>
+        <pattern
+          id="hex"
+          x="0"
+          y="0"
+          width="86.6"
+          height="150"
+          patternUnits="userSpaceOnUse"
+        >
+          <g fill="none" stroke="#06B6A7" stroke-width="0.7">
+            <polygon points="43.3,0 86.6,25 86.6,75 43.3,100 0,75 0,25"
+            ></polygon>
+            <polygon
+              points="0,75 43.3,100 43.3,150 0,175 -43.3,150 -43.3,100"
+            ></polygon>
+            <polygon
+              points="86.6,75 129.9,100 129.9,150 86.6,175 43.3,150 43.3,100"
+            ></polygon>
+          </g>
+        </pattern>
+        <radialGradient id="hexFade" cx="50%" cy="40%" r="60%">
+          <stop offset="0%" stop-color="#000" stop-opacity="0"></stop>
+          <stop offset="100%" stop-color="#000" stop-opacity="1"></stop>
+        </radialGradient>
+        <mask id="hexMask"
+          ><rect
+            width="100%"
+            height="100%"
+            fill="url(#hexFade)"
+            style="filter:invert(1)"></rect></mask
+        >
+      </defs>
+      <rect width="100%" height="100%" fill="url(#hex)" mask="url(#hexMask)"
+      ></rect>
+    </svg>
+  </div>
+
+  {/* WebGL graphene lattice — replaces the SVG once hydrated */}
+  <HeroLattice3D client:visible />
+
+  {/* Vignette dims the lattice in the reading area; sits above both
+      background layers so text always has a calm field behind it. */}
+  <div
+    class="hero-vignette absolute inset-0 pointer-events-none"
+    style="z-index:2"
+    aria-hidden="true"
+  >
+  </div>
+
+  <div
+    class="relative z-10 max-w-[1320px] mx-auto w-full px-6 lg:px-10 pt-20 lg:pt-28 pb-20 lg:pb-28"
+  >
+    <div class="flex items-center justify-between mb-14 lg:mb-20">
+      <div class="flex items-center gap-3 text-paper">
+        <span class="relative flex h-2 w-2">
+          <span
+            class="absolute inline-flex h-full w-full rounded-full bg-accent pulse-dot"
+          ></span>
+          <span class="relative inline-flex rounded-full h-2 w-2 bg-accent"
+          ></span>
+        </span>
+        <span class="label">Live · Sensor reading</span>
+        <HeroTicker client:idle />
+      </div>
+      <div class="label hidden md:block">{site.version} · Gothenburg, SE</div>
+    </div>
+
+    <ScrollReveal client:load>
+      <h1
+        class="display text-[clamp(48px,9vw,148px)] font-medium max-w-[18ch] text-paper"
+      >
+        Pathogens,<br />
+         detected in <span class="text-accent">minutes.</span><br />
+        <span class="text-mute2">Not days.</span>
+      </h1>
+    </ScrollReveal>
+
+    <div class="mt-12 lg:mt-16 grid lg:grid-cols-12 gap-10 items-end">
+      <ScrollReveal client:load delay={120} className="lg:col-span-6">
+        <p
+          class="text-[19px] lg:text-[22px] leading-[1.4] text-paper/80 max-w-[42ch]"
+        >
+          LayerLogic builds a handheld biosensor based on graphene field-effect
+          transistors — bringing PCR-grade detection of bacteria, viruses and
+          contaminant molecules out of the lab and onto the production line.
+        </p>
+      </ScrollReveal>
+      <ScrollReveal client:load delay={220} className="lg:col-span-6">
+        <div class="flex flex-col items-start lg:items-end gap-6">
+          <div class="flex flex-wrap gap-3">
+            <a href="#contact" class="lb-btn lb-btn--primary">
+              <span class="lb-led"></span>
+              <span
+                class="lb-cap font-mono text-[10px] tracking-[.2em] uppercase opacity-60"
+                >REQ_01</span
+              >
+              <span class="lb-label">Request a demo</span>
+              <span class="lb-chip">
+                <svg width="14" height="14" viewBox="0 0 14 14"
+                  ><path
+                    d="M2 7h9M7 3l4 4-4 4"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                    fill="none"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"></path></svg
+                >
+              </span>
+            </a>
+            <a href="#technology" class="lb-btn lb-btn--outline lb-btn--ticks">
+              <span class="lb-led"></span>
+              <span
+                class="lb-cap font-mono text-[10px] tracking-[.2em] uppercase opacity-60"
+                >TECH</span
+              >
+              <span class="lb-label">See the technology</span>
+              <span class="lb-chip">
+                <svg width="14" height="14" viewBox="0 0 14 14"
+                  ><path
+                    d="M2 7h9M7 3l4 4-4 4"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                    fill="none"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"></path></svg
+                >
+              </span>
+            </a>
+          </div>
+        </div>
+      </ScrollReveal>
+    </div>
+
+    <div class="mt-20 lg:mt-28 pt-8 border-t border-line">
+      <div class="label mb-5">Backed &amp; supported by</div>
+      <div
+        class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-y-4 gap-x-8 font-mono text-[13px] text-mute2"
+      >
+        <span>Chalmers Ventures</span>
+        <span>Scientifica VC</span>
+        <span>EIT Food</span>
+        <span>SIO Grafen</span>
+        <span>MassChallenge</span>
+        <span>Yeos Ventures</span>
+      </div>
+    </div>
+  </div>
+</section>

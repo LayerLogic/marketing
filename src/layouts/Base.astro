@@ -1,0 +1,89 @@
+---
+import "~/styles/global.css";
+import { site } from "~/lib/site";
+import SmoothScroll from "~/components/react/SmoothScroll.tsx";
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title = site.title, description = site.description } = Astro.props;
+const canonical = new URL(Astro.url.pathname, site.url).toString();
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <meta name="theme-color" content="#0A0A0B" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+
+    {/* Open Graph */}
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:site_name" content={site.name} />
+
+    {/* Twitter */}
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+
+    {/* Favicon — base-aware so it resolves under GitHub Pages sub-paths */}
+    <link
+      rel="icon"
+      href={`${import.meta.env.BASE_URL}favicon.svg`}
+      type="image/svg+xml"
+    />
+
+    {/* No-flash theme bootstrap — runs before React hydrates so the
+        previously chosen theme is on screen at first paint. CSS keys off
+        `body.light` exclusively (matches ThemeToggle.tsx), so we apply it
+        as soon as <body> appears in the DOM. */}
+    <script is:inline>
+      (function () {
+        try {
+          if (localStorage.getItem("layerlogic-theme") !== "light") return;
+          var apply = function () {
+            if (document.body) document.body.classList.add("light");
+          };
+          if (document.body) apply();
+          else document.addEventListener("DOMContentLoaded", apply);
+        } catch (e) {}
+      })();
+    </script>
+
+    {/* JSON-LD */}
+    <script
+      is:inline
+      type="application/ld+json"
+      set:html={JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        name: site.name,
+        url: site.url,
+        email: site.email,
+        address: {
+          "@type": "PostalAddress",
+          streetAddress: site.address.street,
+          postalCode: site.address.postal.split(" ")[0],
+          addressLocality: "Göteborg",
+          addressCountry: "SE",
+        },
+        description,
+      })}
+    />
+  </head>
+  <body class="font-sans">
+    <SmoothScroll client:idle />
+    <slot />
+  </body>
+</html>

@@ -1,0 +1,52 @@
+---
+import { investors } from "~/lib/site";
+import ScrollReveal from "~/components/react/ScrollReveal.tsx";
+---
+
+<section id="investors" class="border-b border-line">
+  <div class="max-w-[1320px] mx-auto px-6 lg:px-10 py-24 lg:py-32">
+    <div class="grid lg:grid-cols-12 gap-10 mb-14 lg:mb-16 items-end">
+      <div class="lg:col-span-7">
+        <div class="label mb-3">§ 04 — Backed by</div>
+        <ScrollReveal client:load>
+          <h2
+            class="display-md text-[clamp(34px,5vw,68px)] font-medium max-w-[18ch] text-paper"
+          >
+            €470K pre-seed. <span class="text-mute2">Backed by deep-tech.</span>
+          </h2>
+        </ScrollReveal>
+      </div>
+      <div class="lg:col-span-5 lg:text-right">
+        <ScrollReveal client:load delay={120}>
+          <p
+            class="text-paper/70 text-[16px] max-w-[44ch] lg:ml-auto leading-relaxed"
+          >
+            Funded by Europe's leading deep-tech, food-science and
+            graphene-technology investors. With operational support from
+            Chalmers Ventures, EIT Food and SIO Grafen.
+          </p>
+        </ScrollReveal>
+      </div>
+    </div>
+
+    <div
+      class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 border-t border-l border-line"
+    >
+      {
+        investors.map((inv) => (
+          <div class="border-r border-b border-line p-6 lg:p-8 flex flex-col justify-between aspect-[4/3] lift">
+            <span class="font-mono text-[10px] text-mute">PRE-SEED</span>
+            <div>
+              <div class="text-[18px] tracking-tighter2 font-medium text-paper">
+                {inv.name}
+              </div>
+              <div class="font-mono text-[11px] text-mute mt-1">
+                {inv.location}
+              </div>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 140" font-family="ui-monospace, 'JetBrains Mono', 'SFMono-Regular', Menlo, monospace">
+  <title>LayerLogic · Step 01 · Capture (dark)</title>
+  <rect x="0" y="110" width="280" height="20" fill="#101012" stroke="#1F1F22"/>
+  <line x1="0" y1="100" x2="280" y2="100" stroke="#06B6A7" stroke-width="1.4"/>
+  <g stroke="#1F1F22" fill="none" stroke-width="0.8">
+    <polygon points="20,100 30,95 40,100 40,108 30,113 20,108"/>
+    <polygon points="60,100 70,95 80,100 80,108 70,113 60,108"/>
+    <polygon points="100,100 110,95 120,100 120,108 110,113 100,108"/>
+    <polygon points="140,100 150,95 160,100 160,108 150,113 140,108"/>
+    <polygon points="180,100 190,95 200,100 200,108 190,113 180,108"/>
+    <polygon points="220,100 230,95 240,100 240,108 230,113 220,108"/>
+  </g>
+  <g stroke="#EDEDE8" stroke-width="1.2" fill="none">
+    <path d="M40 100 L40 80 M40 80 L34 70 M40 80 L46 70"/>
+    <path d="M100 100 L100 80 M100 80 L94 70 M100 80 L106 70"/>
+    <path d="M160 100 L160 80 M160 80 L154 70 M160 80 L166 70"/>
+    <path d="M220 100 L220 80 M220 80 L214 70 M220 80 L226 70"/>
+  </g>
+  <g fill="#06B6A7">
+    <circle cx="40" cy="58" r="4"/>
+    <circle cx="160" cy="46" r="4"/>
+  </g>
+  <g stroke="#06B6A7" stroke-width="0.8" stroke-dasharray="2 3" fill="none">
+    <path d="M40 62 L40 78"/>
+    <path d="M160 50 L160 78"/>
+  </g>
+  <text x="0" y="135" font-size="9" fill="#6B6B72">SiO₂ / Si gate</text>
+  <text x="245" y="98" font-size="9" fill="#06B6A7">graphene</text>
+</svg>

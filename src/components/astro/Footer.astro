@@ -1,0 +1,73 @@
+---
+import { navItems, site } from "~/lib/site";
+import Logo from "./Logo.astro";
+---
+
+<footer class="bg-ink">
+  <div class="max-w-[1320px] mx-auto px-6 lg:px-10 py-16">
+    <div class="grid lg:grid-cols-12 gap-10 mb-12">
+      <div class="lg:col-span-4">
+        <a href="#top" class="flex items-center gap-2.5 text-paper">
+          <Logo />
+          <span class="text-[15px] tracking-tightest font-medium"
+            >{site.name}</span
+          >
+        </a>
+        <p class="mt-4 text-[13px] text-mute2 max-w-[34ch] leading-relaxed">
+          Graphene field-effect biosensors for in-process pathogen detection. A
+          Chalmers spin-off, based in Gothenburg.
+        </p>
+      </div>
+      <div class="lg:col-span-2">
+        <div class="label mb-4">Site</div>
+        <ul class="space-y-2 text-[13px]">
+          {
+            navItems.map((item) => (
+              <li>
+                <a class="link-u text-paper/85" href={item.href}>
+                  {item.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+      <div class="lg:col-span-2">
+        <div class="label mb-4">Connect</div>
+        <ul class="space-y-2 text-[13px]">
+          <li>
+            <a class="link-u text-paper/85" href={site.social.linkedin}
+              >LinkedIn</a
+            >
+          </li>
+          <li>
+            <a class="link-u text-paper/85" href={site.social.x}>X / Twitter</a>
+          </li>
+          <li>
+            <a class="link-u text-paper/85" href={`mailto:${site.email}`}
+              >{site.email}</a
+            >
+          </li>
+        </ul>
+      </div>
+      <div class="lg:col-span-4">
+        <div class="label mb-4">Partners</div>
+        <div class="grid grid-cols-3 gap-4 font-mono text-[12px] text-mute2">
+          <span>Chalmers</span>
+          <span>SIO Grafen</span>
+          <span>EIT Food</span>
+        </div>
+      </div>
+    </div>
+    <div
+      class="border-t border-line pt-6 flex flex-col md:flex-row md:items-center md:justify-between gap-4 font-mono text-[11px] text-mute"
+    >
+      <span>© 2026 LayerLogic AB · Org.nr — pending</span>
+      <span class="flex items-center gap-4">
+        <a href="#" class="link-u">Privacy</a>
+        <a href="#" class="link-u">Terms</a>
+        <span class="text-accent">{site.version}</span>
+      </span>
+    </div>
+  </div>
+</footer>
