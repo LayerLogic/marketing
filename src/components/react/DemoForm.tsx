@@ -5,22 +5,55 @@ type Status = "idle" | "sending" | "ok" | "error";
 const inputCls =
   "mt-2 w-full bg-transparent border-b border-line2 focus:border-accent outline-none py-2 text-[15px] text-paper placeholder:text-mute transition-colors";
 
+const TO_ADDRESS = "hello@layerlogic.se";
+
+/**
+ * Honest mailto fallback: until a backend endpoint is wired, submitting
+ * the form opens the user's default mail client with a draft pre-filled
+ * from the form fields. The user still has to send it — but no message
+ * disappears into a stubbed endpoint, and the "we'll reply" wording is
+ * replaced with a clear "compose email" affordance.
+ */
 export default function DemoForm() {
   const [status, setStatus] = useState<Status>("idle");
   const [message, setMessage] = useState("");
 
-  // NOTE: static-demo stub. The real fetch to /api/lead is restored when the
-  // site moves back to Vercel — see comment in astro.config.mjs.
-  async function onSubmit(e: FormEvent<HTMLFormElement>) {
+  function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (status === "sending") return;
-    setStatus("sending");
-    setMessage("> Transmitting…");
     const form = e.currentTarget;
-    await new Promise((r) => setTimeout(r, 700));
-    setStatus("ok");
-    setMessage("> Received. A team member will reply within 48h.");
-    form.reset();
+    const data = new FormData(form);
+
+    // Honeypot — silently drop bot submissions
+    if (data.get("hp")) return;
+
+    const name = (data.get("name") as string | null) ?? "";
+    const company = (data.get("company") as string | null) ?? "";
+    const email = (data.get("email") as string | null) ?? "";
+    const msg = (data.get("message") as string | null) ?? "";
+
+    const subject = company ? `Demo request — ${company}` : "Demo request";
+    const body = [
+      `Name: ${name}`,
+      `Company: ${company}`,
+      `Email: ${email}`,
+      "",
+      msg,
+    ].join("\n");
+
+    const href = `mailto:${TO_ADDRESS}?subject=${encodeURIComponent(
+      subject,
+    )}&body=${encodeURIComponent(body)}`;
+
+    setStatus("sending");
+    setMessage("Opening your email app…");
+    window.location.href = href;
+
+    // Short delay before resetting status so the user sees the prompt
+    setTimeout(() => {
+      setStatus("ok");
+      setMessage(`Draft opened. If nothing happened, email ${TO_ADDRESS} directly.`);
+    }, 800);
   }
 
   return (
@@ -29,9 +62,13 @@ export default function DemoForm() {
       className="lg:col-span-5 self-start border border-line p-6 lg:p-8 bg-ink2/60 backdrop-blur-sm"
       noValidate
     >
-      <div className="flex items-center justify-between mb-8">
+      <div className="flex items-center justify-between mb-2">
         <span className="label">Request a demo</span>
       </div>
+      <p className="text-[12.5px] text-mute2 mb-8 leading-snug">
+        Opens a pre-filled draft in your email app to{" "}
+        <span className="text-paper">{TO_ADDRESS}</span>.
+      </p>
 
       <div className="space-y-6">
         <label className="block">
@@ -77,11 +114,7 @@ export default function DemoForm() {
           />
         </label>
 
-        {/* Honeypot — bots fill, humans don't see.
-            NOTE: when restoring the Vercel API (src/_disabled/api-lead.ts),
-            the server route MUST reject requests where `hp !== ""`. The
-            client field alone does nothing; the original handler already
-            does this. Confirm before re-deploying. */}
+        {/* Honeypot — bots fill, humans don't see. */}
         <div
           aria-hidden="true"
           style={{
@@ -111,7 +144,7 @@ export default function DemoForm() {
         disabled={status === "sending"}
       >
         <span className="lb-label">
-          {status === "sending" ? "Sending…" : "Send request"}
+          {status === "sending" ? "Opening…" : "Compose email"}
         </span>
         <span className="lb-chip">
           <svg width="14" height="14" viewBox="0 0 14 14">
@@ -128,7 +161,7 @@ export default function DemoForm() {
       </button>
 
       <p
-        className={`mt-4 font-mono text-[11px] ${
+        className={`mt-4 text-[12px] ${
           status === "ok"
             ? "text-accent"
             : status === "error"

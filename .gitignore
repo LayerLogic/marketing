@@ -31,3 +31,6 @@ pnpm-debug.log*
 
 scripts
 src/_disabled/
+
+# personal punch-list — not for shipping
+TODO.md

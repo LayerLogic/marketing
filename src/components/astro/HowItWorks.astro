@@ -18,14 +18,14 @@ import ScrollReveal from "~/components/react/ScrollReveal.tsx";
         <div class="label mb-3">§ 02 — How the test works</div>
       </div>
       <div class="lg:col-span-9">
-        <ScrollReveal client:load>
+        <ScrollReveal client:visible>
           <h2
             class="display-md text-[clamp(34px,5vw,68px)] font-medium max-w-[20ch] text-paper"
           >
             Listeria, found on the line — in fifteen minutes.
           </h2>
         </ScrollReveal>
-        <ScrollReveal client:load delay={120}>
+        <ScrollReveal client:visible delay={120}>
           <p class="mt-6 text-paper/75 text-[17px] max-w-[52ch]">
             Today's cartridge is tuned for
             <em class="not-italic text-paper">Listeria monocytogenes</em> —
@@ -147,7 +147,7 @@ import ScrollReveal from "~/components/react/ScrollReveal.tsx";
       </li>
     </ol>
 
-    <ScrollReveal client:load delay={160}>
+    <ScrollReveal client:visible delay={160}>
       <p class="mt-12 lg:mt-16 text-[14px] text-mute2">
         Want the science underneath? Read on.
       </p>

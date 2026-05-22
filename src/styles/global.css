@@ -685,13 +685,6 @@ body.dark .receptor-flash {
   z-index: 1;
 }
 
-.lb-btn .lb-led {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: currentColor;
-  flex: none;
-}
 .lb-btn .lb-label {
   line-height: 1;
 }
@@ -761,10 +754,6 @@ body.dark .receptor-flash {
 .lb-btn--sm .lb-chip {
   width: 26px;
   height: 26px;
-}
-.lb-btn--sm .lb-led {
-  width: 5.5px;
-  height: 5.5px;
 }
 
 .lb-btn--block {

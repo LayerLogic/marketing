@@ -5,14 +5,12 @@ export const site = {
   description:
     "LayerLogic builds a handheld sensor that finds Listeria on the production line in fifteen minutes. No lab, no shipping, no waiting two days for an answer.",
   region: "SE · GBG",
-  version: "v1.0",
   email: "hello@layerlogic.se",
   address: {
     street: "Medicinaregatan 8A",
     postal: "413 90 Göteborg",
     country: "Sverige",
   },
-  coords: { lat: "57.6878° N", lng: "11.9682° E", tz: "CET" },
   social: {
     linkedin: "https://www.linkedin.com/company/layerlogic-ab",
   },
@@ -101,27 +99,33 @@ export const recognitions = [
   },
 ] as const;
 
-export const founders = [
+export interface TeamMember {
+  name: string;
+  role: string;
+  education: string;
+  email: string;
+  photo: string;
+  photoStyle?: string;
+}
+
+export const founders: TeamMember[] = [
   {
     name: "André Persson",
     role: "CEO & Founder",
-    affil: "Mechanical Engineering",
-    education: "MSc, Mechanical Engineering",
+    education: "MSc, Industrial Management & Production Engineering",
     email: "andre.persson@layerlogic.se",
     photo: "assets/team_members/Andre.JPG",
   },
   {
     name: "Sebastian Samuelsson",
     role: "CFO & Founder",
-    affil: "Industrial Engineering & Management",
-    education: "MSc, Industrial Engineering & Management",
+    education: "MSc, Industrial Management & Production Engineering",
     email: "sebastian.samuelsson@layerlogic.se",
     photo: "assets/team_members/Sebastian.JPG",
   },
   {
     name: "Ebba Sandbecker",
     role: "CCO & Founder",
-    affil: "Industrial Management & Production Engineering",
     education: "MSc, Industrial Management & Production Engineering",
     email: "ebba.sandbecker@layerlogic.se",
     photo: "assets/team_members/Ebba.JPG",
@@ -129,7 +133,6 @@ export const founders = [
   {
     name: "Avgust Yurgens",
     role: "Founder & Professor",
-    affil: "Quantum Device Physics",
     education: "PhD, Quantum Device Physics",
     email: "avgust.yurgens@layerlogic.se",
     photo: "assets/team_members/Avgust.JPG",
@@ -137,7 +140,6 @@ export const founders = [
   {
     name: "Santosh Pandit",
     role: "Founder & Senior Researcher",
-    affil: "Systems Biology",
     education: "PhD, Microbiology",
     email: "santosh.pandit@layerlogic.se",
     photo: "assets/team_members/Santosh.JPG",
@@ -145,30 +147,26 @@ export const founders = [
   {
     name: "Munis Khan",
     role: "Founder & Doctoral Researcher",
-    affil: "Microtechnology & Nanoscience",
-    education: "MSc, Solid State Physics",
+    education: "PhD, Nanoelectronics",
     email: "munis.khan@layerlogic.se",
     photo: "assets/team_members/Kopia.png",
   },
-] as const;
+];
 
-export const engineering = [
+export const engineering: TeamMember[] = [
   {
     name: "Mohammed Agha",
     role: "Head of Software Engineering",
-    affil: "Software Engineering",
-    education: "MSc, Software Engineering",
+    education: "MSc, Software Engineering & Technology",
     email: "mohammed.agha@layerlogic.se",
     photo: "assets/team_members/Mohammed.JPG",
   },
   {
     name: "Elnaz Danesh",
     role: "Chemical Engineer",
-    affil: "Chemical Engineering",
     education: "MSc, Chemical Engineering",
     email: "elnaz.danesh@layerlogic.se",
     photo: "assets/team_members/Elnaz.jpeg",
     photoStyle: "transform: scale(1.2); transform-origin: center 30%;",
   },
-] as const;
-
+];

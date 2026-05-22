@@ -11,7 +11,7 @@ import ScrollReveal from "~/components/react/ScrollReveal.tsx";
     </div>
 
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-y-16">
-      <ScrollReveal client:load className="lg:pr-10 lg:border-r lg:border-line">
+      <ScrollReveal client:visible className="lg:pr-10 lg:border-r lg:border-line">
         <div class="label mb-4">Time to result</div>
         <div
           class="stat-num text-[clamp(40px,4.5vw,64px)] font-medium num-tabular text-paper"
@@ -47,7 +47,7 @@ import ScrollReveal from "~/components/react/ScrollReveal.tsx";
         </p>
       </ScrollReveal>
 
-      <ScrollReveal client:load delay={240} className="lg:pl-10">
+      <ScrollReveal client:visible delay={240} className="lg:pl-10">
         <div class="label mb-4">Consumers who would stop buying</div>
         <div
           class="stat-num text-[clamp(40px,4.5vw,64px)] font-medium num-tabular text-paper"
@@ -63,7 +63,7 @@ import ScrollReveal from "~/components/react/ScrollReveal.tsx";
       </ScrollReveal>
     </div>
 
-    <ScrollReveal client:load delay={120}>
+    <ScrollReveal client:visible delay={120}>
       <p
         class="mt-20 lg:mt-28 max-w-[58ch] text-[18px] lg:text-[20px] text-paper/75 leading-[1.55]"
       >

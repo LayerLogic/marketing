@@ -57,7 +57,7 @@ import ScrollReveal from "~/components/react/ScrollReveal.tsx";
   </div>
 
   {/* WebGL graphene lattice — replaces the SVG once hydrated */}
-  <HeroLattice3D client:visible />
+  <HeroLattice3D client:idle />
 
   {/* Vignette dims the lattice in the reading area; sits above both
       background layers so text always has a calm field behind it. */}
@@ -86,7 +86,7 @@ import ScrollReveal from "~/components/react/ScrollReveal.tsx";
     </div>
 
     <div class="grid lg:grid-cols-12 gap-10 lg:gap-12 items-center">
-      <ScrollReveal client:load className="lg:col-span-7">
+      <ScrollReveal client:visible className="lg:col-span-7">
         <h1
           class="display text-[clamp(48px,8vw,128px)] font-medium max-w-[18ch] text-paper"
         >
@@ -95,13 +95,13 @@ import ScrollReveal from "~/components/react/ScrollReveal.tsx";
           <span class="text-mute2">Not days.</span>
         </h1>
       </ScrollReveal>
-      <ScrollReveal client:load delay={200} className="lg:col-span-5">
+      <ScrollReveal client:visible delay={200} className="lg:col-span-5">
         <HeroVisual />
       </ScrollReveal>
     </div>
 
     <div class="mt-12 lg:mt-16 grid lg:grid-cols-12 gap-10 items-end">
-      <ScrollReveal client:load delay={120} className="lg:col-span-6">
+      <ScrollReveal client:visible delay={120} className="lg:col-span-6">
         <p
           class="text-[19px] lg:text-[22px] leading-[1.4] text-paper/80 max-w-[42ch]"
         >
@@ -110,7 +110,7 @@ import ScrollReveal from "~/components/react/ScrollReveal.tsx";
           instead of waiting days for the lab.
         </p>
       </ScrollReveal>
-      <ScrollReveal client:load delay={220} className="lg:col-span-6">
+      <ScrollReveal client:visible delay={220} className="lg:col-span-6">
         <div class="flex flex-col items-start lg:items-end gap-6">
           <div class="flex flex-wrap gap-3">
             <a href="#contact" class="lb-btn lb-btn--primary">

@@ -12,14 +12,14 @@ const base = import.meta.env.BASE_URL;
         <div class="label mb-3">§ 06 — The team</div>
       </div>
       <div class="lg:col-span-9">
-        <ScrollReveal client:load>
+        <ScrollReveal client:visible>
           <h2
             class="display-md text-[clamp(34px,5vw,68px)] font-medium max-w-[22ch] text-paper"
           >
             Engineers, microbiologists, graphene physicists.
           </h2>
         </ScrollReveal>
-        <ScrollReveal client:load delay={120}>
+        <ScrollReveal client:visible delay={120}>
           <p class="mt-6 text-paper/70 text-[17px] max-w-[60ch]">
             Six founders out of Chalmers — covering quantum device physics,
             systems biology, industrial engineering and operations — plus a
@@ -43,18 +43,20 @@ const base = import.meta.env.BASE_URL;
           founders.map((f, i) => {
             const [local, domain] = f.email.split("@");
             return (
-              <ScrollReveal client:load delay={i * 60}>
+              <ScrollReveal client:visible delay={i * 60}>
                 <div>
                   <div
                     class="card-flip aspect-[3/4] mb-4 border border-line bg-ink2 relative overflow-hidden"
                     tabindex="0"
+                    role="button"
+                    aria-label={`${f.name} — education`}
                   >
                     <img
                       src={`${base}${f.photo}`}
                       alt={f.name}
                       loading="lazy"
                       class="absolute inset-0 w-full h-full object-cover object-[center_top]"
-                      style={(f as any).photoStyle ?? undefined}
+                      style={f.photoStyle}
                     />
                     <div class="card-flip__back card-flip__back--compact">
                       <div class="text-[10px] uppercase tracking-[.14em] text-mute2 mb-1.5">
@@ -100,18 +102,20 @@ const base = import.meta.env.BASE_URL;
           engineering.map((e, i) => {
             const [local, domain] = e.email.split("@");
             return (
-              <ScrollReveal client:load delay={i * 60}>
+              <ScrollReveal client:visible delay={i * 60}>
                 <div>
                   <div
                     class="card-flip aspect-[3/4] mb-4 border border-line bg-ink2 relative overflow-hidden"
                     tabindex="0"
+                    role="button"
+                    aria-label={`${e.name} — education`}
                   >
                     <img
                       src={`${base}${e.photo}`}
                       alt={e.name}
                       loading="lazy"
                       class="absolute inset-0 w-full h-full object-cover object-[center_top]"
-                      style={(e as any).photoStyle ?? undefined}
+                      style={e.photoStyle}
                     />
                     <div class="card-flip__back card-flip__back--compact">
                       <div class="text-[10px] uppercase tracking-[.14em] text-mute2 mb-1.5">
