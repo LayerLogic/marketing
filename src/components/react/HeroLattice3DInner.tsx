@@ -1,7 +1,6 @@
 import { Suspense, useEffect, useMemo, useRef, useState } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import {
-  AdditiveBlending,
   BufferGeometry,
   Color,
   Float32BufferAttribute,
@@ -13,14 +12,14 @@ interface LatticeProps {
   rows?: number;
   cols?: number;
   side?: number;
-  light: boolean;
+  dark: boolean;
 }
 
 function HexLattice({
   rows = 32,
   cols = 48,
   side = 0.34,
-  light,
+  dark,
 }: LatticeProps) {
   const ref = useRef<Group | null>(null);
   const { pointer, viewport } = useThree();
@@ -63,8 +62,8 @@ function HexLattice({
   useEffect(() => () => geometry.dispose(), [geometry]);
 
   const lineColor = useMemo(
-    () => new Color(light ? "#055048" : "#0A7E76"),
-    [light],
+    () => new Color(dark ? "#c497fb" : "#7c19f6"),
+    [dark],
   );
 
   useFrame((_, delta) => {
@@ -86,8 +85,8 @@ function HexLattice({
         <lineBasicMaterial
           color={lineColor}
           transparent
-          opacity={0.1}
-          blending={light ? NormalBlending : AdditiveBlending}
+          opacity={0.05}
+          blending={NormalBlending}
         />
       </lineSegments>
     </group>
@@ -110,10 +109,10 @@ export default function HeroLattice3DInner({ className }: HeroLattice3DProps) {
     return () => mq.removeEventListener("change", onChange);
   }, []);
 
-  // Theme — re-render lattice with new tuning when body.light toggles.
-  const [light, setLight] = useState(false);
+  // Watch theme — re-tint lattice when body.dark toggles.
+  const [dark, setDark] = useState(false);
   useEffect(() => {
-    const read = () => setLight(document.body.classList.contains("light"));
+    const read = () => setDark(document.body.classList.contains("dark"));
     read();
     const obs = new MutationObserver(read);
     obs.observe(document.body, {
@@ -154,7 +153,7 @@ export default function HeroLattice3DInner({ className }: HeroLattice3DProps) {
         style={{ pointerEvents: "none", width: "100%", height: "100%" }}
       >
         <Suspense fallback={null}>
-          <HexLattice rows={32} cols={48} side={0.34} light={light} />
+          <HexLattice rows={48} cols={72} side={0.22} dark={dark} />
         </Suspense>
       </Canvas>
     </div>

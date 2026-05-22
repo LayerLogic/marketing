@@ -1,16 +1,15 @@
 ---
-import { engineering, founders, research } from "~/lib/site";
+import { engineering, founders } from "~/lib/site";
 import ScrollReveal from "~/components/react/ScrollReveal.tsx";
 
-const stripe = (angle: number) =>
-  `repeating-linear-gradient(${angle}deg, #15151a 0 10px, #101012 10px 20px)`;
+const base = import.meta.env.BASE_URL;
 ---
 
 <section id="company" class="border-b border-line">
   <div class="max-w-[1320px] mx-auto px-6 lg:px-10 py-24 lg:py-32">
     <div class="grid lg:grid-cols-12 gap-10 mb-14 lg:mb-20">
       <div class="lg:col-span-3">
-        <div class="label mb-3">§ 05 — The team</div>
+        <div class="label mb-3">§ 06 — The team</div>
       </div>
       <div class="lg:col-span-9">
         <ScrollReveal client:load>
@@ -22,9 +21,9 @@ const stripe = (angle: number) =>
         </ScrollReveal>
         <ScrollReveal client:load delay={120}>
           <p class="mt-6 text-paper/70 text-[17px] max-w-[60ch]">
-            Six founders and a small core team — built around three decades of
-            graphene research at Chalmers and a deep bench in food-safety
-            microbiology.
+            Six founders out of Chalmers — covering quantum device physics,
+            systems biology, industrial engineering and operations — plus a
+            small engineering team building the product.
           </p>
         </ScrollReveal>
       </div>
@@ -41,86 +40,106 @@ const stripe = (angle: number) =>
         class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-x-6 gap-y-10"
       >
         {
-          founders.map((f, i) => (
-            <ScrollReveal client:load delay={i * 60}>
-              <div>
-                <div class="aspect-[3/4] mb-4 border border-line bg-ink2 relative overflow-hidden">
+          founders.map((f, i) => {
+            const [local, domain] = f.email.split("@");
+            return (
+              <ScrollReveal client:load delay={i * 60}>
+                <div>
                   <div
-                    class="absolute inset-0"
-                    style={`background-image:${stripe(f.angle)}`}
-                  />
-                  <span class="absolute bottom-2 left-2 font-mono text-[9px] text-mute2">
-                    [portrait]
-                  </span>
+                    class="card-flip aspect-[3/4] mb-4 border border-line bg-ink2 relative overflow-hidden"
+                    tabindex="0"
+                  >
+                    <img
+                      src={`${base}${f.photo}`}
+                      alt={f.name}
+                      loading="lazy"
+                      class="absolute inset-0 w-full h-full object-cover object-[center_top]"
+                      style={(f as any).photoStyle ?? undefined}
+                    />
+                    <div class="card-flip__back card-flip__back--compact">
+                      <div class="text-[10px] uppercase tracking-[.14em] text-mute2 mb-1.5">
+                        Education
+                      </div>
+                      <div class="text-[13px] leading-snug font-medium">
+                        {f.education}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="text-[15px] font-medium tracking-tighter2 text-paper">
+                    {f.name}
+                  </div>
+                  <div class="font-mono text-[11px] text-accent mt-1">
+                    {f.role}
+                  </div>
+                  <a
+                    href={`mailto:${f.email}`}
+                    class="link-u inline-block mt-2 font-mono text-[10.5px] text-paper/80 hover:text-accent transition-colors break-words"
+                    style="overflow-wrap:anywhere"
+                  >
+                    {local}@<wbr />{domain}
+                  </a>
                 </div>
-                <div class="text-[15px] font-medium tracking-tighter2 text-paper">
-                  {f.name}
-                </div>
-                <div class="font-mono text-[11px] text-accent mt-1">
-                  {f.role}
-                </div>
-                <div class="text-[12px] text-mute2 mt-1 leading-snug">
-                  {f.affil}
-                </div>
-              </div>
-            </ScrollReveal>
-          ))
+              </ScrollReveal>
+            );
+          })
         }
       </div>
     </div>
 
-    <div class="grid md:grid-cols-2 gap-10">
-      <div>
-        <div
-          class="flex items-baseline justify-between mb-6 border-b border-line pb-4"
-        >
-          <span class="label">Research</span>
-          <span class="font-mono text-[11px] text-mute">02</span>
-        </div>
-        <div class="grid grid-cols-2 gap-6">
-          {
-            research.map((r) => (
-              <div>
-                <div class="aspect-[3/4] mb-3 border border-line bg-ink2 relative overflow-hidden">
-                  <div
-                    class="absolute inset-0"
-                    style={`background-image:${stripe(r.angle)}`}
-                  />
-                </div>
-                <div class="text-[14px] font-medium tracking-tighter2 text-paper">
-                  {r.name}
-                </div>
-                <div class="text-[12px] text-mute2 mt-1">{r.affil}</div>
-              </div>
-            ))
-          }
-        </div>
+    <div>
+      <div
+        class="flex items-baseline justify-between mb-6 border-b border-line pb-4"
+      >
+        <span class="label">Engineering</span>
+        <span class="font-mono text-[11px] text-mute">
+          {String(engineering.length).padStart(2, "0")}
+        </span>
       </div>
-      <div>
-        <div
-          class="flex items-baseline justify-between mb-6 border-b border-line pb-4"
-        >
-          <span class="label">Engineering</span>
-          <span class="font-mono text-[11px] text-mute">02</span>
-        </div>
-        <div class="grid grid-cols-2 gap-6">
-          {
-            engineering.map((e) => (
-              <div>
-                <div class="aspect-[3/4] mb-3 border border-line bg-ink2 relative overflow-hidden">
+      <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-x-6 gap-y-10">
+        {
+          engineering.map((e, i) => {
+            const [local, domain] = e.email.split("@");
+            return (
+              <ScrollReveal client:load delay={i * 60}>
+                <div>
                   <div
-                    class="absolute inset-0"
-                    style={`background-image:${stripe(e.angle)}`}
-                  />
+                    class="card-flip aspect-[3/4] mb-4 border border-line bg-ink2 relative overflow-hidden"
+                    tabindex="0"
+                  >
+                    <img
+                      src={`${base}${e.photo}`}
+                      alt={e.name}
+                      loading="lazy"
+                      class="absolute inset-0 w-full h-full object-cover object-[center_top]"
+                      style={(e as any).photoStyle ?? undefined}
+                    />
+                    <div class="card-flip__back card-flip__back--compact">
+                      <div class="text-[10px] uppercase tracking-[.14em] text-mute2 mb-1.5">
+                        Education
+                      </div>
+                      <div class="text-[13px] leading-snug font-medium">
+                        {e.education}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="text-[15px] font-medium tracking-tighter2 text-paper">
+                    {e.name}
+                  </div>
+                  <div class="font-mono text-[11px] text-accent mt-1">
+                    {e.role}
+                  </div>
+                  <a
+                    href={`mailto:${e.email}`}
+                    class="link-u inline-block mt-2 font-mono text-[10.5px] text-paper/80 hover:text-accent transition-colors break-words"
+                    style="overflow-wrap:anywhere"
+                  >
+                    {local}@<wbr />{domain}
+                  </a>
                 </div>
-                <div class="text-[14px] font-medium tracking-tighter2 text-paper">
-                  {e.name}
-                </div>
-                <div class="text-[12px] text-mute2 mt-1">{e.affil}</div>
-              </div>
-            ))
-          }
-        </div>
+              </ScrollReveal>
+            );
+          })
+        }
       </div>
     </div>
   </div>

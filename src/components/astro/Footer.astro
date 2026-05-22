@@ -14,8 +14,8 @@ import Logo from "./Logo.astro";
           >
         </a>
         <p class="mt-4 text-[13px] text-mute2 max-w-[34ch] leading-relaxed">
-          Graphene field-effect biosensors for in-process pathogen detection. A
-          Chalmers spin-off, based in Gothenburg.
+          Handheld biosensors that find pathogens at the production line.
+          A Chalmers spin-off, based in Gothenburg.
         </p>
       </div>
       <div class="lg:col-span-2">
@@ -36,12 +36,12 @@ import Logo from "./Logo.astro";
         <div class="label mb-4">Connect</div>
         <ul class="space-y-2 text-[13px]">
           <li>
-            <a class="link-u text-paper/85" href={site.social.linkedin}
-              >LinkedIn</a
+            <a
+              class="link-u text-paper/85"
+              href={site.social.linkedin}
+              target="_blank"
+              rel="noopener noreferrer">LinkedIn</a
             >
-          </li>
-          <li>
-            <a class="link-u text-paper/85" href={site.social.x}>X / Twitter</a>
           </li>
           <li>
             <a class="link-u text-paper/85" href={`mailto:${site.email}`}
@@ -60,14 +60,9 @@ import Logo from "./Logo.astro";
       </div>
     </div>
     <div
-      class="border-t border-line pt-6 flex flex-col md:flex-row md:items-center md:justify-between gap-4 font-mono text-[11px] text-mute"
+      class="border-t border-line pt-6 font-mono text-[11px] text-mute"
     >
-      <span>© 2026 LayerLogic AB · Org.nr — pending</span>
-      <span class="flex items-center gap-4">
-        <a href="#" class="link-u">Privacy</a>
-        <a href="#" class="link-u">Terms</a>
-        <span class="text-accent">{site.version}</span>
-      </span>
+      <span>© 2026 LayerLogic AB</span>
     </div>
   </div>
 </footer>

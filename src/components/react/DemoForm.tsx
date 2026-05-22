@@ -30,8 +30,7 @@ export default function DemoForm() {
       noValidate
     >
       <div className="flex items-center justify-between mb-8">
-        <span className="label">REQ_DEMO</span>
-        <span className="font-mono text-[11px] text-mute">FORM_v1</span>
+        <span className="label">Request a demo</span>
       </div>
 
       <div className="space-y-6">
@@ -111,10 +110,6 @@ export default function DemoForm() {
         className="lb-btn lb-btn--primary lb-btn--block mt-8 disabled:opacity-60"
         disabled={status === "sending"}
       >
-        <span className="lb-led" />
-        <span className="lb-cap font-mono text-[10px] tracking-[.2em] uppercase opacity-60">
-          {status === "sending" ? "TX" : "SEND"}
-        </span>
         <span className="lb-label">
           {status === "sending" ? "Sending…" : "Send request"}
         </span>

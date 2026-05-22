@@ -1,0 +1,48 @@
+---
+import StatCounter from "~/components/react/StatCounter.tsx";
+import ScrollReveal from "~/components/react/ScrollReveal.tsx";
+
+/**
+ * Patents callout strip. Sits between §04 Science and §05 Backed by as a
+ * dedicated proof-point — reads as a natural handoff from the science
+ * argument into the investor argument.
+ */
+---
+
+<section
+  class="border-b border-line bg-ink2/40 relative overflow-hidden"
+  aria-label="Patents filed"
+>
+  <div
+    class="max-w-[1320px] mx-auto px-6 lg:px-10 py-16 lg:py-20"
+  >
+    <ScrollReveal client:load>
+      <div
+        class="grid lg:grid-cols-12 gap-8 lg:gap-10 items-center"
+      >
+        {/* Big number block */}
+        <div class="lg:col-span-4 flex items-baseline gap-4">
+          <span
+            class="stat-num text-[clamp(96px,12vw,184px)] font-medium num-tabular text-accent leading-[0.9]"
+          >
+            <StatCounter client:visible target={2} />
+          </span>
+          <span
+            class="label !text-[12px] text-paper/60 -translate-y-2 hidden sm:inline"
+          >
+            Filed
+          </span>
+        </div>
+
+        {/* Headline */}
+        <div class="lg:col-span-8">
+          <h2
+            class="display-md text-[clamp(28px,3.4vw,44px)] font-medium text-paper max-w-[20ch]"
+          >
+            Patents filed on our manufacturing process.
+          </h2>
+        </div>
+      </div>
+    </ScrollReveal>
+  </div>
+</section>

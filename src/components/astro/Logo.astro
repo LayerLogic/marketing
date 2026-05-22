@@ -2,20 +2,45 @@
 interface Props {
   size?: number;
 }
-const { size = 22 } = Astro.props;
+const { size = 40 } = Astro.props;
+
+const base = import.meta.env.BASE_URL;
+const light = `${base}assets/logos/svg/Symbol color.svg`;
+const dark = `${base}assets/logos/svg/Symbol white with purple detail.svg`;
 ---
 
-<svg
-  width={size}
-  height={size}
-  viewBox="0 0 22 22"
+<span
+  class="ll-logo"
+  style={`--ll-size:${size}px;`}
   aria-hidden="true"
-  xmlns="http://www.w3.org/2000/svg"
 >
-  <g stroke="currentColor" stroke-width="1.25" fill="none">
-    <path d="M2.5 7.5 L11 3 L19.5 7.5 L11 12 Z"></path>
-    <path d="M2.5 11.5 L11 16 L19.5 11.5" opacity=".55"></path>
-    <path d="M2.5 15 L11 19.5 L19.5 15" opacity=".25"></path>
-  </g>
-  <circle cx="11" cy="7.5" r="1.6" fill="#06B6A7"></circle>
-</svg>
+  <img class="ll-logo-img ll-logo-light" src={light} alt="" />
+  <img class="ll-logo-img ll-logo-dark" src={dark} alt="" />
+</span>
+
+<style is:global>
+  .ll-logo {
+    position: relative;
+    display: inline-block;
+    width: var(--ll-size, 40px);
+    height: var(--ll-size, 40px);
+    flex: none;
+    vertical-align: middle;
+  }
+  .ll-logo-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+  .ll-logo-dark {
+    opacity: 0;
+  }
+  body.dark .ll-logo-light {
+    opacity: 0;
+  }
+  body.dark .ll-logo-dark {
+    opacity: 1;
+  }
+</style>

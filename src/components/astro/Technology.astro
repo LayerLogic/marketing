@@ -6,22 +6,25 @@ import ScrollReveal from "~/components/react/ScrollReveal.tsx";
   <div class="max-w-[1320px] mx-auto px-6 lg:px-10 py-24 lg:py-32">
     <div class="grid lg:grid-cols-12 gap-10 mb-16 lg:mb-20">
       <div class="lg:col-span-3">
-        <div class="label mb-3">§ 02 — Mechanism</div>
+        <div class="label mb-3">§ 03 — The technology behind it</div>
       </div>
       <div class="lg:col-span-9">
         <ScrollReveal client:load>
           <h2
-            class="display-md text-[clamp(34px,5vw,68px)] font-medium max-w-[20ch] text-paper"
+            class="display-md text-[clamp(34px,5vw,68px)] font-medium max-w-[22ch] text-paper"
           >
-            Three steps from sample to signal.
+            Underneath: a graphene field-effect transistor.
           </h2>
         </ScrollReveal>
         <ScrollReveal client:load delay={120}>
-          <p class="mt-6 text-paper/70 text-[17px] max-w-[60ch]">
-            A graphene field-effect transistor is, at heart, a charge sensor. We
-            make it specific by anchoring receptor molecules to the channel.
-            When a target binds, the device sees it — directly, electrically,
-            without amplification.
+          <p class="mt-6 text-paper/75 text-[17px] max-w-[60ch]">
+            A graphene field-effect transistor (gFET) is a charge sensor. We
+            add receptors that grab the target; when something binds, the
+            signal changes. No amplification, no thermal cycling, no
+            reagents. We target
+            <em class="not-italic text-paper">Listeria monocytogenes</em>
+            today, but the same chip can be tuned for other bacteria,
+            viruses, and analytes.
           </p>
         </ScrollReveal>
       </div>
@@ -31,8 +34,8 @@ import ScrollReveal from "~/components/react/ScrollReveal.tsx";
       {/* STEP 01 */}
       <article class="border-line md:border-r p-8 lg:p-10 group">
         <div class="flex items-center justify-between mb-8">
-          <span class="font-mono text-[12px] text-accent">STEP_01</span>
-          <span class="font-mono text-[11px] text-mute">t = 0s</span>
+          <span class="label !text-[12px] text-accent">Step 01 — Capture</span>
+          <span class="text-[11px] text-mute tracking-[.08em]">t = 0s</span>
         </div>
         <svg
           viewBox="0 0 280 140"
@@ -92,12 +95,8 @@ import ScrollReveal from "~/components/react/ScrollReveal.tsx";
           Capture.
         </h3>
         <p class="text-paper/75 text-[15px] leading-relaxed">
-          A functionalized graphene surface binds the target — bacterium, virus,
-          fungal spore, or molecule.
-        </p>
-        <p class="mt-4 font-mono text-[11px] text-mute leading-relaxed">
-          // sub: receptor-conjugated graphene channel; selective affinity
-          binding under physiological buffer.
+          Receptors on the graphene surface grab the target out of the sample
+          — bacteria, viruses, spores, or smaller molecules.
         </p>
       </article>
 
@@ -106,8 +105,8 @@ import ScrollReveal from "~/components/react/ScrollReveal.tsx";
         class="border-line md:border-r p-8 lg:p-10 border-t md:border-t-0 group"
       >
         <div class="flex items-center justify-between mb-8">
-          <span class="font-mono text-[12px] text-accent">STEP_02</span>
-          <span class="font-mono text-[11px] text-mute">t ≈ 02:00</span>
+          <span class="label !text-[12px] text-accent">Step 02 — Transduce</span>
+          <span class="text-[11px] text-mute tracking-[.08em]">t ≈ 02:00</span>
         </div>
         <svg
           viewBox="0 0 280 140"
@@ -182,21 +181,16 @@ import ScrollReveal from "~/components/react/ScrollReveal.tsx";
           Transduce.
         </h3>
         <p class="text-paper/75 text-[15px] leading-relaxed">
-          The binding event shifts the electric field across the gFET channel —
-          a measurable change in conductance.
-        </p>
-        <p class="mt-4 font-mono text-[11px] text-mute leading-relaxed">
-          // sub: charge perturbation modulates I<sub>ds</sub> at fixed V<sub
-            >g</sub
-          >; LOD set by Debye length and SNR.
+          When something binds, the electric field across the channel shifts.
+          The chip reads it straight away as a change in current.
         </p>
       </article>
 
       {/* STEP 03 */}
       <article class="p-8 lg:p-10 border-t md:border-t-0 border-line group">
         <div class="flex items-center justify-between mb-8">
-          <span class="font-mono text-[12px] text-accent">STEP_03</span>
-          <span class="font-mono text-[11px] text-mute">t &lt; 15:00</span>
+          <span class="label !text-[12px] text-accent">Step 03 — Read</span>
+          <span class="text-[11px] text-mute tracking-[.08em]">t &lt; 15:00</span>
         </div>
         <svg
           viewBox="0 0 280 140"
@@ -242,12 +236,8 @@ import ScrollReveal from "~/components/react/ScrollReveal.tsx";
           Read.
         </h3>
         <p class="text-paper/75 text-[15px] leading-relaxed">
-          A digital result on the device — pass, fail, or quantitative — in
-          under fifteen minutes from sample.
-        </p>
-        <p class="mt-4 font-mono text-[11px] text-mute leading-relaxed">
-          // sub: on-board signal processing converts ΔI<sub>ds</sub>(t) to
-          species-level call with confidence bound.
+          The device turns that signal into a clear pass or fail, in under
+          fifteen minutes from sample.
         </p>
       </article>
     </div>

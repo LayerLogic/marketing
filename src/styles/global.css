@@ -1,48 +1,53 @@
 @import "tailwindcss";
 
-@import "@fontsource-variable/inter-tight/index.css";
-@import "@fontsource-variable/jetbrains-mono/index.css";
+@import "@fontsource-variable/dm-sans/index.css";
 
 /* ─────────────────────────────────────────────────────────────
    Design tokens (Tailwind v4 @theme)
-   Mirrors the source HTML's tailwind.config exactly.
+   LayerLogic brand: cream paper + dark/light purple system, DM Sans.
+   Semantics retained — `ink` = surface, `paper` = primary foreground,
+   `accent` = brand highlight — so existing utility usage still reads
+   intuitively against the new palette.
    ───────────────────────────────────────────────────────────── */
 @theme {
-  --color-ink: #0a0a0b;
-  --color-ink2: #101012;
-  --color-line: #1f1f22;
-  --color-line2: #2a2a2e;
-  --color-mute: #6b6b72;
-  --color-mute2: #9a9aa1;
-  --color-paper: #ededE8;
-  --color-paper2: #f6f6f2;
-  --color-accent: #06b6a7;
-  --color-accent2: #0ad4c2;
+  --color-ink: #f1f0ed;        /* page surface (cream) */
+  --color-ink2: #e6e4dd;       /* slightly inset surface */
+  --color-line: #d8d4cb;       /* hairline rules */
+  --color-line2: #c6c1b5;      /* stronger rules */
+  --color-mute: #6e6a74;       /* muted foreground */
+  --color-mute2: #4a4357;      /* secondary muted */
+  --color-paper: #230059;      /* primary text (darkest purple) */
+  --color-paper2: #3b0085;     /* secondary text (dark purple) */
+  --color-accent: #7c19f6;     /* light purple accent */
+  --color-accent2: #c497fb;    /* lightest purple — hover/echo */
+  --color-warn: #dc8b5a;       /* warm warning color */
 
   --font-sans:
-    "Inter Tight Variable", "Inter Tight", ui-sans-serif, system-ui, sans-serif;
+    "DM Sans Variable", "DM Sans", ui-sans-serif, system-ui, sans-serif;
   --font-mono:
-    "JetBrains Mono Variable", "JetBrains Mono", ui-monospace, SFMono-Regular,
-    monospace;
+    "DM Sans Variable", "DM Sans", ui-sans-serif, system-ui, sans-serif;
 
   --tracking-tightest: -0.04em;
   --tracking-tighter2: -0.03em;
 }
 
 /* ─────────────────────────────────────────────────────────────
-   Light theme overrides — engaged via `body.light`
+   Dark theme overrides — engaged via `body.dark`.
+   Brand has white + white-with-purple-detail logo variants so the
+   identity reads in both modes. Accent shifts to the lightest purple
+   for higher contrast against the dark surface.
    ───────────────────────────────────────────────────────────── */
-body.light {
-  --color-ink: #f6f4ee;
-  --color-ink2: #ece9df;
-  --color-line: #d9d5cb;
-  --color-line2: #c5c0b5;
-  --color-mute: #6e6e74;
-  --color-mute2: #4f4f56;
-  --color-paper: #0a0a0b;
-  --color-paper2: #1a1a1f;
-  --color-accent: #047a70;
-  --color-accent2: #06b6a7;
+body.dark {
+  --color-ink: #14102a;        /* surface — cool purple-black */
+  --color-ink2: #1f1838;       /* elevated surface */
+  --color-line: #2d2548;       /* hairline */
+  --color-line2: #3d3360;      /* stronger rule */
+  --color-mute: #8a849c;
+  --color-mute2: #b8b1ca;
+  --color-paper: #f1f0ed;      /* primary text — cream */
+  --color-paper2: #c497fb;     /* secondary text */
+  --color-accent: #c497fb;     /* lightest purple — pops on dark */
+  --color-accent2: #7c19f6;    /* light purple — echo/hover */
 }
 
 /* ─────────────────────────────────────────────────────────────
@@ -77,8 +82,8 @@ body {
 }
 
 ::selection {
-  background: var(--color-accent);
-  color: var(--color-ink);
+  background: var(--color-accent2);
+  color: var(--color-paper);
 }
 
 /* ─────────────────────────────────────────────────────────────
@@ -148,11 +153,9 @@ html.lattice-3d-active .hero-svg-fallback svg.lattice-drift {
   transition: opacity 0.4s ease;
 }
 
-/* Make sure the sticky header reads against either theme. The hero canvas
-   sits at z-1 in its own section; the header at z-40 is in the root stacking
-   context so it's always above. The translucent fill needs a touch more
-   opacity in light mode so it doesn't disappear into the cream page. */
-body.light header.sticky {
+/* Sticky header sits on the cream surface — keep the translucent fill
+   strong enough that scroll-under content doesn't bleed through. */
+header.sticky {
   background-color: color-mix(
     in srgb,
     var(--color-ink) 82%,
@@ -161,54 +164,37 @@ body.light header.sticky {
 }
 
 /* ─────────────────────────────────────────────────────────────
-   SVG attribute overrides for light theme.
-   The schematics in §02 / §04 use hardcoded hex values matched to the
-   dark palette. In light mode we remap each value to its cream-palette
-   counterpart so the diagrams read correctly on the lighter background.
+   SVG attribute remaps.
+   The schematics in §02 / §04 were authored with hardcoded hex values
+   matching the original dark palette. Remap each value to the brand
+   cream + purple palette so diagrams read on the new background.
    ───────────────────────────────────────────────────────────── */
-body.light [fill="#101012"] {
-  fill: #ece9df;
-}
-body.light [fill="#15151a"] {
-  fill: #ece9df;
-}
-body.light [fill="#1A1A1F"] {
-  fill: #ddd9ce;
-}
-body.light [fill="#2A2A2E"] {
-  fill: #ddd9ce;
-}
-body.light [fill="#9A9AA1"] {
-  fill: #4f4f56;
-}
-body.light [fill="#6B6B72"] {
-  fill: #6e6e74;
-}
-body.light [fill="#EDEDE8"] {
-  fill: #0a0a0b;
-}
-body.light [fill="#06B6A7"] {
-  fill: #047a70;
-}
-body.light [stroke="#1F1F22"] {
-  stroke: #d9d5cb;
-}
-body.light [stroke="#2A2A2E"] {
-  stroke: #b3aea2;
-}
-body.light [stroke="#EDEDE8"] {
-  stroke: #0a0a0b;
-}
-body.light [stroke="#06B6A7"] {
-  stroke: #047a70;
-}
+[fill="#101012"]  { fill: #e6e4dd; }
+[fill="#15151a"]  { fill: #ece9df; }
+[fill="#1A1A1F"]  { fill: #d8d4cb; }
+[fill="#2A2A2E"]  { fill: #c6c1b5; }
+[fill="#9A9AA1"]  { fill: #4a4357; }
+[fill="#6B6B72"]  { fill: #6e6a74; }
+[fill="#EDEDE8"]  { fill: #230059; }
+[fill="#06B6A7"]  { fill: #7c19f6; }
+[stroke="#1F1F22"] { stroke: #d8d4cb; }
+[stroke="#2A2A2E"] { stroke: #b3aea2; }
+[stroke="#EDEDE8"] { stroke: #230059; }
+[stroke="#06B6A7"] { stroke: #7c19f6; }
 
-/* The receptor-flash keyframes hardcode dark-palette colors. In light
-   mode just disable the animation so it doesn't pulse to invisible whites. */
-body.light .receptor-flash {
-  stroke: #0a0a0b !important;
-  animation: none !important;
-}
+/* Dark-mode SVG remaps — re-route the same source values to the dark palette */
+body.dark [fill="#101012"]  { fill: #14102a; }
+body.dark [fill="#15151a"]  { fill: #1a1430; }
+body.dark [fill="#1A1A1F"]  { fill: #1f1838; }
+body.dark [fill="#2A2A2E"]  { fill: #2d2548; }
+body.dark [fill="#9A9AA1"]  { fill: #b8b1ca; }
+body.dark [fill="#6B6B72"]  { fill: #8a849c; }
+body.dark [fill="#EDEDE8"]  { fill: #f1f0ed; }
+body.dark [fill="#06B6A7"]  { fill: #c497fb; }
+body.dark [stroke="#1F1F22"] { stroke: #2d2548; }
+body.dark [stroke="#2A2A2E"] { stroke: #3d3360; }
+body.dark [stroke="#EDEDE8"] { stroke: #f1f0ed; }
+body.dark [stroke="#06B6A7"] { stroke: #c497fb; }
 
 /* ─────────────────────────────────────────────────────────────
    Lattice drift (used as no-JS fallback)
@@ -308,6 +294,51 @@ body.light .receptor-flash {
 }
 
 /* ─────────────────────────────────────────────────────────────
+   Card hover-reveal — investor / recognition tiles.
+   Resting state shows logo + name; hover (or keyboard focus) fades
+   in a back panel with a short blurb. Pure CSS, no JS.
+   ───────────────────────────────────────────────────────────── */
+.card-flip {
+  cursor: default;
+}
+.card-flip__back {
+  position: absolute;
+  inset: 0;
+  padding: 24px 22px;
+  background: color-mix(in srgb, var(--color-paper) 96%, transparent);
+  color: var(--color-ink);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  opacity: 0;
+  transform: translateY(8px);
+  transition:
+    opacity 0.3s ease,
+    transform 0.35s cubic-bezier(0.2, 0.7, 0.2, 1);
+  pointer-events: none;
+}
+.card-flip__back .text-accent {
+  color: var(--color-accent2);
+}
+.card-flip__back p {
+  color: color-mix(in srgb, var(--color-ink) 85%, transparent);
+}
+.card-flip__back--compact {
+  padding: 14px 14px;
+}
+.card-flip:hover .card-flip__back,
+.card-flip:focus-visible .card-flip__back {
+  opacity: 1;
+  transform: translateY(0);
+}
+@media (prefers-reduced-motion: reduce) {
+  .card-flip__back {
+    transition: opacity 0.15s linear;
+    transform: none;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────
    Step / science animations (SVG)
    ───────────────────────────────────────────────────────────── */
 @keyframes analyte-bob-a {
@@ -384,18 +415,23 @@ body.light .receptor-flash {
   0%,
   88%,
   100% {
-    stroke: #ededE8;
+    stroke: #230059;
   }
   92%,
   96% {
-    stroke: #06b6a7;
+    stroke: #7c19f6;
   }
 }
 .receptor-flash {
   animation: receptor-flash 4.5s linear infinite;
 }
-/* Light-mode override for `.receptor-flash` lives in the SVG attribute
-   override block above (it also sets the resting stroke color). */
+@keyframes receptor-flash-dark {
+  0%, 88%, 100% { stroke: #f1f0ed; }
+  92%, 96%      { stroke: #c497fb; }
+}
+body.dark .receptor-flash {
+  animation: receptor-flash-dark 4.5s linear infinite;
+}
 
 @keyframes wave-draw {
   0% {
@@ -621,35 +657,40 @@ body.light .receptor-flash {
     color 0.3s ease,
     background 0.3s ease,
     border-color 0.3s ease,
-    transform 0.4s cubic-bezier(0.2, 0.7, 0.2, 1);
-  overflow: hidden;
+    box-shadow 0.35s cubic-bezier(0.2, 0.7, 0.2, 1),
+    transform 0.35s cubic-bezier(0.2, 0.7, 0.2, 1);
   text-decoration: none;
   cursor: pointer;
   user-select: none;
 }
+/* Rounded pill buttons. On hover: left-to-right fill swipe; text inverts. */
+.lb-btn {
+  border-radius: 999px;
+  overflow: hidden;
+  isolation: isolate;
+}
+.lb-btn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-101%);
+  transition: transform 0.45s cubic-bezier(0.7, 0, 0.2, 1);
+  z-index: 0;
+}
+.lb-btn:hover::before {
+  transform: translateX(0);
+}
+.lb-btn > * {
+  position: relative;
+  z-index: 1;
+}
+
 .lb-btn .lb-led {
   width: 7px;
   height: 7px;
   border-radius: 50%;
   background: currentColor;
-  position: relative;
   flex: none;
-}
-.lb-btn .lb-led::after {
-  content: "";
-  position: absolute;
-  inset: -4px;
-  border-radius: 50%;
-  background: currentColor;
-  opacity: 0;
-  transform: scale(0.5);
-  transition:
-    opacity 0.35s ease,
-    transform 0.35s ease;
-}
-.lb-btn:hover .lb-led::after {
-  opacity: 0.18;
-  transform: scale(1);
 }
 .lb-btn .lb-label {
   line-height: 1;
@@ -658,76 +699,57 @@ body.light .receptor-flash {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 36px;
-  height: 36px;
+  width: 32px;
+  height: 32px;
   margin-left: auto;
-  border-radius: 2px;
-  position: relative;
-  overflow: hidden;
+  border-radius: 999px;
   flex: none;
 }
 .lb-btn .lb-chip svg {
   transition: transform 0.4s cubic-bezier(0.65, 0, 0.35, 1);
 }
 .lb-btn:hover .lb-chip svg {
-  transform: translateX(2px);
+  transform: translateX(3px);
 }
 
-.lb-btn--ticks::before,
-.lb-btn--ticks::after {
-  content: "";
-  position: absolute;
-  width: 7px;
-  height: 7px;
-  border: 1px solid currentColor;
-  opacity: 0.6;
-  transition:
-    opacity 0.3s ease,
-    border-color 0.3s ease;
-  pointer-events: none;
-}
-.lb-btn--ticks::before {
-  top: 4px;
-  left: 4px;
-  border-right: 0;
-  border-bottom: 0;
-}
-.lb-btn--ticks::after {
-  bottom: 4px;
-  right: 4px;
-  border-left: 0;
-  border-top: 0;
-}
-.lb-btn--ticks:hover::before,
-.lb-btn--ticks:hover::after {
-  opacity: 1;
-}
-
+/* PRIMARY — accent fill, on hover fills with the opposite-end surface */
 .lb-btn--primary {
   background: var(--color-accent);
-  color: var(--color-ink);
+  color: var(--color-ink); /* contrast inverts with theme automatically */
+}
+.lb-btn--primary::before {
+  background: var(--color-paper);
 }
 .lb-btn--primary:hover {
-  background: var(--color-accent2);
+  color: var(--color-ink);
 }
 .lb-btn--primary .lb-chip {
-  background: color-mix(in srgb, var(--color-ink) 14%, transparent);
+  background: color-mix(in srgb, var(--color-ink) 18%, transparent);
 }
 
+/* OUTLINE — transparent w/ border, fills with accent on hover */
 .lb-btn--outline {
   background: transparent;
   color: var(--color-paper);
-  border: 1px solid color-mix(in srgb, var(--color-paper) 22%, transparent);
+  border: 1.5px solid color-mix(in srgb, var(--color-paper) 28%, transparent);
+}
+.lb-btn--outline::before {
+  background: var(--color-accent);
 }
 .lb-btn--outline:hover {
+  color: var(--color-ink);
   border-color: var(--color-accent);
-  color: var(--color-accent);
 }
 .lb-btn--outline .lb-chip {
-  background: color-mix(in srgb, var(--color-paper) 7%, transparent);
+  background: color-mix(in srgb, var(--color-paper) 10%, transparent);
 }
 .lb-btn--outline:hover .lb-chip {
-  background: color-mix(in srgb, var(--color-accent) 12%, transparent);
+  background: color-mix(in srgb, var(--color-ink) 18%, transparent);
+}
+
+.lb-btn:focus-visible {
+  outline: 2px solid var(--color-accent2);
+  outline-offset: 3px;
 }
 
 .lb-btn--sm {
@@ -735,11 +757,10 @@ body.light .receptor-flash {
   padding: 0 4px 0 14px;
   font-size: 13px;
   gap: 10px;
-  border-radius: 2px;
 }
 .lb-btn--sm .lb-chip {
-  width: 28px;
-  height: 28px;
+  width: 26px;
+  height: 26px;
 }
 .lb-btn--sm .lb-led {
   width: 5.5px;
@@ -751,58 +772,70 @@ body.light .receptor-flash {
 }
 
 /* ─────────────────────────────────────────────────────────────
-   Theme toggle pill
+   Theme toggle — Apple-style segmented pill
+   Track is a fully rounded inset, round knob slides between icons.
    ───────────────────────────────────────────────────────────── */
 .lb-toggle {
   position: relative;
   display: inline-flex;
   align-items: center;
-  width: 64px;
+  width: 60px;
   height: 30px;
-  border-radius: 2px;
-  border: 1px solid color-mix(in srgb, var(--color-paper) 22%, transparent);
-  background: transparent;
+  border-radius: 999px;
+  border: none;
   padding: 2px;
   cursor: pointer;
-  transition: border-color 0.3s ease;
+  background: color-mix(in srgb, var(--color-paper) 10%, transparent);
+  box-shadow:
+    inset 0 1px 2px color-mix(in srgb, var(--color-paper) 15%, transparent),
+    inset 0 0 0 1px color-mix(in srgb, var(--color-paper) 8%, transparent);
+  transition: background 0.3s ease, box-shadow 0.3s ease;
 }
 .lb-toggle:hover {
-  border-color: var(--color-accent);
+  background: color-mix(in srgb, var(--color-paper) 14%, transparent);
 }
 .lb-toggle .lb-toggle-knob {
   position: absolute;
   top: 2px;
   left: 2px;
-  width: 28px;
-  height: 24px;
-  background: var(--color-accent);
-  border-radius: 1px;
+  width: 26px;
+  height: 26px;
+  background: var(--color-ink);
+  border-radius: 50%;
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.18),
+    0 2px 6px rgba(0, 0, 0, 0.12),
+    inset 0 0 0 1px color-mix(in srgb, var(--color-paper) 10%, transparent);
   transition:
-    transform 0.35s cubic-bezier(0.65, 0, 0.35, 1),
+    transform 0.4s cubic-bezier(0.34, 1.36, 0.64, 1),
     background 0.3s ease;
 }
-body.light .lb-toggle .lb-toggle-knob {
+body.dark .lb-toggle .lb-toggle-knob {
   transform: translateX(30px);
+  background: var(--color-paper);
 }
 .lb-toggle .lb-toggle-ic {
   position: relative;
   z-index: 1;
-  width: 30px;
+  width: 28px;
   height: 26px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  color: var(--color-paper);
+  color: color-mix(in srgb, var(--color-paper) 45%, transparent);
   transition: color 0.3s ease;
 }
 .lb-toggle .lb-toggle-ic.is-active {
+  color: var(--color-accent);
+}
+body.dark .lb-toggle .lb-toggle-ic.is-active {
   color: var(--color-ink);
 }
-body.light .lb-toggle .lb-toggle-ic {
-  color: var(--color-paper);
-}
-body.light .lb-toggle .lb-toggle-ic.is-active {
-  color: var(--color-ink);
+/* Moon-only nudge — in dark mode the moon sits inside the knob, whose
+   center is 1px to the right of the moon slot's geometric center.
+   Shift the moon icon +1px right so it lines up with the knob center. */
+.lb-toggle .lb-toggle-ic:nth-of-type(3) > svg {
+  transform: translateX(1px);
 }
 
 /* ─────────────────────────────────────────────────────────────

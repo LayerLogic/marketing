@@ -1,0 +1,156 @@
+---
+import ScrollReveal from "~/components/react/ScrollReveal.tsx";
+
+/**
+ * Customer-facing test flow.
+ *
+ * Sits above §03 "The technology behind it" — explains what the operator
+ * actually does on the line, in plain language. No graphene, no field
+ * effects, no schematics. The technical detail lives in the next section
+ * for investors and reviewers who need it.
+ */
+---
+
+<section id="how-it-works" class="border-b border-line">
+  <div class="max-w-[1320px] mx-auto px-6 lg:px-10 py-24 lg:py-32">
+    <div class="grid lg:grid-cols-12 gap-10 mb-16 lg:mb-20">
+      <div class="lg:col-span-3">
+        <div class="label mb-3">§ 02 — How the test works</div>
+      </div>
+      <div class="lg:col-span-9">
+        <ScrollReveal client:load>
+          <h2
+            class="display-md text-[clamp(34px,5vw,68px)] font-medium max-w-[20ch] text-paper"
+          >
+            Listeria, found on the line — in fifteen minutes.
+          </h2>
+        </ScrollReveal>
+        <ScrollReveal client:load delay={120}>
+          <p class="mt-6 text-paper/75 text-[17px] max-w-[52ch]">
+            Today's cartridge is tuned for
+            <em class="not-italic text-paper">Listeria monocytogenes</em> —
+            built for the line, not the lab.
+          </p>
+        </ScrollReveal>
+      </div>
+    </div>
+
+    <ol class="grid grid-cols-1 md:grid-cols-3 gap-px bg-line border border-line">
+      {/* STEP 01 — sample */}
+      <li class="bg-ink p-8 lg:p-10 flex flex-col gap-6">
+        <div class="flex items-center justify-between">
+          <span class="label !text-[12px] text-accent">Step 01</span>
+          <span class="text-[11px] text-mute tracking-[.08em]">≈ 30s</span>
+        </div>
+        <svg
+          viewBox="0 0 80 80"
+          class="w-16 h-16"
+          aria-hidden="true"
+        >
+          {/* droplet glyph */}
+          <path
+            d="M40 10 C 40 10, 22 32, 22 48 A 18 18 0 0 0 58 48 C 58 32, 40 10, 40 10 Z"
+            fill="none"
+            stroke="var(--color-accent)"
+            stroke-width="2"
+            stroke-linejoin="round"
+          ></path>
+          <circle cx="35" cy="45" r="3" fill="var(--color-accent)" opacity="0.7"></circle>
+        </svg>
+        <div>
+          <h3 class="text-[22px] font-medium mb-2 tracking-tighter2 text-paper">
+            Swab where Listeria hides.
+          </h3>
+          <p class="text-paper/75 text-[15px] leading-relaxed">
+            Drains, slicers, belts, surfaces. Drop the swab onto a fresh
+            cartridge.
+          </p>
+        </div>
+      </li>
+
+      {/* STEP 02 — insert */}
+      <li class="bg-ink p-8 lg:p-10 flex flex-col gap-6">
+        <div class="flex items-center justify-between">
+          <span class="label !text-[12px] text-accent">Step 02</span>
+          <span class="text-[11px] text-mute tracking-[.08em]">on-site</span>
+        </div>
+        <svg viewBox="0 0 80 80" class="w-16 h-16" aria-hidden="true">
+          {/* handheld reader glyph */}
+          <rect
+            x="20" y="14" width="40" height="56" rx="6"
+            fill="none"
+            stroke="var(--color-accent)"
+            stroke-width="2"
+          ></rect>
+          <rect
+            x="26" y="22" width="28" height="20" rx="2"
+            fill="var(--color-accent2)"
+            opacity="0.35"
+          ></rect>
+          <rect
+            x="28" y="50" width="24" height="3" rx="1.5"
+            fill="var(--color-accent)"
+          ></rect>
+          <rect
+            x="28" y="58" width="16" height="3" rx="1.5"
+            fill="var(--color-accent)"
+            opacity="0.5"
+          ></rect>
+          {/* cartridge slot */}
+          <rect
+            x="32" y="6" width="16" height="10" rx="1"
+            fill="var(--color-accent)"
+            opacity="0.8"
+          ></rect>
+        </svg>
+        <div>
+          <h3 class="text-[22px] font-medium mb-2 tracking-tighter2 text-paper">
+            Slide it in.
+          </h3>
+          <p class="text-paper/75 text-[15px] leading-relaxed">
+            Insert the cartridge, press start. Keep the line running.
+          </p>
+        </div>
+      </li>
+
+      {/* STEP 03 — answer */}
+      <li class="bg-ink p-8 lg:p-10 flex flex-col gap-6">
+        <div class="flex items-center justify-between">
+          <span class="label !text-[12px] text-accent">Step 03</span>
+          <span class="text-[11px] text-mute tracking-[.08em]">&lt; 15 min</span>
+        </div>
+        <svg viewBox="0 0 80 80" class="w-16 h-16" aria-hidden="true">
+          {/* circle with checkmark */}
+          <circle
+            cx="40" cy="40" r="28"
+            fill="none"
+            stroke="var(--color-accent)"
+            stroke-width="2"
+          ></circle>
+          <path
+            d="M27 41 L37 51 L54 32"
+            fill="none"
+            stroke="var(--color-accent)"
+            stroke-width="3"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          ></path>
+        </svg>
+        <div>
+          <h3 class="text-[22px] font-medium mb-2 tracking-tighter2 text-paper">
+            Listeria: yes or no.
+          </h3>
+          <p class="text-paper/75 text-[15px] leading-relaxed">
+            Pass or fail in under fifteen minutes — before the batch ships.
+          </p>
+        </div>
+      </li>
+    </ol>
+
+    <ScrollReveal client:load delay={160}>
+      <p class="mt-12 lg:mt-16 text-[14px] text-mute2">
+        Want the science underneath? Read on.
+      </p>
+    </ScrollReveal>
+  </div>
+</section>

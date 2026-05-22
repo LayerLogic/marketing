@@ -1,9 +1,9 @@
 export const site = {
   name: "LayerLogic",
   url: "https://layerlogic.se",
-  title: "LayerLogic — Pathogens, detected in minutes. Not days.",
+  title: "LayerLogic",
   description:
-    "LayerLogic builds a handheld biosensor based on graphene field-effect transistors — bringing PCR-grade pathogen detection out of the lab and onto the production line.",
+    "LayerLogic builds a handheld sensor that finds Listeria on the production line in fifteen minutes. No lab, no shipping, no waiting two days for an answer.",
   region: "SE · GBG",
   version: "v1.0",
   email: "hello@layerlogic.se",
@@ -14,85 +14,161 @@ export const site = {
   },
   coords: { lat: "57.6878° N", lng: "11.9682° E", tz: "CET" },
   social: {
-    linkedin: "#",
-    x: "#",
+    linkedin: "https://www.linkedin.com/company/layerlogic-ab",
   },
 } as const;
 
 export const navItems = [
   { href: "#technology", label: "Technology" },
   { href: "#science", label: "Science" },
-  { href: "#company", label: "Company" },
   { href: "#investors", label: "Investors" },
+  { href: "#company", label: "Company" },
 ] as const;
 
 export const investors = [
-  { name: "Scientifica VC", location: "London · UK" },
-  { name: "Chalmers Ventures", location: "Gothenburg · SE" },
-  { name: "EIT Food", location: "EU programme" },
-  { name: "MassChallenge", location: "Boston · US" },
-  { name: "Yeos Ventures", location: "Singapore" },
-  { name: "SIO Grafen", location: "SE programme" },
+  {
+    name: "Scientifica VC",
+    location: "London · UK",
+    logo: "/assets/partners/scientifica.svg",
+    blurb:
+      "London-based venture fund backing science-led startups — advanced materials, deep biology and graphene technology.",
+  },
+  {
+    name: "Chalmers Ventures",
+    location: "Gothenburg · SE",
+    logo: "/assets/partners/chalmers-ventures.svg",
+    blurb:
+      "The innovation and investment arm of Chalmers University of Technology, where our graphene research originated.",
+  },
+  {
+    name: "EIT Food",
+    location: "EU programme",
+    logo: "/assets/partners/eit-food.svg",
+    blurb:
+      "Europe's largest food innovation community, supported by the European Institute of Innovation and Technology.",
+  },
+  {
+    name: "MassChallenge",
+    location: "Boston · US",
+    logo: "/assets/partners/masschallenge.svg",
+    blurb:
+      "Global accelerator network that helps early-stage, high-impact startups scale into industry leaders.",
+  },
+  {
+    name: "Yeos Ventures",
+    location: "Singapore",
+    logo: "/assets/partners/yeos-ventures.svg",
+    blurb:
+      "Singapore-based corporate venture arm investing across food, agritech and consumer markets in Asia.",
+  },
+  {
+    name: "SIO Grafen",
+    location: "SE programme",
+    logo: "/assets/partners/sio-grafen.svg",
+    blurb:
+      "Sweden's national strategic innovation programme for graphene applications and commercialization.",
+  },
+] as const;
+
+export const recognitions = [
+  {
+    name: "MassChallenge",
+    detail: "Global accelerator cohort",
+    logo: "/assets/recognitions/masschallenge.svg",
+    blurb:
+      "Selected into the MassChallenge cohort — a global accelerator that has helped over 3,000 startups raise more than $9B.",
+  },
+  {
+    name: "Forbes 30 Under 30",
+    detail: "Europe · Science",
+    logo: "/assets/recognitions/forbes-30u30.svg",
+    blurb:
+      "Featured in Forbes' annual list of young innovators reshaping their industries — Europe edition, Science category.",
+  },
+  {
+    name: "EIT Food",
+    detail: "RisingFoodStars alumni",
+    logo: "/assets/recognitions/eit-food.svg",
+    blurb:
+      "Member of EIT Food's RisingFoodStars — a select group of high-potential food-tech scaleups across Europe.",
+  },
+  {
+    name: "SIO Grafen",
+    detail: "Strategic innovation programme",
+    logo: "/assets/recognitions/sio-grafen.svg",
+    blurb:
+      "Recognized and funded by Sweden's national graphene programme for our work on field-effect biosensors.",
+  },
 ] as const;
 
 export const founders = [
   {
-    name: "Founder 01",
-    role: "CEO",
-    affil: "PhD, Physics — Chalmers",
-    angle: 45,
+    name: "André Persson",
+    role: "CEO & Founder",
+    affil: "Mechanical Engineering",
+    education: "MSc, Mechanical Engineering",
+    email: "andre.persson@layerlogic.se",
+    photo: "assets/team_members/Andre.JPG",
   },
   {
-    name: "Founder 02",
-    role: "CTO",
-    affil: "PhD, Graphene electronics — Chalmers",
-    angle: 135,
+    name: "Sebastian Samuelsson",
+    role: "CFO & Founder",
+    affil: "Industrial Engineering & Management",
+    education: "MSc, Industrial Engineering & Management",
+    email: "sebastian.samuelsson@layerlogic.se",
+    photo: "assets/team_members/Sebastian.JPG",
   },
   {
-    name: "Founder 03",
-    role: "Chief Scientist",
-    affil: "Prof., Microbiology — Chalmers",
-    angle: 90,
+    name: "Ebba Sandbecker",
+    role: "CCO & Founder",
+    affil: "Industrial Management & Production Engineering",
+    education: "MSc, Industrial Management & Production Engineering",
+    email: "ebba.sandbecker@layerlogic.se",
+    photo: "assets/team_members/Ebba.JPG",
   },
   {
-    name: "Founder 04",
-    role: "Head of Hardware",
-    affil: "MSc, Electrical Eng. — Chalmers",
-    angle: 45,
+    name: "Avgust Yurgens",
+    role: "Founder & Professor",
+    affil: "Quantum Device Physics",
+    education: "PhD, Quantum Device Physics",
+    email: "avgust.yurgens@layerlogic.se",
+    photo: "assets/team_members/Avgust.JPG",
   },
   {
-    name: "Founder 05",
-    role: "Head of Biochemistry",
-    affil: "PhD, Biochemistry — GU",
-    angle: 135,
+    name: "Santosh Pandit",
+    role: "Founder & Senior Researcher",
+    affil: "Systems Biology",
+    education: "PhD, Microbiology",
+    email: "santosh.pandit@layerlogic.se",
+    photo: "assets/team_members/Santosh.JPG",
   },
   {
-    name: "Founder 06",
-    role: "Head of Operations",
-    affil: "MSc, Industrial Eng. — Chalmers",
-    angle: 90,
+    name: "Munis Khan",
+    role: "Founder & Doctoral Researcher",
+    affil: "Microtechnology & Nanoscience",
+    education: "MSc, Solid State Physics",
+    email: "munis.khan@layerlogic.se",
+    photo: "assets/team_members/Kopia.png",
   },
-] as const;
-
-export const research = [
-  {
-    name: "Researcher 01",
-    affil: "PhD candidate, Surface chem.",
-    angle: 45,
-  },
-  { name: "Researcher 02", affil: "Postdoc, Microbiology", angle: 135 },
 ] as const;
 
 export const engineering = [
   {
-    name: "Engineer 01",
-    affil: "Firmware & signal processing",
-    angle: 90,
+    name: "Mohammed Agha",
+    role: "Head of Software Engineering",
+    affil: "Software Engineering",
+    education: "MSc, Software Engineering",
+    email: "mohammed.agha@layerlogic.se",
+    photo: "assets/team_members/Mohammed.JPG",
   },
   {
-    name: "Engineer 02",
-    affil: "Mechanical & cartridge design",
-    angle: 45,
+    name: "Elnaz Danesh",
+    role: "Chemical Engineer",
+    affil: "Chemical Engineering",
+    education: "MSc, Chemical Engineering",
+    email: "elnaz.danesh@layerlogic.se",
+    photo: "assets/team_members/Elnaz.jpeg",
+    photoStyle: "transform: scale(1.2); transform-origin: center 30%;",
   },
 ] as const;
 

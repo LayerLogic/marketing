@@ -1,6 +1,7 @@
 ---
 import HeroLattice3D from "~/components/react/HeroLattice3D.tsx";
 import HeroTicker from "~/components/react/HeroTicker.tsx";
+import HeroVisual from "./HeroVisual.astro";
 import ScrollReveal from "~/components/react/ScrollReveal.tsx";
 import { site } from "~/lib/site";
 ---
@@ -83,58 +84,38 @@ import { site } from "~/lib/site";
         <span class="label">Live · Sensor reading</span>
         <HeroTicker client:idle />
       </div>
-      <div class="label hidden md:block">{site.version} · Gothenburg, SE</div>
     </div>
 
-    <ScrollReveal client:load>
-      <h1
-        class="display text-[clamp(48px,9vw,148px)] font-medium max-w-[18ch] text-paper"
-      >
-        Pathogens,<br />
-         detected in <span class="text-accent">minutes.</span><br />
-        <span class="text-mute2">Not days.</span>
-      </h1>
-    </ScrollReveal>
+    <div class="grid lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+      <ScrollReveal client:load className="lg:col-span-7">
+        <h1
+          class="display text-[clamp(48px,8vw,128px)] font-medium max-w-[18ch] text-paper"
+        >
+          Pathogens,<br />
+           detected in <span class="text-accent">minutes.</span><br />
+          <span class="text-mute2">Not days.</span>
+        </h1>
+      </ScrollReveal>
+      <ScrollReveal client:load delay={200} className="lg:col-span-5">
+        <HeroVisual />
+      </ScrollReveal>
+    </div>
 
     <div class="mt-12 lg:mt-16 grid lg:grid-cols-12 gap-10 items-end">
       <ScrollReveal client:load delay={120} className="lg:col-span-6">
         <p
           class="text-[19px] lg:text-[22px] leading-[1.4] text-paper/80 max-w-[42ch]"
         >
-          LayerLogic builds a handheld biosensor based on graphene field-effect
-          transistors — bringing PCR-grade detection of bacteria, viruses and
-          contaminant molecules out of the lab and onto the production line.
+          We build a handheld sensor for food producers. Test for Listeria
+          right where the food is made, and get a clear answer in minutes
+          instead of waiting days for the lab.
         </p>
       </ScrollReveal>
       <ScrollReveal client:load delay={220} className="lg:col-span-6">
         <div class="flex flex-col items-start lg:items-end gap-6">
           <div class="flex flex-wrap gap-3">
             <a href="#contact" class="lb-btn lb-btn--primary">
-              <span class="lb-led"></span>
-              <span
-                class="lb-cap font-mono text-[10px] tracking-[.2em] uppercase opacity-60"
-                >REQ_01</span
-              >
               <span class="lb-label">Request a demo</span>
-              <span class="lb-chip">
-                <svg width="14" height="14" viewBox="0 0 14 14"
-                  ><path
-                    d="M2 7h9M7 3l4 4-4 4"
-                    stroke="currentColor"
-                    stroke-width="1.5"
-                    fill="none"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"></path></svg
-                >
-              </span>
-            </a>
-            <a href="#technology" class="lb-btn lb-btn--outline lb-btn--ticks">
-              <span class="lb-led"></span>
-              <span
-                class="lb-cap font-mono text-[10px] tracking-[.2em] uppercase opacity-60"
-                >TECH</span
-              >
-              <span class="lb-label">See the technology</span>
               <span class="lb-chip">
                 <svg width="14" height="14" viewBox="0 0 14 14"
                   ><path
@@ -155,7 +136,7 @@ import { site } from "~/lib/site";
     <div class="mt-20 lg:mt-28 pt-8 border-t border-line">
       <div class="label mb-5">Backed &amp; supported by</div>
       <div
-        class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-y-4 gap-x-8 font-mono text-[13px] text-mute2"
+        class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-y-4 gap-x-8 text-[13px] text-mute2 tracking-[.04em]"
       >
         <span>Chalmers Ventures</span>
         <span>Scientifica VC</span>

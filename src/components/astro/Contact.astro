@@ -37,23 +37,24 @@ import { site } from "~/lib/site";
   >
     <div class="grid lg:grid-cols-12 gap-12 lg:gap-16">
       <div class="lg:col-span-7">
-        <div class="label mb-4">§ 06 — Contact</div>
+        <div class="label mb-4">§ 07 — Contact</div>
         <ScrollReveal client:load>
           <h2
             class="display text-[clamp(40px,7vw,108px)] font-medium max-w-[14ch] text-paper"
           >
-            Talk to us about your contamination problem.
+            Tell us about your contamination problem.
           </h2>
         </ScrollReveal>
         <ScrollReveal client:load delay={120}>
           <p class="mt-8 text-paper/75 text-[18px] max-w-[50ch] leading-[1.5]">
-            A short form. We'll be back the same week. If your application is
-            unusual — new pathogen, new matrix, new validation regime — say so.
-            Those are the conversations we want.
+            Fill out the form. We'll get back to you within the week. If your
+            case is unusual — a different pathogen, a tricky food matrix, an
+            unfamiliar validation regime — that's exactly the conversation we
+            want to have.
           </p>
         </ScrollReveal>
 
-        <div class="mt-14 grid sm:grid-cols-3 gap-8 pt-8 border-t border-line">
+        <div class="mt-14 grid sm:grid-cols-2 gap-8 pt-8 border-t border-line">
           <div>
             <div class="label mb-2">Address</div>
             <p class="text-[14px] leading-relaxed text-paper/85">
@@ -65,19 +66,7 @@ import { site } from "~/lib/site";
           <div>
             <div class="label mb-2">Contact</div>
             <p class="text-[14px] leading-relaxed text-paper/85">
-              <a href={`mailto:${site.email}`} class="link-u">{site.email}</a
-              ><br />
-              <span class="font-mono text-mute2 text-[12px]"
-                >+46 (0)31 — request</span
-              >
-            </p>
-          </div>
-          <div>
-            <div class="label mb-2">Coordinates</div>
-            <p class="font-mono text-[12px] leading-relaxed text-mute2">
-              {site.coords.lat}<br />
-              {site.coords.lng}<br />
-              <span class="text-accent">{site.coords.tz}</span>
+              <a href={`mailto:${site.email}`} class="link-u">{site.email}</a>
             </p>
           </div>
         </div>

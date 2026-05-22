@@ -7,14 +7,14 @@ import ScrollReveal from "~/components/react/ScrollReveal.tsx";
   <div class="max-w-[1320px] mx-auto px-6 lg:px-10 py-24 lg:py-36">
     <div class="flex items-baseline justify-between mb-14 lg:mb-20">
       <div class="label">§ 01 — The shift</div>
-      <div class="label hidden md:block">vs. lab-based methods</div>
+      <div class="label hidden md:block">The food-safety reality</div>
     </div>
 
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-y-16">
       <ScrollReveal client:load className="lg:pr-10 lg:border-r lg:border-line">
         <div class="label mb-4">Time to result</div>
         <div
-          class="font-mono stat-num text-[clamp(40px,4.5vw,64px)] font-medium num-tabular text-paper"
+          class="stat-num text-[clamp(40px,4.5vw,64px)] font-medium num-tabular text-paper"
         >
           <span class="lt">&lt;</span><StatCounter client:visible target={15} /><span
             class="text-accent">min</span
@@ -23,8 +23,8 @@ import ScrollReveal from "~/components/react/ScrollReveal.tsx";
         <p
           class="mt-6 text-paper/80 text-[16px] leading-relaxed max-w-[34ch]"
         >
-          Sample to readout in under fifteen minutes — at the point of
-          production, by an operator. Not a lab technician.
+          From sample to answer in under fifteen minutes. Your operator does
+          it. No lab, no shipping.
         </p>
       </ScrollReveal>
 
@@ -33,34 +33,32 @@ import ScrollReveal from "~/components/react/ScrollReveal.tsx";
         delay={120}
         className="lg:px-10 lg:border-r lg:border-line"
       >
-        <div class="label mb-4">Sensitivity</div>
+        <div class="label mb-4">Recalls caused by Listeria &amp; Salmonella</div>
         <div
-          class="font-mono stat-num text-[clamp(40px,4.5vw,64px)] font-medium text-paper whitespace-nowrap"
+          class="stat-num text-[clamp(40px,4.5vw,64px)] font-medium num-tabular text-paper"
         >
-          PCR<span class="text-accent">-grade</span>
+          <StatCounter client:visible target={40} /><span class="text-accent">%</span>
         </div>
         <p
           class="mt-6 text-paper/80 text-[16px] leading-relaxed max-w-[34ch]"
         >
-          Limit of detection rivalling polymerase chain reaction — without the
-          thermal cycling, reagents or two-day round-trip.
+          Two bugs drive almost half of microbial food recalls. Both are still
+          caught days late by the standard lab workflow.
         </p>
       </ScrollReveal>
 
       <ScrollReveal client:load delay={240} className="lg:pl-10">
-        <div class="label mb-4">Avg. cost prevented per event</div>
+        <div class="label mb-4">Consumers who would stop buying</div>
         <div
-          class="font-mono stat-num text-[clamp(40px,4.5vw,64px)] font-medium num-tabular text-paper"
+          class="stat-num text-[clamp(40px,4.5vw,64px)] font-medium num-tabular text-paper"
         >
-          €<StatCounter client:visible target={200} /><span
-            class="text-accent">K</span
-          >
+          <StatCounter client:visible target={68} /><span class="text-accent">%</span>
         </div>
         <p
           class="mt-6 text-paper/80 text-[16px] leading-relaxed max-w-[34ch]"
         >
-          A single contamination event — recall, line shutdown, brand damage
-          — can cost a producer up to €200,000. Catch it before it ships.
+          One recall is enough. Most shoppers walk and don't come back. The
+          cost of catching it late is the customer.
         </p>
       </ScrollReveal>
     </div>
@@ -69,11 +67,11 @@ import ScrollReveal from "~/components/react/ScrollReveal.tsx";
       <p
         class="mt-20 lg:mt-28 max-w-[58ch] text-[18px] lg:text-[20px] text-paper/75 leading-[1.55]"
       >
-        Traditional microbial testing means shipping samples to a lab and
-        waiting two to four days for plate culture or PCR results. By the time
-        the answer arrives, the product has often shipped. <span
-          class="text-paper">We move detection in-process</span
-        > — making contamination a problem you catch, not a problem you discover.
+        Today, microbial testing means shipping samples to a lab and waiting
+        two to four days. By the time the answer comes back, the product has
+        usually already shipped. <span class="text-paper">We bring the test
+        to the line</span>, so you catch contamination before it leaves the
+        building.
       </p>
     </ScrollReveal>
   </div>

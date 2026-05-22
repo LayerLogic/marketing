@@ -1,8 +1,25 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 22 22">
-  <g stroke="#EDEDE8" stroke-width="1.25" fill="none">
-    <path d="M2.5 7.5 L11 3 L19.5 7.5 L11 12 Z" />
-    <path d="M2.5 11.5 L11 16 L19.5 11.5" opacity=".55" />
-    <path d="M2.5 15 L11 19.5 L19.5 15" opacity=".25" />
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Symbol_color" data-name="Symbol color" xmlns="http://www.w3.org/2000/svg" viewBox="178 117 580 580">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #230059;
+      }
+
+      .cls-1, .cls-2 {
+        stroke-width: 0px;
+      }
+
+      .cls-2 {
+        fill: #7c19f6;
+      }
+    </style>
+  </defs>
+  <g id="Symbol">
+    <polygon class="cls-1" points="305.22 441.62 406.13 383.36 406.13 266.83 305.22 208.56 204.3 266.83 204.3 383.36 305.22 441.62"/>
+    <polygon class="cls-1" points="407.78 611.2 496.09 560.22 496.09 458.25 407.78 407.27 319.48 458.25 319.48 560.22 407.78 611.2"/>
+    <polygon class="cls-1" points="606.34 320.84 656.8 291.71 656.8 233.44 606.34 204.31 555.88 233.44 555.88 291.71 606.34 320.84"/>
+    <polygon class="cls-1" points="670.39 446.35 733.47 409.93 733.47 337.1 670.39 300.68 607.32 337.1 607.32 409.93 670.39 446.35"/>
+    <path class="cls-2" d="M592.07,434.24l64.49,37.23v74.47s-64.49,37.23-64.49,37.23l-64.49-37.23v-74.47l64.49-37.23h0ZM592.07,421.31l-75.69,43.7v87.4l75.69,43.7,75.69-43.7v-87.4s-75.69-43.7-75.69-43.7h0Z"/>
   </g>
-  <circle cx="11" cy="7.5" r="1.6" fill="#06B6A7" />
 </svg>

@@ -10,6 +10,26 @@ interface Props {
 
 const { title = site.title, description = site.description } = Astro.props;
 const canonical = new URL(Astro.url.pathname, site.url).toString();
+const base = import.meta.env.BASE_URL;
+const ogImage = new URL(`${base}assets/logos/png/Full logo color.png`, site.url)
+  .toString();
+const logoUrl = new URL(`${base}assets/logos/png/Full logo color.png`, site.url)
+  .toString();
+
+const keywords = [
+  "graphene biosensor",
+  "pathogen detection",
+  "food safety",
+  "Listeria detection",
+  "Salmonella detection",
+  "rapid microbial testing",
+  "gFET sensor",
+  "in-process pathogen detection",
+  "PCR alternative",
+  "Chalmers spin-off",
+  "deep tech",
+  "Gothenburg",
+].join(", ");
 ---
 
 <!doctype html>
@@ -20,9 +40,13 @@ const canonical = new URL(Astro.url.pathname, site.url).toString();
       name="viewport"
       content="width=device-width, initial-scale=1, viewport-fit=cover"
     />
-    <meta name="theme-color" content="#0A0A0B" />
+    <meta name="theme-color" content="#f1f0ed" />
     <title>{title}</title>
     <meta name="description" content={description} />
+    <meta name="keywords" content={keywords} />
+    <meta name="author" content={site.name} />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <meta name="googlebot" content="index, follow" />
     <link rel="canonical" href={canonical} />
 
     {/* Open Graph */}
@@ -31,29 +55,39 @@ const canonical = new URL(Astro.url.pathname, site.url).toString();
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:site_name" content={site.name} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:alt" content={`${site.name} — graphene biosensor for in-process pathogen detection`} />
+    <meta property="og:locale" content="en_US" />
 
     {/* Twitter */}
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:image:alt" content={`${site.name} — graphene biosensor for in-process pathogen detection`} />
 
-    {/* Favicon — base-aware so it resolves under GitHub Pages sub-paths */}
+    {/* Favicon — brand hexagon mark. Base-aware so it resolves under
+        GitHub Pages sub-paths. SVG is the primary; Apple touch icon
+        falls back to the PNG export. */}
     <link
       rel="icon"
-      href={`${import.meta.env.BASE_URL}favicon.svg`}
+      href={`${base}favicon.svg`}
       type="image/svg+xml"
     />
+    <link
+      rel="apple-touch-icon"
+      href={`${base}assets/logos/png/Symbol color.png`}
+    />
+    <link rel="mask-icon" href={`${base}favicon.svg`} color="#7c19f6" />
 
     {/* No-flash theme bootstrap — runs before React hydrates so the
-        previously chosen theme is on screen at first paint. CSS keys off
-        `body.light` exclusively (matches ThemeToggle.tsx), so we apply it
-        as soon as <body> appears in the DOM. */}
+        previously chosen mode (`dark` opt-in) is on screen at first paint. */}
     <script is:inline>
       (function () {
         try {
-          if (localStorage.getItem("layerlogic-theme") !== "light") return;
+          if (localStorage.getItem("layerlogic-theme") !== "dark") return;
           var apply = function () {
-            if (document.body) document.body.classList.add("light");
+            if (document.body) document.body.classList.add("dark");
           };
           if (document.body) apply();
           else document.addEventListener("DOMContentLoaded", apply);
@@ -61,7 +95,7 @@ const canonical = new URL(Astro.url.pathname, site.url).toString();
       })();
     </script>
 
-    {/* JSON-LD */}
+    {/* JSON-LD — Organization */}
     <script
       is:inline
       type="application/ld+json"
@@ -69,16 +103,52 @@ const canonical = new URL(Astro.url.pathname, site.url).toString();
         "@context": "https://schema.org",
         "@type": "Organization",
         name: site.name,
+        legalName: `${site.name} AB`,
         url: site.url,
+        logo: logoUrl,
+        image: ogImage,
         email: site.email,
+        foundingLocation: "Gothenburg, Sweden",
+        slogan: "Pathogens, detected in minutes. Not days.",
         address: {
           "@type": "PostalAddress",
           streetAddress: site.address.street,
           postalCode: site.address.postal.split(" ")[0],
           addressLocality: "Göteborg",
+          addressRegion: "Västra Götaland",
           addressCountry: "SE",
         },
+        contactPoint: {
+          "@type": "ContactPoint",
+          contactType: "sales",
+          email: site.email,
+          availableLanguage: ["English", "Swedish"],
+        },
+        sameAs: [site.social.linkedin].filter((u) => u && u !== "#"),
         description,
+        knowsAbout: [
+          "Graphene field-effect transistors",
+          "Pathogen detection",
+          "Food safety",
+          "Biosensors",
+          "In-process microbial testing",
+          "Listeria monocytogenes",
+        ],
+      })}
+    />
+
+    {/* JSON-LD — WebSite (helps Google understand site structure) */}
+    <script
+      is:inline
+      type="application/ld+json"
+      set:html={JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        name: site.name,
+        url: site.url,
+        description,
+        inLanguage: "en",
+        publisher: { "@type": "Organization", name: site.name },
       })}
     />
   </head>

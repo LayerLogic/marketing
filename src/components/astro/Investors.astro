@@ -1,5 +1,5 @@
 ---
-import { investors } from "~/lib/site";
+import { investors, recognitions } from "~/lib/site";
 import ScrollReveal from "~/components/react/ScrollReveal.tsx";
 ---
 
@@ -7,7 +7,7 @@ import ScrollReveal from "~/components/react/ScrollReveal.tsx";
   <div class="max-w-[1320px] mx-auto px-6 lg:px-10 py-24 lg:py-32">
     <div class="grid lg:grid-cols-12 gap-10 mb-14 lg:mb-16 items-end">
       <div class="lg:col-span-7">
-        <div class="label mb-3">§ 04 — Backed by</div>
+        <div class="label mb-3">§ 05 — Backed by</div>
         <ScrollReveal client:load>
           <h2
             class="display-md text-[clamp(34px,5vw,68px)] font-medium max-w-[18ch] text-paper"
@@ -16,37 +16,117 @@ import ScrollReveal from "~/components/react/ScrollReveal.tsx";
           </h2>
         </ScrollReveal>
       </div>
-      <div class="lg:col-span-5 lg:text-right">
+      <div class="lg:col-span-5">
         <ScrollReveal client:load delay={120}>
           <p
-            class="text-paper/70 text-[16px] max-w-[44ch] lg:ml-auto leading-relaxed"
+            class="text-paper/70 text-[16px] max-w-[44ch] leading-relaxed"
           >
-            Funded by Europe's leading deep-tech, food-science and
-            graphene-technology investors. With operational support from
-            Chalmers Ventures, EIT Food and SIO Grafen.
+            Funded by deep-tech, food-science and graphene-technology funds
+            across Europe. Operational support from Chalmers Ventures, EIT
+            Food and SIO Grafen.
           </p>
         </ScrollReveal>
       </div>
     </div>
 
-    <div
-      class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 border-t border-l border-line"
-    >
+    {/* Investor / backer grid.
+        Tiles attempt to render a brand SVG from /public/assets/partners/.
+        Drop matching files in to replace the wordmark fallback in-place. */}
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-px bg-line border border-line">
       {
         investors.map((inv) => (
-          <div class="border-r border-b border-line p-6 lg:p-8 flex flex-col justify-between aspect-[4/3] lift">
-            <span class="font-mono text-[10px] text-mute">PRE-SEED</span>
-            <div>
-              <div class="text-[18px] tracking-tighter2 font-medium text-paper">
+          <div
+            class="card-flip bg-ink p-6 lg:p-8 flex flex-col justify-between gap-4 min-h-[180px] lift relative overflow-hidden"
+            tabindex="0"
+          >
+            <span class="label !text-[10px] text-mute">Pre-seed</span>
+            <div class="flex-1 flex items-center justify-center py-2">
+              <img
+                src={inv.logo}
+                alt={inv.name}
+                loading="lazy"
+                class="max-h-12 w-auto object-contain opacity-90"
+                onerror="this.style.display='none'; this.nextElementSibling?.classList.remove('hidden')"
+              />
+              <span class="hidden text-[16px] leading-tight tracking-tighter2 font-medium text-paper text-center">
+                {inv.name}
+              </span>
+            </div>
+            <div class="text-[11px] text-mute tracking-[.08em]">
+              {inv.location}
+            </div>
+            <div class="card-flip__back">
+              <div class="text-[12px] tracking-[.08em] text-accent mb-2 uppercase">
                 {inv.name}
               </div>
-              <div class="font-mono text-[11px] text-mute mt-1">
-                {inv.location}
-              </div>
+              <p class="text-[13px] leading-snug text-paper/90">{inv.blurb}</p>
             </div>
           </div>
         ))
       }
+    </div>
+
+    {/* Recognitions — competitions, accelerators, accolades.
+        Same logo/fallback pattern as the investor grid. */}
+    <div class="mt-20 lg:mt-28">
+      <div class="grid lg:grid-cols-12 gap-10 mb-10 lg:mb-12 items-end">
+        <div class="lg:col-span-7">
+          <div class="label mb-3">§ 05b — Recognitions</div>
+          <ScrollReveal client:load>
+            <h3
+              class="display-md text-[clamp(28px,3.6vw,48px)] font-medium max-w-[22ch] text-paper"
+            >
+              Picked by the people who spot deep-tech early.
+            </h3>
+          </ScrollReveal>
+        </div>
+        <div class="lg:col-span-5">
+          <ScrollReveal client:load delay={120}>
+            <p
+              class="text-paper/70 text-[15px] max-w-[44ch] leading-relaxed"
+            >
+              Accelerators, food-science programmes and editorial lists that
+              follow what's new in the industry.
+            </p>
+          </ScrollReveal>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-px bg-line border border-line">
+        {
+          recognitions.map((rec) => (
+            <div
+              class="card-flip bg-ink p-6 lg:p-8 flex flex-col justify-between gap-4 min-h-[180px] lift relative overflow-hidden"
+              tabindex="0"
+            >
+              <span class="label !text-[10px] text-accent">Selected</span>
+              <div class="flex-1 flex items-center justify-center py-2">
+                <img
+                  src={rec.logo}
+                  alt={rec.name}
+                  loading="lazy"
+                  class="max-h-10 w-auto object-contain opacity-90"
+                  onerror="this.style.display='none'; this.nextElementSibling?.classList.remove('hidden')"
+                />
+                <span class="hidden text-[16px] leading-tight tracking-tighter2 font-medium text-paper text-center">
+                  {rec.name}
+                </span>
+              </div>
+              <div class="text-[11px] text-mute tracking-[.08em]">
+                {rec.detail}
+              </div>
+              <div class="card-flip__back">
+                <div class="text-[12px] tracking-[.08em] text-accent mb-2 uppercase">
+                  {rec.name}
+                </div>
+                <p class="text-[13px] leading-snug text-paper/90">
+                  {rec.blurb}
+                </p>
+              </div>
+            </div>
+          ))
+        }
+      </div>
     </div>
   </div>
 </section>
