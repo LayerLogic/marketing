@@ -124,7 +124,7 @@ const keywords = [
           email: site.email,
           availableLanguage: ["English", "Swedish"],
         },
-        sameAs: [site.social.linkedin].filter((u) => u && u !== "#"),
+        sameAs: [site.social.linkedin].filter(Boolean),
         description,
         knowsAbout: [
           "Graphene field-effect transistors",
