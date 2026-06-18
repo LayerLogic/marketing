@@ -1,11 +1,14 @@
 # Recognition logos
 
-Drop SVG files here matching the names in `src/lib/site.ts → recognitions`:
+Drop logo files here using the exact names referenced in `src/lib/site.ts`.
+SVG is preferred; PNG with transparency also works.
 
-- `masschallenge.svg`
-- `forbes-30u30.svg`
-- `eit-food.svg`
-- `sio-grafen.svg`
+- `masschallenge.png` — present (baked white bg keyed to transparent)
+- `forbes-30u30.png` — present (white-on-black; uses `.logo-avatar`)
+- `eit-food.png` — present
+- `sio-grafen.png` — present
+- `formas.png` — present
 
-Add more entries to the `recognitions` array as fresh accolades land,
-then drop the corresponding SVG into this folder.
+Logos use the `.logo-mark` cream-plate treatment (see `global.css`) so they
+read in both the light and dark themes. Until a file exists for a tile, the
+grid renders the name as a wordmark fallback (handled in `Investors.astro`).

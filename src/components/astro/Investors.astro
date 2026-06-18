@@ -1,6 +1,8 @@
 ---
 import { investors, recognitions } from "~/lib/site";
 import ScrollReveal from "~/components/react/ScrollReveal.tsx";
+
+const base = import.meta.env.BASE_URL;
 ---
 
 <section id="investors" class="border-b border-line">
@@ -12,7 +14,7 @@ import ScrollReveal from "~/components/react/ScrollReveal.tsx";
           <h2
             class="display-md text-[clamp(34px,5vw,68px)] font-medium max-w-[18ch] text-paper"
           >
-            €470K pre-seed. <span class="text-mute2">Backed by deep-tech.</span>
+            Backed by <span class="text-mute2">deep-tech.</span>
           </h2>
         </ScrollReveal>
       </div>
@@ -21,9 +23,8 @@ import ScrollReveal from "~/components/react/ScrollReveal.tsx";
           <p
             class="text-paper/70 text-[16px] max-w-[44ch] leading-relaxed"
           >
-            Funded by deep-tech, food-science and graphene-technology funds
-            across Europe. Operational support from Chalmers Ventures, EIT
-            Food and SIO Grafen.
+            Funded by deep-tech funds, family offices, and a cohort of
+            qualified business angels across Europe.
           </p>
         </ScrollReveal>
       </div>
@@ -41,13 +42,13 @@ import ScrollReveal from "~/components/react/ScrollReveal.tsx";
             role="button"
             aria-label={`${inv.name} — backer details`}
           >
-            <span class="label !text-[10px] text-mute">Pre-seed</span>
+            <span class="label !text-[10px] text-mute">Backed by</span>
             <div class="flex-1 flex items-center justify-center py-2">
               <img
-                src={inv.logo}
+                src={`${base}${inv.logo}`}
                 alt={inv.name}
                 loading="lazy"
-                class="max-h-12 w-auto object-contain opacity-90"
+                class={`${inv.logoClass ?? "logo-mark"} max-h-12 max-w-full w-auto object-contain opacity-90`}
                 onerror="this.style.display='none'; this.nextElementSibling?.classList.remove('hidden')"
               />
               <span class="hidden text-[16px] leading-tight tracking-tighter2 font-medium text-paper text-center">
@@ -88,13 +89,13 @@ import ScrollReveal from "~/components/react/ScrollReveal.tsx";
               class="text-paper/70 text-[15px] max-w-[44ch] leading-relaxed"
             >
               Accelerators, food-science programmes and editorial lists that
-              follow what's new in the industry.
+              follow and acknowledge LayerLogic.
             </p>
           </ScrollReveal>
         </div>
       </div>
 
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-px bg-line border border-line">
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-px bg-line border border-line">
         {
           recognitions.map((rec) => (
             <div
@@ -106,10 +107,10 @@ import ScrollReveal from "~/components/react/ScrollReveal.tsx";
               <span class="label !text-[10px] text-accent">Selected</span>
               <div class="flex-1 flex items-center justify-center py-2">
                 <img
-                  src={rec.logo}
+                  src={`${base}${rec.logo}`}
                   alt={rec.name}
                   loading="lazy"
-                  class="max-h-10 w-auto object-contain opacity-90"
+                  class={`${rec.logoClass ?? "logo-mark"} max-h-10 max-w-full w-auto object-contain opacity-90`}
                   onerror="this.style.display='none'; this.nextElementSibling?.classList.remove('hidden')"
                 />
                 <span class="hidden text-[16px] leading-tight tracking-tighter2 font-medium text-paper text-center">

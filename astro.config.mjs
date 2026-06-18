@@ -2,8 +2,8 @@ import { defineConfig } from "astro/config";
 import react from "@astrojs/react";
 import tailwindcss from "@tailwindcss/vite";
 
-// Configured for static deployment to GitHub Pages at
-//   https://<username>.github.io/marketing-beta/
+// Static deployment served at the apex domain https://layerlogic.se
+// (GitHub Pages with a custom domain — see public/CNAME).
 //
 // When you move back to Vercel (so the contact-form API can run server-side):
 //   1. Reinstate `output: "server"` and add the Vercel adapter:
@@ -12,13 +12,11 @@ import tailwindcss from "@tailwindcss/vite";
 //        output: "server",
 //        adapter: vercel({ webAnalytics: { enabled: true }, imageService: true }),
 //   2. Move src/_disabled/api-lead.ts back to src/pages/api/lead.ts
-//   3. Remove the `base` config below (Vercel serves at the apex)
-//   4. Restore the original DemoForm fetch (see comment in the component)
+//   3. Restore the original DemoForm fetch (see comment in the component)
 
 // https://astro.build/config
 export default defineConfig({
   site: "https://layerlogic.se",
-  base: "/marketing-beta",
   output: "static",
   trailingSlash: "always",
   integrations: [react()],

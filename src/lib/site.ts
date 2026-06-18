@@ -3,7 +3,7 @@ export const site = {
   url: "https://layerlogic.se",
   title: "LayerLogic",
   description:
-    "LayerLogic builds a handheld sensor that finds Listeria on the production line in fifteen minutes. No lab, no shipping, no waiting two days for an answer.",
+    "LayerLogic builds a portable sensor that detects Listeria on the production line in fifteen minutes. No lab, no shipping, no waiting two days for an answer.",
   region: "SE · GBG",
   email: "hello@layerlogic.se",
   address: {
@@ -23,81 +23,108 @@ export const navItems = [
   { href: "#company", label: "Company" },
 ] as const;
 
-export const investors = [
-  {
-    name: "Scientifica VC",
-    location: "London · UK",
-    logo: "/assets/partners/scientifica.svg",
-    blurb:
-      "London-based venture fund backing science-led startups — advanced materials, deep biology and graphene technology.",
-  },
+export interface Backer {
+  name: string;
+  location: string;
+  logo: string;
+  blurb: string;
+  /** Override the default cream-plate logo treatment (e.g. dark avatars). */
+  logoClass?: string;
+}
+
+export const investors: Backer[] = [
   {
     name: "Chalmers Ventures",
     location: "Gothenburg · SE",
-    logo: "/assets/partners/chalmers-ventures.svg",
+    logo: "assets/partners/chalmers-ventures.png",
     blurb:
       "The innovation and investment arm of Chalmers University of Technology, where our graphene research originated.",
   },
   {
+    name: "Scientifica VC",
+    location: "Milan · IT",
+    logo: "assets/partners/scientifica.svg",
+    blurb:
+      "Italy-based venture fund backing science-led startups across advanced materials, deep biology and graphene technology.",
+  },
+  {
     name: "EIT Food",
     location: "EU programme",
-    logo: "/assets/partners/eit-food.svg",
+    logo: "assets/partners/eit-food.png",
     blurb:
       "Europe's largest food innovation community, supported by the European Institute of Innovation and Technology.",
   },
   {
-    name: "MassChallenge",
-    location: "Boston · US",
-    logo: "/assets/partners/masschallenge.svg",
-    blurb:
-      "Global accelerator network that helps early-stage, high-impact startups scale into industry leaders.",
-  },
-  {
     name: "Yeos Ventures",
     location: "Singapore",
-    logo: "/assets/partners/yeos-ventures.svg",
+    logo: "assets/partners/yeos-ventures.png",
+    logoClass: "logo-avatar",
     blurb:
       "Singapore-based corporate venture arm investing across food, agritech and consumer markets in Asia.",
   },
   {
-    name: "SIO Grafen",
-    location: "SE programme",
-    logo: "/assets/partners/sio-grafen.svg",
+    name: "X&Y Invest",
+    location: "Gothenburg · SE",
+    logo: "assets/partners/xy-invest.png",
     blurb:
-      "Sweden's national strategic innovation programme for graphene applications and commercialization.",
+      "Gothenburg based family office investing in exceptional founders building the future.",
   },
-] as const;
+  {
+    name: "Business Angels",
+    location: "Europe",
+    logo: "assets/partners/business-angels.svg",
+    blurb:
+      "A cohort of qualified business angels across Europe backing early-stage deep-tech.",
+  },
+];
 
-export const recognitions = [
+export interface Recognition {
+  name: string;
+  detail: string;
+  logo: string;
+  blurb: string;
+  /** Override the default cream-plate logo treatment (e.g. dark badges). */
+  logoClass?: string;
+}
+
+export const recognitions: Recognition[] = [
   {
     name: "MassChallenge",
     detail: "Global accelerator cohort",
-    logo: "/assets/recognitions/masschallenge.svg",
+    logo: "assets/recognitions/masschallenge.png",
     blurb:
       "Selected into the MassChallenge cohort — a global accelerator that has helped over 3,000 startups raise more than $9B.",
   },
   {
     name: "Forbes 30 Under 30",
-    detail: "Europe · Science",
-    logo: "/assets/recognitions/forbes-30u30.svg",
+    detail: "Europe · Manufacturing & Industry",
+    logo: "assets/recognitions/forbes-30u30.png",
+    logoClass: "logo-avatar",
     blurb:
-      "Featured in Forbes' annual list of young innovators reshaping their industries — Europe edition, Science category.",
+      "Featured in Forbes' annual list of young innovators reshaping their industries — Europe edition, Manufacturing & Industry category.",
   },
   {
     name: "EIT Food",
-    detail: "RisingFoodStars alumni",
-    logo: "/assets/recognitions/eit-food.svg",
+    detail: "FAN accelerator",
+    logo: "assets/recognitions/eit-food.png",
     blurb:
-      "Member of EIT Food's RisingFoodStars — a select group of high-potential food-tech scaleups across Europe.",
+      "Selected into the EIT Food Accelerator Network (FAN) — Europe's leading accelerator for high-potential food-tech startups.",
   },
   {
     name: "SIO Grafen",
     detail: "Strategic innovation programme",
-    logo: "/assets/recognitions/sio-grafen.svg",
+    logo: "assets/recognitions/sio-grafen.png",
     blurb:
       "Recognized and funded by Sweden's national graphene programme for our work on field-effect biosensors.",
   },
-] as const;
+  {
+    name: "Formas",
+    detail: "Swedish research council",
+    logo: "assets/recognitions/formas.png",
+    blurb:
+      "Backed by Formas, the Swedish government research council funding sustainable development, food and agriculture.",
+  },
+];
 
 export interface TeamMember {
   name: string;
@@ -112,44 +139,44 @@ export const founders: TeamMember[] = [
   {
     name: "André Persson",
     role: "CEO & Founder",
-    education: "MSc, Industrial Management & Production Engineering",
+    education: "MSc Business Development & BSc Mechanical Engineering",
     email: "andre.persson@layerlogic.se",
     photo: "assets/team_members/Andre.JPG",
   },
   {
     name: "Sebastian Samuelsson",
     role: "CFO & Founder",
-    education: "MSc, Industrial Management & Production Engineering",
+    education: "MSc Business Development & BSc Industrial Engineering and Management",
     email: "sebastian.samuelsson@layerlogic.se",
     photo: "assets/team_members/Sebastian.JPG",
   },
   {
     name: "Ebba Sandbecker",
     role: "CCO & Founder",
-    education: "MSc, Industrial Management & Production Engineering",
+    education: "MSc Business Development & BSc Industrial Management & Production Engineering",
     email: "ebba.sandbecker@layerlogic.se",
     photo: "assets/team_members/Ebba.JPG",
   },
   {
     name: "Avgust Yurgens",
     role: "Founder & Professor",
-    education: "PhD, Quantum Device Physics",
+    education: "Prof., Microtechnology & Nanoscience",
     email: "avgust.yurgens@layerlogic.se",
     photo: "assets/team_members/Avgust.JPG",
   },
   {
     name: "Santosh Pandit",
     role: "Founder & Senior Researcher",
-    education: "PhD, Microbiology",
+    education: "PhD, Systems & Microbiology",
     email: "santosh.pandit@layerlogic.se",
     photo: "assets/team_members/Santosh.JPG",
   },
   {
     name: "Munis Khan",
     role: "Founder & Doctoral Researcher",
-    education: "PhD, Nanoelectronics",
+    education: "PhD, Microtechnology & Nanoscience",
     email: "munis.khan@layerlogic.se",
-    photo: "assets/team_members/Kopia.png",
+    photo: "assets/team_members/Munis.JPG",
   },
 ];
 
@@ -167,6 +194,5 @@ export const engineering: TeamMember[] = [
     education: "MSc, Chemical Engineering",
     email: "elnaz.danesh@layerlogic.se",
     photo: "assets/team_members/Elnaz.jpeg",
-    photoStyle: "transform: scale(1.2); transform-origin: center 30%;",
   },
 ];

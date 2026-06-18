@@ -3,6 +3,23 @@ import HeroLattice3D from "~/components/react/HeroLattice3D.tsx";
 import HeroTicker from "~/components/react/HeroTicker.tsx";
 import HeroVisual from "./HeroVisual.astro";
 import ScrollReveal from "~/components/react/ScrollReveal.tsx";
+
+const base = import.meta.env.BASE_URL;
+
+// Curated backer strip. Logos reuse the grid assets; tiles without a logo
+// file fall back to the wordmark (same pattern as the investor grid).
+const heroBackers = [
+  { name: "Chalmers Ventures", logo: "assets/partners/chalmers-ventures.png" },
+  { name: "Scientifica VC", logo: "assets/partners/scientifica.svg" },
+  { name: "EIT Food", logo: "assets/partners/eit-food.png" },
+  { name: "X&Y Invest", logo: "assets/partners/xy-invest.png" },
+  { name: "MassChallenge", logo: "assets/recognitions/masschallenge.png" },
+  {
+    name: "Yeos Ventures",
+    logo: "assets/partners/yeos-ventures.png",
+    logoClass: "logo-avatar",
+  },
+];
 ---
 
 <section
@@ -105,7 +122,7 @@ import ScrollReveal from "~/components/react/ScrollReveal.tsx";
         <p
           class="text-[19px] lg:text-[22px] leading-[1.4] text-paper/80 max-w-[42ch]"
         >
-          We build a handheld sensor for food producers. Test for Listeria
+          We build a portable sensor for food producers. Test for Listeria
           right where the food is made, and get a clear answer in minutes
           instead of waiting days for the lab.
         </p>
@@ -135,14 +152,28 @@ import ScrollReveal from "~/components/react/ScrollReveal.tsx";
     <div class="mt-20 lg:mt-28 pt-8 border-t border-line">
       <div class="label mb-5">Backed &amp; supported by</div>
       <div
-        class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-y-4 gap-x-8 text-[13px] text-mute2 tracking-[.04em]"
+        class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-y-6 gap-x-8 items-center"
       >
-        <span>Chalmers Ventures</span>
-        <span>Scientifica VC</span>
-        <span>EIT Food</span>
-        <span>SIO Grafen</span>
-        <span>MassChallenge</span>
-        <span>Yeos Ventures</span>
+        {
+          heroBackers.map((b) => (
+            <div class="flex items-center min-h-14">
+              {b.logo && (
+                <img
+                  src={`${base}${b.logo}`}
+                  alt={b.name}
+                  loading="lazy"
+                  class={`${b.logoClass ?? "logo-mark"} max-h-14 max-w-full w-auto object-contain opacity-90`}
+                  onerror="this.style.display='none'; this.nextElementSibling?.classList.remove('hidden')"
+                />
+              )}
+              <span
+                class={`text-[13px] text-mute2 tracking-[.04em] ${b.logo ? "hidden" : ""}`}
+              >
+                {b.name}
+              </span>
+            </div>
+          ))
+        }
       </div>
     </div>
   </div>

@@ -301,6 +301,21 @@ body.dark [stroke="#06B6A7"] { stroke: #c497fb; }
 .card-flip {
   cursor: default;
 }
+
+/* Brand logos ship as dark-on-transparent artwork made for light surfaces.
+   A fixed cream plate keeps them legible: invisible against the cream tile
+   in light mode, a contrast surface against the purple-black tile in dark. */
+.logo-mark {
+  background: #f1f0ed;
+  border-radius: 6px;
+  padding: 6px 10px;
+}
+
+/* Dark-background avatar logos (e.g. Yeos) keep their own backdrop — round
+   the corners so they read as an intentional badge in both themes. */
+.logo-avatar {
+  border-radius: 6px;
+}
 .card-flip__back {
   position: absolute;
   inset: 0;
