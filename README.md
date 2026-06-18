@@ -7,7 +7,7 @@ deployment to **GitHub Pages** as a demo. Set up to switch back to Vercel
 
 ## Stack
 
-- **Astro 5** (static output, base `/marketing-beta`)
+- **Astro 5** (static output, served at the apex `layerlogic.se`)
 - **Tailwind CSS v4** (via `@tailwindcss/vite`)
 - **React 18** islands for interactive bits (`@astrojs/react`)
 - **Framer Motion**, **GSAP + ScrollTrigger**, **Lenis**, **React Three Fiber** for motion
@@ -75,7 +75,8 @@ pnpm preview
 
 ## Deploy — GitHub Pages (current setup)
 
-The site is configured to live at `https://layerlogic.github.io/marketing-beta/`.
+The site is served at the custom apex domain `https://layerlogic.se`
+(via `public/CNAME`).
 
 First-time setup (already done for this repo):
 
@@ -101,9 +102,9 @@ Subsequent deploys: every push to `main` triggers the workflow.
   clean — no email is actually sent.
 - The original API handler is preserved at `src/_disabled/api-lead.ts` for
   when the site moves back to a server host.
-- `base: "/marketing-beta"` is set in `astro.config.mjs` so all asset URLs
-  resolve under the sub-path. If you switch to a custom domain or to a
-  user/org repo (`<user>.github.io`), remove that `base` line.
+- The site serves at the apex (no `base` sub-path). The custom domain is
+  claimed by `public/CNAME` (`layerlogic.se`); point the domain's DNS at
+  GitHub Pages and enable the custom domain under **Settings → Pages**.
 
 ## Deploy — Vercel (future, with working form)
 
