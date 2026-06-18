@@ -73,38 +73,43 @@ pnpm build
 pnpm preview
 ```
 
-## Deploy — GitHub Pages (current setup)
+## Deploy — AWS (S3 + CloudFront)
 
-The site is served at the custom apex domain `https://layerlogic.se`
-(via `public/CNAME`).
+The site is served at the apex domain `https://layerlogic.se` from a private
+S3 bucket fronted by CloudFront. DNS is on Route 53 (alias records point the
+apex and `www` at the distribution).
 
-First-time setup (already done for this repo):
+Deploys are automated by `.github/workflows/deploy.yml`: every push to `main`
+builds the site, `aws s3 sync`s `dist/` to the bucket, and invalidates the
+CloudFront cache. Auth is via GitHub OIDC assuming an AWS IAM role.
+
+One-time setup required for the workflow:
+
+- **IAM role** with an OIDC trust for this repo, allowed to `s3:*Object` /
+  `s3:ListBucket` on the bucket and `cloudfront:CreateInvalidation`.
+- Repo **secret** `AWS_ROLE_ARN`, and repo **vars** `AWS_REGION`,
+  `S3_BUCKET`, `CLOUDFRONT_DISTRIBUTION_ID`.
+
+Infra one-time setup (S3 bucket, ACM cert in **us-east-1**, CloudFront
+distribution with OAC + alias `layerlogic.se`/`www`, Route 53 alias records)
+is done in the AWS console / CLI.
+
+Manual deploy, if ever needed:
 
 ```bash
-git init
-git add .
-git commit -m "feat: marketing site"
-git branch -M main
-git remote add origin https://github.com/LayerLogic/marketing-beta.git
-git push -u origin main
+pnpm build
+aws s3 sync dist/ s3://<bucket>/ --delete
+aws cloudfront create-invalidation --distribution-id <id> --paths "/*"
 ```
-
-2. On GitHub: **Settings → Pages → Source = "GitHub Actions"**.
-3. Push to `main` — `.github/workflows/deploy.yml` builds and deploys
-   automatically. The Pages URL shows on the Action run when it succeeds.
-
-Subsequent deploys: every push to `main` triggers the workflow.
 
 ### Notes on the static build
 
-- The contact form's POST handler can't run on Pages (no server). It's been
-  stubbed to show a "Received" confirmation locally so the demo flow looks
-  clean — no email is actually sent.
+- The contact form's POST handler can't run on a static host (no server).
+  It currently opens a pre-filled `mailto:` draft instead — no email is sent
+  server-side.
 - The original API handler is preserved at `src/_disabled/api-lead.ts` for
-  when the site moves back to a server host.
-- The site serves at the apex (no `base` sub-path). The custom domain is
-  claimed by `public/CNAME` (`layerlogic.se`); point the domain's DNS at
-  GitHub Pages and enable the custom domain under **Settings → Pages**.
+  when the site moves to a server host (e.g. Vercel).
+- The site serves at the apex (no `base` sub-path).
 
 ## Deploy — Vercel (future, with working form)
 

@@ -3,7 +3,8 @@ import react from "@astrojs/react";
 import tailwindcss from "@tailwindcss/vite";
 
 // Static deployment served at the apex domain https://layerlogic.se
-// (GitHub Pages with a custom domain — see public/CNAME).
+// (AWS S3 + CloudFront; Route 53 alias records point the domain at the
+// distribution — see .github/workflows/deploy.yml for the publish pipeline).
 //
 // When you move back to Vercel (so the contact-form API can run server-side):
 //   1. Reinstate `output: "server"` and add the Vercel adapter:
