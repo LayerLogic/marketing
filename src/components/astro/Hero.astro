@@ -33,7 +33,7 @@ const heroBackers = [
     aria-hidden="true"
   >
     <svg
-      class="absolute -inset-[10%] w-[120%] h-[120%] opacity-[0.18] lattice-drift"
+      class="absolute inset-[-10%] w-[120%] h-[120%] opacity-[0.18] lattice-drift"
       xmlns="http://www.w3.org/2000/svg"
     >
       <defs>
@@ -86,7 +86,7 @@ const heroBackers = [
   </div>
 
   <div
-    class="relative z-10 max-w-[1320px] mx-auto w-full px-6 lg:px-10 pt-20 lg:pt-28 pb-20 lg:pb-28"
+    class="relative z-10 max-w-330 mx-auto w-full px-6 lg:px-10 pt-20 lg:pt-28 pb-20 lg:pb-28"
   >
     <div class="flex items-center justify-between mb-14 lg:mb-20">
       <div class="flex items-center gap-3 text-paper">
@@ -123,7 +123,7 @@ const heroBackers = [
           class="text-[19px] lg:text-[22px] leading-[1.4] text-paper/80 max-w-[42ch]"
         >
           We build a portable sensor for food producers. Test for Listeria
-          right where the food is made, and get a clear answer in minutes
+          right where the food is made, and get clear results in minutes
           instead of waiting days for the lab.
         </p>
       </ScrollReveal>
@@ -167,7 +167,7 @@ const heroBackers = [
                 />
               )}
               <span
-                class={`text-[13px] text-mute2 tracking-[.04em] ${b.logo ? "hidden" : ""}`}
+                class={`text-[13px] text-mute2 tracking-tightest ${b.logo ? "hidden" : ""}`}
               >
                 {b.name}
               </span>

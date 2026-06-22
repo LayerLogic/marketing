@@ -1,15 +1,5 @@
 name: Deploy to AWS (S3 + CloudFront)
 
-# Builds the static site and publishes it to S3, then invalidates the
-# CloudFront cache so the new build is served immediately.
-#
-# Auth is via GitHub OIDC -> an AWS IAM role (no long-lived keys).
-# Configure these in the repo before the first run:
-#   Secret:  AWS_ROLE_ARN                 (IAM role with OIDC trust for this repo)
-#   Var:     AWS_REGION                   (e.g. eu-north-1 — the bucket region)
-#   Var:     S3_BUCKET                    (e.g. layerlogic-se-site)
-#   Var:     CLOUDFRONT_DISTRIBUTION_ID   (e.g. E123ABC...)
-
 on:
   push:
     branches: [main]
@@ -28,14 +18,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Setup pnpm
-        uses: pnpm/action-setup@v4
+        uses: pnpm/action-setup@v6
         # Version is taken from `packageManager` in package.json.
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: 24
           cache: pnpm

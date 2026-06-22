@@ -42,7 +42,7 @@ export const investors: Backer[] = [
   },
   {
     name: "Scientifica VC",
-    location: "Milan · IT",
+    location: "Rome · IT",
     logo: "assets/partners/scientifica.svg",
     blurb:
       "Italy-based venture fund backing science-led startups across advanced materials, deep biology and graphene technology.",
@@ -56,11 +56,11 @@ export const investors: Backer[] = [
   },
   {
     name: "Yeos Ventures",
-    location: "Singapore",
+    location: "Stockholm · SE",
     logo: "assets/partners/yeos-ventures.png",
     logoClass: "logo-avatar",
     blurb:
-      "Singapore-based corporate venture arm investing across food, agritech and consumer markets in Asia.",
+      "An investment collective of 120+ Swedish entrepreneurs from Young Entrepreneurs of Sweden (YEoS), backing early-stage companies with capital and their networks.",
   },
   {
     name: "X&Y Invest",
