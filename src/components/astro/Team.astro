@@ -6,7 +6,7 @@ const base = import.meta.env.BASE_URL;
 ---
 
 <section id="company" class="border-b border-line">
-  <div class="max-w-[1320px] mx-auto px-6 lg:px-10 py-24 lg:py-32">
+  <div class="max-w-330 mx-auto px-6 lg:px-10 py-24 lg:py-32">
     <div class="grid lg:grid-cols-12 gap-10 mb-14 lg:mb-20">
       <div class="lg:col-span-3">
         <div class="label mb-3">§ 06 — The team</div>
@@ -46,7 +46,7 @@ const base = import.meta.env.BASE_URL;
               <ScrollReveal client:visible delay={i * 60}>
                 <div>
                   <div
-                    class="card-flip aspect-[3/4] mb-4 border border-line bg-ink2 relative overflow-hidden"
+                    class="card-flip aspect-3/4 mb-4 border border-line bg-ink2 relative overflow-hidden"
                     tabindex="0"
                     role="button"
                     aria-label={`${f.name} — education`}
@@ -75,7 +75,7 @@ const base = import.meta.env.BASE_URL;
                   </div>
                   <a
                     href={`mailto:${f.email}`}
-                    class="link-u inline-block mt-2 font-mono text-[10.5px] text-paper/80 hover:text-accent transition-colors break-words"
+                    class="link-u inline-block mt-2 font-mono text-[10.5px] text-paper/80 hover:text-accent transition-colors wrap-break-word"
                     style="overflow-wrap:anywhere"
                   >
                     {local}@<wbr />{domain}
@@ -105,7 +105,7 @@ const base = import.meta.env.BASE_URL;
               <ScrollReveal client:visible delay={i * 60}>
                 <div>
                   <div
-                    class="card-flip aspect-[3/4] mb-4 border border-line bg-ink2 relative overflow-hidden"
+                    class="card-flip aspect-3/4 mb-4 border border-line bg-ink2 relative overflow-hidden"
                     tabindex="0"
                     role="button"
                     aria-label={`${e.name} — education`}
@@ -134,7 +134,7 @@ const base = import.meta.env.BASE_URL;
                   </div>
                   <a
                     href={`mailto:${e.email}`}
-                    class="link-u inline-block mt-2 font-mono text-[10.5px] text-paper/80 hover:text-accent transition-colors break-words"
+                    class="link-u inline-block mt-2 font-mono text-[10.5px] text-paper/80 hover:text-accent transition-colors wrap-break-word"
                     style="overflow-wrap:anywhere"
                   >
                     {local}@<wbr />{domain}
