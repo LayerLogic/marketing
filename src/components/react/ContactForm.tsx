@@ -7,18 +7,19 @@ const inputCls =
 
 const TO_ADDRESS = "hello@layerlogic.se";
 
+// Web3Forms public access key — keys are designed to be embedded client-side.
+const WEB3FORMS_KEY = "8818d2a8-194d-4579-b185-cbc609780007";
+
 /**
- * Honest mailto fallback: until a backend endpoint is wired, submitting
- * the form opens the user's default mail client with a draft pre-filled
- * from the form fields. The user still has to send it — but no message
- * disappears into a stubbed endpoint, and the "we'll reply" wording is
- * replaced with a clear "compose email" affordance.
+ * Posts the contact enquiry to Web3Forms, which relays it to TO_ADDRESS.
+ * No backend needed, so it works on any static host. The honeypot field is
+ * dropped client-side; Web3Forms adds its own spam filtering on top.
  */
-export default function DemoForm() {
+export default function ContactForm() {
   const [status, setStatus] = useState<Status>("idle");
   const [message, setMessage] = useState("");
 
-  function onSubmit(e: FormEvent<HTMLFormElement>) {
+  async function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (status === "sending") return;
     const form = e.currentTarget;
@@ -26,34 +27,38 @@ export default function DemoForm() {
 
     // Honeypot — silently drop bot submissions
     if (data.get("hp")) return;
+    data.delete("hp");
 
-    const name = (data.get("name") as string | null) ?? "";
     const company = (data.get("company") as string | null) ?? "";
-    const email = (data.get("email") as string | null) ?? "";
-    const msg = (data.get("message") as string | null) ?? "";
-
-    const subject = company ? `Demo request — ${company}` : "Demo request";
-    const body = [
-      `Name: ${name}`,
-      `Company: ${company}`,
-      `Email: ${email}`,
-      "",
-      msg,
-    ].join("\n");
-
-    const href = `mailto:${TO_ADDRESS}?subject=${encodeURIComponent(
-      subject,
-    )}&body=${encodeURIComponent(body)}`;
+    data.append("access_key", WEB3FORMS_KEY);
+    data.append("from_name", "LayerLogic website");
+    data.append(
+      "subject",
+      company ? `Demo request from ${company}` : "Demo request",
+    );
 
     setStatus("sending");
-    setMessage("Opening your email app…");
-    window.location.href = href;
-
-    // Short delay before resetting status so the user sees the prompt
-    setTimeout(() => {
-      setStatus("ok");
-      setMessage(`Draft opened. If nothing happened, email ${TO_ADDRESS} directly.`);
-    }, 800);
+    setMessage("Sending…");
+    try {
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: data,
+      });
+      const json = await res.json();
+      if (json.success) {
+        form.reset();
+        setStatus("ok");
+        setMessage("Thanks, we'll be in touch shortly.");
+      } else {
+        setStatus("error");
+        setMessage(
+          json.message ?? `Something went wrong. Email ${TO_ADDRESS} directly.`,
+        );
+      }
+    } catch {
+      setStatus("error");
+      setMessage(`Couldn't send. Please email ${TO_ADDRESS} directly.`);
+    }
   }
 
   return (
@@ -66,8 +71,8 @@ export default function DemoForm() {
         <span className="label">Request a demo</span>
       </div>
       <p className="text-[12.5px] text-mute2 mb-8 leading-snug">
-        Opens a pre-filled draft in your email app to{" "}
-        <span className="text-paper">{TO_ADDRESS}</span>.
+        Tell us what you're testing for. We'll reply to the email you
+        provide.
       </p>
 
       <div className="space-y-6">
@@ -144,7 +149,7 @@ export default function DemoForm() {
         disabled={status === "sending"}
       >
         <span className="lb-label">
-          {status === "sending" ? "Opening…" : "Compose email"}
+          {status === "sending" ? "Sending…" : "Request a demo"}
         </span>
         <span className="lb-chip">
           <svg width="14" height="14" viewBox="0 0 14 14">
