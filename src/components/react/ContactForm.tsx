@@ -1,4 +1,4 @@
-import { useState, type FormEvent } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 
 type Status = "idle" | "sending" | "ok" | "error";
 
@@ -19,6 +19,18 @@ export default function ContactForm() {
   const [status, setStatus] = useState<Status>("idle");
   const [message, setMessage] = useState("");
 
+  // Web3Forms client script renders the hCaptcha widget (the one marked
+  // data-captcha="true") and injects the h-captcha-response token on solve.
+  useEffect(() => {
+    const src = "https://web3forms.com/client/script.js";
+    if (document.querySelector(`script[src="${src}"]`)) return;
+    const s = document.createElement("script");
+    s.src = src;
+    s.async = true;
+    s.defer = true;
+    document.body.appendChild(s);
+  }, []);
+
   async function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (status === "sending") return;
@@ -28,6 +40,18 @@ export default function ContactForm() {
     // Honeypot — silently drop bot submissions
     if (data.get("hp")) return;
     data.delete("hp");
+
+    // hCaptcha — block submit until the challenge is solved
+    const captchaToken = (
+      form.querySelector(
+        "textarea[name='h-captcha-response']",
+      ) as HTMLTextAreaElement | null
+    )?.value;
+    if (!captchaToken) {
+      setStatus("error");
+      setMessage("Please complete the captcha below.");
+      return;
+    }
 
     const company = (data.get("company") as string | null) ?? "";
     data.append("access_key", WEB3FORMS_KEY);
@@ -47,6 +71,9 @@ export default function ContactForm() {
       const json = await res.json();
       if (json.success) {
         form.reset();
+        (
+          window as unknown as { hcaptcha?: { reset: () => void } }
+        ).hcaptcha?.reset();
         setStatus("ok");
         setMessage("Thanks, we'll be in touch shortly.");
       } else {
@@ -65,7 +92,6 @@ export default function ContactForm() {
     <form
       onSubmit={onSubmit}
       className="lg:col-span-5 self-start border border-line p-6 lg:p-8 bg-ink2/60 backdrop-blur-sm"
-      noValidate
     >
       <div className="flex items-center justify-between mb-2">
         <span className="label">Request a demo</span>
@@ -79,7 +105,6 @@ export default function ContactForm() {
         <label className="block">
           <span className="label">Name</span>
           <input
-            required
             name="name"
             type="text"
             autoComplete="name"
@@ -90,7 +115,6 @@ export default function ContactForm() {
         <label className="block">
           <span className="label">Company</span>
           <input
-            required
             name="company"
             type="text"
             autoComplete="organization"
@@ -112,6 +136,8 @@ export default function ContactForm() {
         <label className="block">
           <span className="label">What are you trying to detect?</span>
           <textarea
+            required
+            minLength={10}
             name="message"
             rows={3}
             className={`${inputCls} resize-none`}
@@ -143,9 +169,12 @@ export default function ContactForm() {
         </div>
       </div>
 
+      {/* hCaptcha — rendered by the Web3Forms client script via data-captcha */}
+      <div className="h-captcha mt-8" data-captcha="true"></div>
+
       <button
         type="submit"
-        className="lb-btn lb-btn--primary lb-btn--block mt-8 disabled:opacity-60"
+        className="lb-btn lb-btn--primary lb-btn--block mt-6 disabled:opacity-60"
         disabled={status === "sending"}
       >
         <span className="lb-label">
@@ -166,13 +195,12 @@ export default function ContactForm() {
       </button>
 
       <p
-        className={`mt-4 text-[12px] ${
-          status === "ok"
+        className={`mt-4 text-[12px] ${status === "ok"
             ? "text-accent"
             : status === "error"
               ? "text-red-400"
               : "text-mute"
-        }`}
+          }`}
         aria-live="polite"
       >
         {message}
