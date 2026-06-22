@@ -12,13 +12,13 @@ const heroBackers = [
   { name: "Chalmers Ventures", logo: "assets/partners/chalmers-ventures.png" },
   { name: "Scientifica VC", logo: "assets/partners/scientifica.svg" },
   { name: "EIT Food", logo: "assets/partners/eit-food.png" },
-  { name: "X&Y Invest", logo: "assets/partners/xy-invest.png" },
-  { name: "MassChallenge", logo: "assets/recognitions/masschallenge.png" },
   {
     name: "Yeos Ventures",
     logo: "assets/partners/yeos-ventures.png",
     logoClass: "logo-avatar",
   },
+  { name: "MassChallenge", logo: "assets/recognitions/masschallenge.png" },
+  { name: "X&Y Invest", logo: "assets/partners/xy-invest.png" },
 ];
 ---
 
@@ -156,7 +156,7 @@ const heroBackers = [
       >
         {
           heroBackers.map((b) => (
-            <div class="flex items-center min-h-14">
+            <div class="flex items-center justify-center min-h-14">
               {b.logo && (
                 <img
                   src={`${base}${b.logo}`}
