@@ -106,9 +106,9 @@ const base = import.meta.env.BASE_URL;
                 <div>
                   <div
                     class="card-flip aspect-3/4 mb-4 border border-line bg-ink2 relative overflow-hidden"
-                    tabindex="0"
-                    role="button"
-                    aria-label={`${e.name} — education`}
+                    tabindex={e.education ? "0" : undefined}
+                    role={e.education ? "button" : undefined}
+                    aria-label={e.education ? `${e.name} — education` : undefined}
                   >
                     <img
                       src={`${base}${e.photo}`}
@@ -117,14 +117,16 @@ const base = import.meta.env.BASE_URL;
                       class="absolute inset-0 w-full h-full object-cover object-[center_top]"
                       style={e.photoStyle}
                     />
-                    <div class="card-flip__back card-flip__back--compact">
-                      <div class="text-[10px] uppercase tracking-[.14em] text-mute2 mb-1.5">
-                        Education
+                    {e.education && (
+                      <div class="card-flip__back card-flip__back--compact">
+                        <div class="text-[10px] uppercase tracking-[.14em] text-mute2 mb-1.5">
+                          Education
+                        </div>
+                        <div class="text-[13px] leading-snug font-medium">
+                          {e.education}
+                        </div>
                       </div>
-                      <div class="text-[13px] leading-snug font-medium">
-                        {e.education}
-                      </div>
-                    </div>
+                    )}
                   </div>
                   <div class="text-[15px] font-medium tracking-tighter2 text-paper">
                     {e.name}
