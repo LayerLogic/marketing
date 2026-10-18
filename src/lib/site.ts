@@ -195,4 +195,18 @@ export const engineering: TeamMember[] = [
     email: "elnaz.danesh@layerlogic.se",
     photo: "assets/team_members/Elnaz.jpeg",
   },
+  {
+    name: "Catherin Henry",
+    role: "Chemical Engineer",
+    education: "MSc Biotechnology & BTech Biotechnology",
+    email: "catherin.henry@layerlogic.se",
+    photo: "assets/team_members/Catherin.jpeg",
+  },
+  {
+    name: "Yusuf Mulla",
+    role: "Product Development Lead & Senior Scientist",
+    education: "PhD, Organic Electronics & Biosensors, MSc Microsystems & Nanotechnology",
+    email: "yusuf.mulla@layerlogic.se",
+    photo: "assets/team_members/Yusuf.jpeg",
+  },
 ];
